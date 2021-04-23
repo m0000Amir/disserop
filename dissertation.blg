@@ -1,0 +1,63 @@
+[0] Config.pm:304> INFO - This is Biber 2.14 (beta)
+[0] Config.pm:307> INFO - Logfile is 'dissertation.blg'
+[48] biber:322> INFO - === Пт апр 23, 2021, 20:42:37
+[59] Biber.pm:415> INFO - Reading 'dissertation.bcf'
+[130] Biber.pm:943> INFO - Found 0 citekeys in bib section 0
+[130] Biber.pm:940> INFO - Using all citekeys in bib section 1
+[131] Biber.pm:943> INFO - Found 0 citekeys in bib section 0
+[131] Biber.pm:943> INFO - Found 5 citekeys in bib section 2
+[132] Biber.pm:943> INFO - Found 48 citekeys in bib section 0
+[148] Biber.pm:4256> INFO - Processing section 0
+[149] Utils.pm:75> INFO - Globbing data source 'biblio/external.bib'
+[149] Utils.pm:91> INFO - Globbed data source 'biblio/external.bib' to biblio/external.bib
+[149] Utils.pm:75> INFO - Globbing data source 'biblio/author.bib'
+[149] Utils.pm:91> INFO - Globbed data source 'biblio/author.bib' to biblio/author.bib
+[149] Utils.pm:75> INFO - Globbing data source 'biblio/registered.bib'
+[149] Utils.pm:91> INFO - Globbed data source 'biblio/registered.bib' to biblio/registered.bib
+[158] Biber.pm:4455> INFO - Looking for bibtex format file 'biblio/external.bib' for section 0
+[160] bibtex.pm:1653> INFO - LaTeX decoding ...
+[216] bibtex.pm:1471> INFO - Found BibTeX data source 'biblio/external.bib'
+[427] Biber.pm:4455> INFO - Looking for bibtex format file 'biblio/author.bib' for section 0
+[429] bibtex.pm:1653> INFO - LaTeX decoding ...
+[445] bibtex.pm:1471> INFO - Found BibTeX data source 'biblio/author.bib'
+[446] Biber.pm:4455> INFO - Looking for bibtex format file 'biblio/registered.bib' for section 0
+[446] Utils.pm:293> WARN - Data source 'biblio/registered.bib' is empty, ignoring
+[446] Utils.pm:293> WARN - I didn't find a database entry for 'vakbib1' (section 0)
+[446] Utils.pm:293> WARN - I didn't find a database entry for 'confbib2' (section 0)
+[446] Utils.pm:293> WARN - I didn't find a database entry for 'confbib1' (section 0)
+[471] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'variable = shifted' with 'variable = non-ignorable'
+[471] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[471] Biber.pm:4084> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'ru-RU'
+[471] Biber.pm:4090> INFO - No sort tailoring available for locale 'ru-RU'
+[495] Biber.pm:4256> INFO - Processing section 1
+[495] Utils.pm:75> INFO - Globbing data source 'biblio/author.bib'
+[496] Utils.pm:91> INFO - Globbed data source 'biblio/author.bib' to biblio/author.bib
+[496] Utils.pm:75> INFO - Globbing data source 'biblio/registered.bib'
+[496] Utils.pm:91> INFO - Globbed data source 'biblio/registered.bib' to biblio/registered.bib
+[496] Biber.pm:4455> INFO - Looking for bibtex format file 'biblio/author.bib' for section 1
+[553] Biber.pm:4455> INFO - Looking for bibtex format file 'biblio/registered.bib' for section 1
+[553] Utils.pm:293> WARN - Data source 'biblio/registered.bib' is empty, ignoring
+[565] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'variable = shifted' with 'variable = non-ignorable'
+[565] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[565] Biber.pm:4084> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'ru-RU'
+[565] Biber.pm:4090> INFO - No sort tailoring available for locale 'ru-RU'
+[571] Biber.pm:4256> INFO - Processing section 2
+[572] Utils.pm:75> INFO - Globbing data source 'biblio/author.bib'
+[572] Utils.pm:91> INFO - Globbed data source 'biblio/author.bib' to biblio/author.bib
+[572] Utils.pm:75> INFO - Globbing data source 'biblio/registered.bib'
+[572] Utils.pm:91> INFO - Globbed data source 'biblio/registered.bib' to biblio/registered.bib
+[572] Biber.pm:4455> INFO - Looking for bibtex format file 'biblio/author.bib' for section 2
+[572] Biber.pm:4455> INFO - Looking for bibtex format file 'biblio/registered.bib' for section 2
+[573] Utils.pm:293> WARN - Data source 'biblio/registered.bib' is empty, ignoring
+[573] Utils.pm:293> WARN - I didn't find a database entry for 'vakbib2' (section 2)
+[573] Utils.pm:293> WARN - I didn't find a database entry for 'patbib1' (section 2)
+[573] Utils.pm:293> WARN - I didn't find a database entry for 'progbib1' (section 2)
+[573] Utils.pm:293> WARN - I didn't find a database entry for 'bib1' (section 2)
+[573] Utils.pm:293> WARN - I didn't find a database entry for 'confbib1' (section 2)
+[577] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'variable = shifted' with 'variable = non-ignorable'
+[578] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[578] Biber.pm:4084> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'ru-RU'
+[578] Biber.pm:4090> INFO - No sort tailoring available for locale 'ru-RU'
+[578] bbl.pm:652> INFO - Writing 'dissertation.bbl' with encoding 'UTF-8'
+[600] bbl.pm:755> INFO - Output to dissertation.bbl
+[600] Biber.pm:128> INFO - WARNINGS: 11

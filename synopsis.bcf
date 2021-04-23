@@ -3622,8 +3622,6 @@
     <bcf:datasource type="file" datatype="bibtex">biblio/registered.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1">Gosele1999161</bcf:citekey>
-    <bcf:citekey order="1">Lermontov</bcf:citekey>
   </bcf:section>
   <!-- SECTION 1 -->
   <bcf:bibdata section="1">
@@ -3642,30 +3640,25 @@
     <bcf:datasource type="file" datatype="bibtex">biblio/registered.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="2">
-    <bcf:citekey order="1" nocite="1">vakbib2</bcf:citekey>
-    <bcf:citekey order="2" nocite="1">patbib1</bcf:citekey>
-    <bcf:citekey order="3" nocite="1">progbib1</bcf:citekey>
-    <bcf:citekey order="4" nocite="1">bib1</bcf:citekey>
-    <bcf:citekey order="5" nocite="1">confbib1</bcf:citekey>
   </bcf:section>
   <!-- SECTION 0 (cont.) -->
   <bcf:section number="0">
-    <bcf:citekey order="2">vakbib1</bcf:citekey>
-    <bcf:citekey order="2">vakbib2</bcf:citekey>
-    <bcf:citekey order="3" nocite="1">IvanovVAK2019</bcf:citekey>
-    <bcf:citekey order="4" nocite="1">wosbib1</bcf:citekey>
-    <bcf:citekey order="5" nocite="1">scbib1</bcf:citekey>
-    <bcf:citekey order="6" nocite="1">Ivanov2019</bcf:citekey>
-    <bcf:citekey order="7" nocite="1">Mukhtarov2020</bcf:citekey>
-    <bcf:citekey order="8" nocite="1">VishnevskyMukhtarovPershinDCCN2020_RSCI</bcf:citekey>
-    <bcf:citekey order="9" nocite="1">LazarevaLarionovMukhtarovITTMM2020_RSCI</bcf:citekey>
-    <bcf:citekey order="10" nocite="1">MukhtarovIvanovPershinDCCN2019_RSCI</bcf:citekey>
-    <bcf:citekey order="11" nocite="1">MukhtarovPershinVSPU2019_RSCI</bcf:citekey>
-    <bcf:citekey order="12" nocite="1">MukhtarovPershinMLSD2019materials_RSCI</bcf:citekey>
-    <bcf:citekey order="13" nocite="1">MukhtarovPershinMLSD2019works_RSCI</bcf:citekey>
-    <bcf:citekey order="14" nocite="1">VishnevskyLarionovMukhtarovICAM2020_RSCI</bcf:citekey>
-    <bcf:citekey order="15" nocite="1">MukhtarovPershinGUBKIN2019_RSCI</bcf:citekey>
-    <bcf:citekey order="16" nocite="1">MukhtarovPershinGUBKIN2018_RSCI</bcf:citekey>
+    <bcf:citekey order="1">vakbib1</bcf:citekey>
+    <bcf:citekey order="1">vakbib2</bcf:citekey>
+    <bcf:citekey order="2" nocite="1">IvanovVAK2019</bcf:citekey>
+    <bcf:citekey order="3" nocite="1">wosbib1</bcf:citekey>
+    <bcf:citekey order="4" nocite="1">scbib1</bcf:citekey>
+    <bcf:citekey order="5" nocite="1">Ivanov2019</bcf:citekey>
+    <bcf:citekey order="6" nocite="1">Mukhtarov2020</bcf:citekey>
+    <bcf:citekey order="7" nocite="1">VishnevskyMukhtarovPershinDCCN2020_RSCI</bcf:citekey>
+    <bcf:citekey order="8" nocite="1">LazarevaLarionovMukhtarovITTMM2020_RSCI</bcf:citekey>
+    <bcf:citekey order="9" nocite="1">MukhtarovIvanovPershinDCCN2019_RSCI</bcf:citekey>
+    <bcf:citekey order="10" nocite="1">MukhtarovPershinVSPU2019_RSCI</bcf:citekey>
+    <bcf:citekey order="11" nocite="1">MukhtarovPershinMLSD2019materials_RSCI</bcf:citekey>
+    <bcf:citekey order="12" nocite="1">MukhtarovPershinMLSD2019works_RSCI</bcf:citekey>
+    <bcf:citekey order="13" nocite="1">VishnevskyLarionovMukhtarovICAM2020_RSCI</bcf:citekey>
+    <bcf:citekey order="14" nocite="1">MukhtarovPershinGUBKIN2019_RSCI</bcf:citekey>
+    <bcf:citekey order="15" nocite="1">MukhtarovPershinGUBKIN2018_RSCI</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
@@ -3684,16 +3677,7 @@
                 labelalphanametemplatename="global">
   </bcf:datalist>
   <bcf:datalist section="0"
-                name="none/global/7FC56270E7A70FA81A5935B72EACBE29/global/global"
-                type="entry"
-                sortingtemplatename="none"
-                sortingnamekeytemplatename="global"
-                labelprefix="A"
-                uniquenametemplatename="global"
-                labelalphanametemplatename="global">
-  </bcf:datalist>
-  <bcf:datalist section="0"
-                name="none/global/D41D8CD98F00B204E9800998ECF8427E/global/global"
+                name="none/global//global/global"
                 type="entry"
                 sortingtemplatename="none"
                 sortingnamekeytemplatename="global"
@@ -3702,7 +3686,7 @@
                 labelalphanametemplatename="global">
   </bcf:datalist>
   <bcf:datalist section="0"
-                name="none/global//global/global"
+                name="none/global/D41D8CD98F00B204E9800998ECF8427E/global/global"
                 type="entry"
                 sortingtemplatename="none"
                 sortingnamekeytemplatename="global"
