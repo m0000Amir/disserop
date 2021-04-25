@@ -38,3 +38,8 @@ synopsis.fdb_latexmk
 synopsis.fls
 synopsis.log
 synopsis.out
+presentation.bcf
+presentation.pdf
+presentation.run.xml
+presentation.synctex.gz
+.DS_Store

@@ -127,3 +127,5 @@ CC BY 4.0
   Библиография
   - добавляем bib в 'author.bib';
   - по тегу добавляем в 'context.tex' как '\nocite{tag}'.
+  
+### Characteristics проблема с bibliography 
