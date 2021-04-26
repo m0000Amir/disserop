@@ -1,279 +1,818 @@
-\chapter{Вёрстка таблиц}\label{ch:ch3}
+\chapter{Математические модели синтеза топологии сети для охвата линейного участка в виде задачи целлочисленного линейного}\label{ch:ch3}
 
-\section{Таблица обыкновенная}\label{sec:ch3/sect1}
+% \section{Introduction}
+% Wireless technologies are widely used in various areas of human life. Wireless broadband communication networks are used for operational control of industrial or civil objects, technological plants, smart moving vehicles. The use of wireless broadband technologies based on the IEEE 802.11 protocols family to organize such networks has several advantages over wired technologies. These include rapid deployment of communication networks, convenient modernization and scalability of the network architecture, and reduced installation and maintenance costs.
 
-Так размещается таблица:
+% To improve the design efficiency of such a modern information transmission infrastructure, it is crucial to solving the problem of optimal placement of equipment, in our case, base stations of a wireless broadband communication network at various possible locations. A similar problem has been proposed and discussed in several works \cite{KHireddine2020,BenBrahim2014,Chattopadhyay2018,KIZILOZ2020,Liu2014,Reis2014,Shen2020}.
 
-\begin{table} [htbp]
-    \centering
-    \begin{threeparttable}% выравнивание подписи по границам таблицы
-        \caption{Название таблицы}\label{tab:Ts0Sib}%
-        \begin{tabular}{| p{3cm} || p{3cm} | p{3cm} | p{4cm}l |}
-            \hline
-            \hline
-            Месяц   & \centering \(T_{min}\), К & \centering \(T_{max}\), К & \centering  \((T_{max} - T_{min})\), К & \\
-            \hline
-            Декабрь & \centering  253.575       & \centering  257.778       & \centering      4.203                  & \\
-            Январь  & \centering  262.431       & \centering  263.214       & \centering      0.783                  & \\
-            Февраль & \centering  261.184       & \centering  260.381       & \centering     \(-\)0.803              & \\
-            \hline
-            \hline
-        \end{tabular}
-    \end{threeparttable}
-\end{table}
+% This work is a continuation of the researches \cite{Ivanov2018} and \cite{Ivanov2019}, where the particular case of the problem is considered when the controlled area is a linear section, for example, the area along highways, the linear part of trunk pipelines, field communications. In the above papers, the formulation was given in the form of an integer linear programming model. The proof of NP -- completeness was presented.
 
-\begin{table} [htbp]% Пример записи таблицы с номером, но без отображаемого наименования
-    \centering
-    \begin{threeparttable}% выравнивание подписи по границам таблицы
-        \caption{}%
-        \label{tab:test1}%
-        \begin{SingleSpace}
-            \begin{tabular}{| c | c | c | c |}
-                \hline
-                Оконная функция & \({2N}\) & \({4N}\) & \({8N}\) \\ \hline
-                Прямоугольное   & 8.72     & 8.77     & 8.77     \\ \hline
-                Ханна           & 7.96     & 7.93     & 7.93     \\ \hline
-                Хэмминга        & 8.72     & 8.77     & 8.77     \\ \hline
-                Блэкмана        & 8.72     & 8.77     & 8.77     \\ \hline
-            \end{tabular}%
-        \end{SingleSpace}
-    \end{threeparttable}
-\end{table}
+% The problem considered in the previous work \cite{Ivanov2019} it was necessary to place a given base station set formed at the previous network design stages. The present paper considers a more general case when solving an optimization problem is also determined by a set of placed stations from a given redundant set while respecting technical and economic constraints. This paper presents the preparation of main station characteristics, such as the coverage radius, link distance, and station service time. We need to prepare these characteristics before proceeding to the optimal placement problem.  The paper proposes the problem in the form of an integer linear programming with the input of the above-calculated characteristics into the problem conditions with the end-to-end delay constraint. This restriction significantly impacts the mathematical model form of the problem.
 
-Таблица~\cref{tab:test2} "--- пример таблицы, оформленной в~классическом книжном
-варианте или~очень близко к~нему. \mbox{ГОСТу} по~сути не~противоречит. Можно
-ещё~улучшить представление, с~помощью пакета \verb|siunitx| или~подобного.
 
-\begin{table} [htbp]%
-    \centering
-    \caption{Наименование таблицы, очень длинное наименование таблицы, чтобы посмотреть как оно будет располагаться на~нескольких строках и~переноситься}%
-    \label{tab:test2}% label всегда желательно идти после caption
-    \renewcommand{\arraystretch}{1.5}%% Увеличение расстояния между рядами, для улучшения восприятия.
-    \begin{SingleSpace}
-        \begin{tabular}{@{}@{\extracolsep{20pt}}llll@{}} %Вертикальные полосы не используются принципиально, как и лишние горизонтальные (допускается по ГОСТ 2.105 пункт 4.4.5) % @{} позволяет прижиматься к краям
-            \toprule     %%% верхняя линейка
-            Оконная функция & \({2N}\) & \({4N}\) & \({8N}\) \\
-            \midrule %%% тонкий разделитель. Отделяет названия столбцов. Обязателен по ГОСТ 2.105 пункт 4.4.5
-            Прямоугольное   & 8.72     & 8.77     & 8.77     \\
-            Ханна           & 7.96     & 7.93     & 7.93     \\
-            Хэмминга        & 8.72     & 8.77     & 8.77     \\
-            Блэкмана        & 8.72     & 8.77     & 8.77     \\
-            \bottomrule %%% нижняя линейка
-        \end{tabular}%
-    \end{SingleSpace}
-\end{table}
+\section{Problem Statement}
 
-\section{Таблица с многострочными ячейками и примечанием}
+Проблема формулируется следующим образом. Для контроля над заданным линейным участком необходимо разместить базовые приемопередающие станции (далее называемые станциями) таким образом, чтобы максимизировать покрытие с ограничениями на суммарнуб стоимость размещенных станций. Важно обеспечить связи любой станции со шлюзами на концах участка через систему размещенных станций.
 
-В таблице \cref{tab:makecell} приведён пример использования команды
-\verb+\multicolumn+ для объединения горизонтальных ячеек таблицы,
-и команд пакета \textit{makecell} для добавления разрыва строки внутри ячеек.
-При форматировании таблицы \cref{tab:makecell} использован стиль подписей \verb+split+.
-Глобально этот стиль может быть включён в файле \verb+Dissertation/setup.tex+ для диссертации и в
-файле \verb+Synopsis/setup.tex+ для автореферата.
-Однако такое оформление не~соответствует ГОСТ.
+Задано множество станций $S = \{s_j\}$. Каждой станции приписаны параметры $s_j = \{r_j, \{R_{jq}\}, c_j \}$, $j = \overline{1,m}; q = \overline{1,m}; q \neq j$. Здесь $r_j$ -- радиус покрытия станции, $R_{jq}$ -- это радиус связи между станцями $s_j$ и $s_q$, и $c_j$ -- это стоимость. 
 
-\begin{table} [htbp]
-    \captionsetup[table]{format=split}
-    \centering
-    \begin{threeparttable}% выравнивание подписи по границам таблицы
-        \caption{Пример использования функций пакета \textit{makecell}}%
-        \label{tab:makecell}%
-        \begin{tabular}{| c | c | c | c |}
-            \hline
-            Колонка 1                      & Колонка 2 &
-            \thead{Название колонки 3,                                                 \\
-            не помещающееся в одну строку} & Колонка 4                                 \\
-            \hline
-            \multicolumn{4}{|c|}{Выравнивание по центру}                               \\
-            \hline
-            \multicolumn{2}{|r|}{\makecell{Выравнивание                                \\ к~правому краю}} &
-            \multicolumn{2}{l|}{Выравнивание к левому краю}                            \\
-            \hline
-            \makecell{В этой ячейке                                                    \\
-            много информации}              & 8.72      & 8.55                   & 8.44 \\
-            \cline{3-4}
-            А в этой мало                  & 8.22      & \multicolumn{2}{c|}{5}        \\
-            \hline
-        \end{tabular}%
-    \end{threeparttable}
-\end{table}
+Задан линейный участок длиной $L$ с концами в точка $a_0$ и $a_{n+1}$. Внутри  отрезка $[a_0, a_{n+1}]$ задано конечное множество точек $A=\{a_i\}, i=\overline{1,n}$; эти точки соответствуют набору свободных мест, где могут быть размещены станции. Каждая точка $a_i$ определяется своей одномерной координатой $l_i$.
 
-Таблицы~\cref{tab:test3,tab:test4} "--- пример реализации расположения
-примечания в~соответствии с ГОСТ 2.105. Каждый вариант со своими достоинствами
-и~недостатками. Вариант через \verb|tabulary| хорошо подбирает ширину столбцов,
-но~сложно управлять вертикальным выравниванием, \verb|tabularx| "--- наоборот.
-\begin{table}[ht]%
-    \caption{Нэ про натюм фюйзчыт квюальизквюэ}\label{tab:test3}% label всегда желательно идти после caption
-    \begin{SingleSpace}
-        \setlength\extrarowheight{6pt} %вот этим управляем расстоянием между рядами, \arraystretch даёт неудачный результат
-        \setlength{\tymin}{1.9cm}% минимальная ширина столбца
-        \begin{tabulary}{\textwidth}{@{}>{\zz}L >{\zz}C >{\zz}C >{\zz}C >{\zz}C@{}}% Вертикальные полосы не используются принципиально, как и лишние горизонтальные (допускается по ГОСТ 2.105 пункт 4.4.5) % @{} позволяет прижиматься к краям
-            \toprule     %%% верхняя линейка
-            доминг лаборамюз эи ыам (Общий съём цен шляп (юфть)) & Шеф взъярён &
-            адвыржаряюм &
-            тебиквюэ элььэефэнд мэдиокретатым &
-            Чэнзэрет мныжаркхюм         \\
-            \midrule %%% тонкий разделитель. Отделяет названия столбцов. Обязателен по ГОСТ 2.105 пункт 4.4.5
-            Эй, жлоб! Где туз? Прячь юных съёмщиц в~шкаф Плюш изъят. Бьём чуждый цен хвощ! &
-            \({\approx}\) &
-            \({\approx}\) &
-            \({\approx}\) &
-            \( + \) \\
-            Эх, чужак! Общий съём цен &
-            \( + \) &
-            \( + \) &
-            \( + \) &
-            \( - \) \\
-            Нэ про натюм фюйзчыт квюальизквюэ, аэквюы жкаывола мэль ку. Ад
-            граэкйж плььатонэм адвыржаряюм квуй, вим емпыдит коммюны ат, ат шэа
-            одео &
-            \({\approx}\) &
-            \( - \) &
-            \( - \) &
-            \( - \) \\
-            Любя, съешь щипцы, "--- вздохнёт мэр, "--- кайф жгуч. &
-            \( - \) &
-            \( + \) &
-            \( + \) &
-            \({\approx}\) \\
-            Нэ про натюм фюйзчыт квюальизквюэ, аэквюы жкаывола мэль ку. Ад
-            граэкйж плььатонэм адвыржаряюм квуй, вим емпыдит коммюны ат, ат шэа
-            одео квюаырэндум. Вёртюты ажжынтиор эффикеэнди эож нэ. &
-            \( + \) &
-            \( - \) &
-            \({\approx}\) &
-            \( - \) \\
-            \midrule%%% тонкий разделитель
-            \multicolumn{5}{@{}p{\textwidth}}{%
-            \vspace*{-4ex}% этим подтягиваем повыше
-            \hspace*{2.5em}% абзацный отступ - требование ГОСТ 2.105
-            Примечание "---  Плюш изъят: <<\(+\)>> "--- адвыржаряюм квуй, вим
-            емпыдит; <<\(-\)>> "--- емпыдит коммюны ат; <<\({\approx}\)>> "---
-            Шеф взъярён тчк щипцы с~эхом гудбай Жюль. Эй, жлоб! Где туз?
-            Прячь юных съёмщиц в~шкаф. Экс-граф?
-            }
-            \\
-            \bottomrule %%% нижняя линейка
-        \end{tabulary}%
-    \end{SingleSpace}
-\end{table}
+Заданы станции специального вида $s_{m+1}$ -- шлюзы. Данные шлюзы размещены на концах $a_0$ и $a_{n+1}$ данного линейного участка . Для данных станций параметр радиуса покрытия $r_{m+1}=0$. Радиус связи и стоимость не заданы.
 
-Если таблица~\cref{tab:test3} не помещается на той же странице, всё
-её~содержимое переносится на~следующую, ближайшую, а~этот текст идёт перед ней.
-\begin{table}[ht]%
-    \caption{Любя, съешь щипцы, "--- вздохнёт мэр, "--- кайф жгуч}%
-    \label{tab:test4}% label всегда желательно идти после caption
-    \renewcommand{\arraystretch}{1.6}%% Увеличение расстояния между рядами, для улучшения восприятия.
-    \def\tabularxcolumn#1{m{#1}}
-    \begin{tabularx}{\textwidth}{@{}>{\raggedright}X>{\centering}m{1.9cm} >{\centering}m{1.9cm} >{\centering}m{1.9cm} >{\centering\arraybackslash}m{1.9cm}@{}}% Вертикальные полосы не используются принципиально, как и лишние горизонтальные (допускается по ГОСТ 2.105 пункт 4.4.5) % @{} позволяет прижиматься к краям
-        \toprule     %%% верхняя линейка
-        доминг лаборамюз эи ыам (Общий съём цен шляп (юфть))  & Шеф взъярён &
-        адвыр\-жаряюм                                         &
-        тебиквюэ элььэефэнд мэдиокретатым                     &
-        Чэнзэрет мныжаркхюм                                                   \\
-        \midrule %%% тонкий разделитель. Отделяет названия столбцов. Обязателен по ГОСТ 2.105 пункт 4.4.5
-        Эй, жлоб! Где туз? Прячь юных съёмщиц в~шкаф Плюш изъят.
-        Бьём чуждый цен хвощ!                                 &
-        \({\approx}\)                                         &
-        \({\approx}\)                                         &
-        \({\approx}\)                                         &
-        \( + \)                                                               \\
-        Эх, чужак! Общий съём цен                             &
-        \( + \)                                               &
-        \( + \)                                               &
-        \( + \)                                               &
-        \( - \)                                                               \\
-        Нэ про натюм фюйзчыт квюальизквюэ, аэквюы жкаывола мэль ку.
-        Ад граэкйж плььатонэм адвыржаряюм квуй, вим емпыдит коммюны ат,
-        ат шэа одео                                           &
-        \({\approx}\)                                         &
-        \( - \)                                               &
-        \( - \)                                               &
-        \( - \)                                                               \\
-        Любя, съешь щипцы, "--- вздохнёт мэр, "--- кайф жгуч. &
-        \( - \)                                               &
-        \( + \)                                               &
-        \( + \)                                               &
-        \({\approx}\)                                                         \\
-        Нэ про натюм фюйзчыт квюальизквюэ, аэквюы жкаывола мэль ку. Ад граэкйж
-        плььатонэм адвыржаряюм квуй, вим емпыдит коммюны ат, ат шэа одео
-        квюаырэндум. Вёртюты ажжынтиор эффикеэнди эож нэ.     &
-        \( + \)                                               &
-        \( - \)                                               &
-        \({\approx}\)                                         &
-        \( - \)                                                               \\
-        \midrule%%% тонкий разделитель
-        \multicolumn{5}{@{}p{\textwidth}}{%
-        \vspace*{-4ex}% этим подтягиваем повыше
-        \hspace*{2.5em}% абзацный отступ - требование ГОСТ 2.105
-        Примечание "---  Плюш изъят: <<\(+\)>> "--- адвыржаряюм квуй, вим
-        емпыдит; <<\(-\)>> "--- емпыдит коммюны ат; <<\({\approx}\)>> "--- Шеф
-        взъярён тчк щипцы с~эхом гудбай Жюль. Эй, жлоб! Где туз? Прячь юных
-        съёмщиц в~шкаф. Экс-граф?
-        }
-        \\
-        \bottomrule %%% нижняя линейка
-    \end{tabularx}%
-\end{table}
+Требуется разместить станции таким образом, чтобы максимизировать покрытие с условием ограничения на суммарное стоиомсть $C$.
 
-\section{Таблицы с форматированными числами}\label{sec:ch3/formatted-numbers}
+ 
 
-В таблицах \cref{tab:S:parse,tab:S:align} представлены примеры использования опции
-форматирования чисел \texttt{S}, предоставляемой пакетом \texttt{siunitx}.
+\section{Calculation of Link Distance and Coverage Radius of Stations}
 
-\begin{table}
-    \centering
-    \begin{threeparttable}% выравнивание подписи по границам таблицы
-        \caption{Выравнивание столбцов}\label{tab:S:parse}
-        \begin{tabular}{SS[table-parse-only]}
-            \toprule
-            {Выравнивание по разделителю} & {Обычное выравнивание} \\
-            \midrule
-            12.345                        & 12.345                 \\
-            6,78                          & 6,78                   \\
-            -88.8(9)                      & -88.8(9)               \\
-            4.5e3                         & 4.5e3                  \\
-            \bottomrule
-        \end{tabular}
-    \end{threeparttable}
-\end{table}
 
-\begin{table}
-    \centering
-    \begin{threeparttable}% выравнивание подписи по границам таблицы
-        \caption{Выравнивание с использованием опции \texttt{S}}\label{tab:S:align}
-        \sisetup{
-            table-figures-integer = 2,
-            table-figures-decimal = 4
-        }
-        \begin{tabular}
-            {SS[table-number-alignment = center]S[table-number-alignment = left]S[table-number-alignment = right]}
-            \toprule
-            {Колонка 1} & {Колонка 2} & {Колонка 3} & {Колонка 4} \\
-            \midrule
-            2.3456      & 2.3456      & 2.3456      & 2.3456      \\
-            34.2345     & 34.2345     & 34.2345     & 34.2345     \\
-            56.7835     & 56.7835     & 56.7835     & 56.7835     \\
-            90.473      & 90.473      & 90.473      & 90.473      \\
-            \bottomrule
-        \end{tabular}
-    \end{threeparttable}
-\end{table}
+Let calculate characteristics of the station, such as link distance $R_{jq}$, coverage radius $r_j$, and service time rate $\mu_j$ before proceeding to integer programming.
 
-\section{Параграф \cyrdash{} два}\label{sec:ch3/sect2}
-% Не все (xe|lua)latex совместимые шрифты умеют работать с русским тире "---
+It is essential during deployment to provide maximum coverage of a given area and ensure communication between the placed base stations in the wireless broadband network. 
 
-Некоторый текст.
+Link Budget is a way of estimation of communication link's performance while accounting for the system's power, gains, and losses for both the transmitter and receiver. The complete equation can be written as follows:
 
-\section{Параграф с подпараграфами}\label{sec:ch3/sect3}
+% \begin{equation}
+%   \label{eq:link_budget}
+%   P_{tr} - L_{tr} + G_{tr} - L_{fs} + G_{recv} - L_{recv} = SOM + P_{recv},
+% \end{equation}
+% where:
 
-\subsection{Подпараграф \cyrdash{} один}\label{subsec:ch3/sect3/sub1}
+% \begin{itemize}
 
-Некоторый текст.
+%   \item $P_{tr}$ is a transmitter output power, [dBm];
 
-\subsection{Подпараграф \cyrdash{} два}\label{subsec:ch3/sect3/sub2}
+%   \item $L_{tr}$ is a ransmitter losses, [dB];
 
-Некоторый текст.
+%   \item $G_{tr}$ is a transmitter antenna gain, [dBi];
 
-\clearpage
+%   \item $L_{fs}$ is a free space path loss, [dB];
+
+%   \item $G_{recv}$ is a receiver antenna gain,  [dBi];
+
+%   \item $L_{recv}$ is a receiver losses, [dB];
+
+%   \item $SOM$ is a system operating margin, [dB];
+
+%   \item $P_{recv}$ is a receiver sensitivity, [dBm].
+
+% \end{itemize}
+
+% The power received at the antenna is calculated by the Friis transmission equation:
+
+% \begin{displaymath}
+%   \label{eq:Friis}
+%   \frac{P_{recv}}{P_{tr}} = G_{tr}G_{recv}\left(\frac{c}{4\pi R f} \right)^2,
+% \end{displaymath}
+% where 
+% $c$ is a speed of light,
+% $f$ is a frequency, 
+% $R$ is a distance between transmit and receive antenna.
+
+% The Free Space Path Loss ($ FSPL $) equation defines the propagation signal loss between two antennas through free space (air):
+
+% \begin{equation}
+%   \label{eq:FSPL}
+%   FSPL = \left(\frac{4\pi R f}{c} \right)^2.
+% \end{equation}
+
+% The formula (\ref{eq:FSPL}) expressed in decibels will be calculated as:
+
+% \begin{equation}
+%   \label{eq:L_fs}
+%   L_{fs} = 20 \lg{F} + 20\lg{R} + K,
+%   \end{equation}
+% where $F$ is a radio wave centre frequency of a communication link, $R$ is a distance between transmit and receive antennas, and $K$ is a constant.
+
+% Constant $K$ depends on frequency and distance:
+
+% \begin{itemize}
+%   \item for a frequency in GHz and a distance in km, constant $K$ is equal to 92.45;
+%   \item for a frequency in MHz and distance in km, constant $K$ is equal to 32.4;
+%   \item for a frequency in MHz and distance in m, constant $K$ is equal to -27.55.
+% \end{itemize} 
+
+% The loss $L_{fs}$ is expressed from the formula (\ref{eq:link_budget}) as follows:
+
+% \begin{equation}
+%   \label{eq:L_fs_from_link_budget}
+%   L_{fs} = P_{tr} - L_{tr} + G_{tr} + G_{recv} - L_{recv} - SOM - P_{recv}.
+% \end{equation}
+
+% Then the communication link equation is obtained from the formulas (\ref{eq:L_fs}) and (\ref{eq:L_fs_from_link_budget}):
+
+% \begin{equation}
+%   \label{eq:D}
+%   R = 10^{\left(\frac{L_{fs} - 20\lg{F} - K}{20}\right)}.
+% \end{equation}
+
+% Using formulas \eqref{eq:D} and \eqref{eq:L_fs_from_link_budget}, we can calculate the theoretical maximal communication link distance $ R_{jq}$ between base stations and the coverage radius $ r_j $ assuming the absence of obstacles, reflections, influence of terrain contours, etc.  This is acceptable for our case of an open area.
+
+% \begin{figure}[h!]
+%   \centering
+%    \includegraphics[width=0.8\textwidth]{link_distance.pdf}
+% \caption{The link between stations.}
+% \label{fig:link_distance}
+% \end{figure}
+
+% To calculate communication link distancw $R_{jq}$ (Fig. \ref{fig:link_distance}), base stations $s_j$ and $s_q$ will be considered as a $transmitter$ and a $receiver$ stations, with directional antenna for which gains $G_{tr}^{R}$ and $G_{recv}^{R}$, respectively.
+
+% \begin{figure}[h!]
+%   \centering
+%    \includegraphics[width=0.8\textwidth]{coverage.pdf}
+% \caption{Base station coverage.}
+% \label{fig:coverage}
+% \end{figure}
+
+% Each base station is equipped with an omnidirectional antenna with given gain antenna $G_{tr}^{r}$. A station uses this antenna to cover a given area.
+
+% Calculating the coverage radius $r_j$ (Fig.  \ref{fig:coverage}) base station will be considered a $transmitter$ and a user device will be considered a $receiver$.
+
+% \section{Tandem Queue Model for End-to-End Delay Evaluation}
+
+% Each station is characterized by its throughput. Given a throughput and an average packet size, we can calculate the service time rate as follow:
+
+% \begin{displaymath}
+%   \label{eq:service_time}
+%   \mu_j = \frac{p_j}{w},
+% \end{displaymath}
+% where 
+% $p_j$ is a throughput [Mbit/s] of station $S_j$, and $w$ is an average packet size [Mbit].
+
+% This characteristic $\mu_j$ is required to calculate delay time $T_j$ at each station.
+
+% One of the main performance metric in wireless network design is its end-to-end delay  \cite{Bendel2018,Wu2017}.
+
+% To calculate end-to-end delay, let us consider a wireless network as a tandem queuing model with cross-traffic and  $M/M/1$ nodes, with Poisson input flow and an exponential distribution of the service times.
+
+% \begin{figure}[h!]
+%   \centering
+%    \includegraphics[width=1\textwidth]{tandem.pdf}
+% \caption{Tandem queueing model $M/M/1 \rightarrow ... \rightarrow \cdot/M/1$.}
+% \label{fig:tandem}
+% \end{figure}
+
+% The interval between arrivals is set by the random variable $ A\sim f_A(t), f_A(t) = \lambda e^{-\lambda t} $ and the service time in such a system is set directly using the random variable $B \sim f_B(t), f_B (t) = \mu e^{-\mu t}$.
+
+% Taking into account that the input packets are represented by a Poisson flow and the service time at the station belongs to the exponential distribution, according to Burke's theorem \cite{Burke1956}, at the exit from the node we also have a Poisson flow.
+
+% To estimate end-to-end delays, we can use well-known formulas for $M/M/1$ sustems \cite{Heyman1976}. For station $s_j$, the utilization is $\rho_j = \frac{\lambda}{\mu_j}$. The average number of packets on such a system is
+
+% \begin{displaymath}
+%   \label{eq:N_1}
+%   \overline {N_j} = \frac{\rho_j}{1 - \rho_j} = \frac{\lambda}{\mu_j - \lambda}.
+% \end{displaymath}
+
+% By Little's law \cite{Little1961} the average time delay at each station is
+
+
+% \begin{displaymath}
+%   \label{eq:node_delay}
+%   \overline {T_j} = \frac{\overline N_j}{\lambda} = \frac{1}{\mu_j - \lambda}.
+% \end{displaymath}
+% Then end-to-end delay is
+
+% \begin{equation}
+%   \label{eq:e2e_delay}
+%   \overline T = \sum\limits_{j} \overline{T_j}, \quad \overline{T_j} = \frac{1}{\mu_j - \lambda}.
+% \end{equation}
+
+% \section{Integer Linear Programming Model}
+
+% After estimating maximum communication link distances between stations $R_ {jq}$, the maximum coverage radiuses $r_j$, and the delays at the network station $\overline {T_j}$, it is possible to move to the problem in the form of integer linear programming.
+
+
+% Let $y_i^+$ and $y_i^-$ , $i= \overline{0,n+1}$ determine the size (the right and left, correspondingly) of stations covering at place $a_i$. The parameters $ y_i ^ + $ and $ y_i ^ - $ can take non-negative integer values only.
+
+% Values of variables for gateways coverages $ y_0 ^ +, y_0 ^ -, y_ {n + 1} ^ +, y_{n + 1} ^ - $ are equal to 0. 
+
+% Objective function will be presented as:
+
+% \begin{equation}
+%   \label{eq:objective_function}
+%   f =  \sum\limits_{i=1}^n (y_i^- + y_i^+) \rightarrow max
+% \end{equation}
+
+% Let's also introduce binary variables $x_{ij}$. Then $x_{ij}$ is equal to 1, if station $s_j$ is placed at point $a_i$ and $x_{ij}=0$ otherwise; $i= \overline{1, n}$; $j = \overline{1,m}$.
+
+
+% Let us introduce binary variables $e_i$. Then $e_i$  is equal to 1, if any station is placed at point $a_i$ and $e_i$ is equal to 0 otherwise; $i= \overline{1, n}$. For gateways placement points $e_0$  is equal to 1 and $e_{n+1}$  is equal to 1.
+
+% Let us formulate the following system of the problem constraints.
+
+% By definition \eqref{eq:ei}:
+% \begin{equation}
+%   \label{eq:ei}
+%   e_i =  \sum\limits_{j=1}^m x_{ij}, \quad i = \overline{1,n}. 
+% \end{equation}
+
+% Each station must be placed in only one point \eqref{ineq:xij}:
+
+% \begin{equation}
+%   \label{ineq:xij}
+%   \sum\limits_{j=1}^n x_{ij} \leq 1, \quad j = \overline{1,m}. 
+% \end{equation}
+
+% The values of coverages are no more than the coverage radius of the station placed at $a_i$, and equal to 0 if there is no station at $a_i$ \eqref{ineq:yi_1} -- \eqref{ineq:yi_2}:
+
+% \begin{equation}
+%   \label{ineq:yi_1}
+%   y_i^+ \leq \sum\limits_{j=1}^m x_{ij} r_j, \quad i = \overline{1,n};
+% \end{equation}
+
+% \begin{equation}
+%   \label{ineq:yi_2}
+%   y_i^- \leq \sum\limits_{j=1}^m x_{ij} r_j, \quad i = \overline{1,n}. 
+% \end{equation}
+
+% The total coverage area between any two points $a_i$ and $a_k$, where the stations are located cannot exceed the distance between these points \eqref{ineq:yi_3} -- \eqref{ineq:yi_4}.
+
+% \begin{equation}
+%   \label{ineq:yi_3}
+%   y_i^+ + y_k^- \leq \frac{l_k - l_i}{2}(e_i + e_k ) + (2- e_i - e_k )L, \quad i = \overline{1,n},  \quad k = \overline{i+1,n+1};
+% \end{equation}
+
+% \begin{equation}
+%   \label{ineq:yi_4}
+%   y_i^- + y_k^+  \leq \frac{l_i-l_k}{2} (e_i + e_k) + (2 - e_i - e_k)L, \quad i = \overline{1,n}, \quad k = \overline{i-1,0},
+% \end{equation}
+% where $l_k$ and $l_i$ are the coordinates of the points $a_i$ and $a_k$, respectively. This condition excludes the effect from intersections of station coverages when calculating the total coverage value for the entire segment.
+
+% According to the conditions of the problem, the station located at $a_i$ must be connected with at least one station on the left and one station on the right, including stations at the end points $a_0$ and $a_{n+1}$.
+
+% We will introduce binary variables $z_{ijkq}, i = \overline{1,n}; j= \overline{1,m}; k=\overline{1,n},  k \neq i; q= \overline{1,m}, q \neq j$.
+
+% The variable $ z_ {ijkq}$ is equal to 1, if there is a station $s_j$ at point $a_i$ and it is connected with a station $s_q$ placed at the point $a_k$; and $z_ {ijkq}$ is equal to 0 otherwise.
+
+% The variable $z_{ij0(m+1)}$ is equal to 1, if here is a station $s_j$ at point $a_i$ and it is connected with a gateway $s_{m+1}$ at the point $a_0$; $z_{ij0(m+1)}$ is equal to 0 otherwise.  
+
+% The variable $z_{ij(n+1)(m+1)}$ is equal to 1, if here is a station $s_j$ at point $a_i$ and it is connected with a gateway $s_{m+1}$ at the point $a_{n+1}$; $z_{ij0(m+1)}$ is equal to 0 otherwise.
+
+% Stations must be at both points $a_i$ and $a_k$ so that they can be connected \eqref{ineq:z_ijkq_1} -- \eqref{ineq:z_ijkq_2}:
+
+% \begin{equation}
+%   \label{ineq:z_ijkq_1}
+%   z_{ijkq} \leq e_i , \quad i = \overline{1, n}; \quad j = \overline{1, m}; \quad k = \overline{1,n}, k \neq i; \quad q = \overline{1,m}, q \neq j;
+% \end{equation}
+
+
+% \begin{equation}
+%   \label{ineq:z_ijkq_2}
+%   z_{ijkq} \leq e_k , \quad k = \overline{1, n}; \quad j = \overline{1, m}; \quad i = \overline{1,n}, i \neq k; \quad q = \overline{1,m}, q \neq j.
+% \end{equation}
+
+% It is necessary that station $s_j$ at point $a_i$ is connected to any one station located at point $a_k$, to the right of $a_i$ ($k>i$) or to the right gateway $s_{m+1}$ \eqref{ineq:z_ijkq_3_1} -- \eqref{ineq:z_ijkq_3_2}.
+
+% \begin{equation}
+%   \label{ineq:z_ijkq_3_1}
+%   \sum\limits_{k=i+1}^{n} \sum\limits_{\substack{q = 1\\ q \neq j}}^m z_{ijkq} + z_{ij(n+1)(m+1)} = x_{ij} ,  \quad i = \overline{1, n}, \quad j = \overline{1, m}.
+% \end{equation}
+% Station $s_j$ placed at $a_{n}$ has only gateway $s_{m+1}$ from the right at place $a_{n+1}$ \eqref{ineq:z_ijkq_3_2}.
+
+% \begin{equation}
+%   \label{ineq:z_ijkq_3_2}
+%   z_{nj(n+1)(m+1)} = x_{nj} \quad j = \overline{1, m}.
+% \end{equation}
+
+% Also, at least, it is connected with any one station located at point  $a_k$ to the left of point $a_i$ ($k<i$) or with the left gateway $s_{m+1}$ \eqref{ineq:z_ijkq_4_1} -- \eqref{ineq:z_ijkq_4_2}.
+
+% \begin{equation}
+%   \label{ineq:z_ijkq_4_1}
+%   z_{1j0(m+1)}= x_{ij}, \quad j = \overline{1, m};
+% \end{equation}
+% Station $s_j$ placed at $a_{1}$ has only gateway $s_{m+1}$ from the left at place $a_0$ \eqref{ineq:z_ijkq_4_1}.
+
+% \begin{equation}
+%   \label{ineq:z_ijkq_4_2}
+%   z_{ij0(m+1)} + \sum\limits_{k=1}^{i-1} \sum\limits_{\substack{q = 1\\ q \neq j}} z_{ijkq}= x_{ij}, \quad i = \overline{2, n}, \quad j = \overline{1, m}.
+% \end{equation}
+
+% It is necessary that station $s_q$ at point $a_k$ is connected to any one station to the right located  at point $a_i$ \eqref{ineq:z_ijkq_5}.
+
+% \begin{equation}
+%   \label{ineq:z_ijkq_5}
+%   \sum\limits_{i=k+1}^{n} \sum\limits_{\substack{j=1 \\ j \neq q}}^m z_{ijkq} = x_{kq} , \quad k = \overline{1, n-1}, \quad q = \overline{1, m};
+% \end{equation}
+% Also, station $s_q$ at point $a_k$ is connected to any one station to the left located at point $a_i$ \eqref{ineq:z_ijkq_6}.
+
+% \begin{equation}
+%   \label{ineq:z_ijkq_6}
+%   \sum\limits_{i=1}^{k} \sum\limits_{\substack{j=1 \\ j \neq q}}^m z_{ijkq} = x_{kq} , \quad k = \overline{2, n}, \quad q = \overline{1, m};
+% \end{equation}
+
+% Inequalities \eqref{ineq:z_ijkq_1} - \eqref{ineq:z_ijkq_2} and equalities \eqref{ineq:z_ijkq_3_1} - \eqref{ineq:z_ijkq_6} provide a condition for symmetry of communication between base stations located at points $a_i$ and $a_k$ for all $i$, $k$.
+
+% If station $s_j$ and $s_q$ are connected the the maximal communication link distance of these placed stations must be no less than the distance between $a_i$ and $a_k$, where $s_i$ and $s_q$ are located. Formally, this can be stated as \eqref{ineq:z_ijkq_7} -- \eqref{ineq:z_ijkq_8}.
+
+% For $i= \overline{1,n}$:
+% \begin{equation}
+%   \label{ineq:z_ijkq_7}
+%   z_{ijkq}(R_{jq}-(a_i-a_k ))\geq 0, \quad k=\overline{0,i-1}; \quad j=\overline{1,m}; \quad q= \overline{1,m}, q \neq j; 
+% \end{equation}
+
+% \begin{equation}
+%   \label{ineq:z_ijkq_8}
+%   z_{ijkq} (R_{jq}-(a_k-a_i )) \geq 0, \quad k=\overline{i+1,n+1}; \quad j=\overline{1,m}; \quad q= \overline{1,m}, q \neq j.
+% \end{equation}
+
+% Let $T$ be network end-to-end delay time limit. Using formula \eqref{eq:e2e_delay} to calculate the delay at each station, we write the inequality as:
+
+% \begin{equation}
+%   \label{ineq:end2end_delay}
+%   \sum\limits_{i=1}^n \sum\limits_{j=1}^m x_{ij} \cdot \overline {T_j} \leq T.
+% \end{equation}
+
+% And for cost limit $C$ we have:
+
+% \begin{equation}
+%   \label{ineq:cost}
+%   \sum\limits_{i=1}^n \sum\limits_{j=1}^m x_{ij} \cdot c_j \leq C.
+% \end{equation}
+
+% \section{Example}
+
+% Let's look at one simple case of base stations placement problem.
+
+% Consider the section of length $L = 400$ with $n = 10$ placement points is given in table \ref{tab:placed_point}:
+
+% \begin{table}[h!]\begin{center}
+%   \begin{tabular}{|c||c|c|c|c|c|c|c|c|c|c|}\hline
+%     $a_i$ & $a_1$ &  $a_2$ & $a_3$ & $a_4$ & $a_5$ & $a_6$ & $a_7$ & $a_8$ & $a_9$ & $a_{10}$ \\ \hline \hline
+%     coordination & 32 & 65 & 101 & 142 & 181 & 241 & 270 & 301 & 325 & 380 \\ \hline
+% \end{tabular}\caption{Placement points at the section of length $L = 400$.}\label{tab:placed_point}
+% \end{center}\end{table}
+
+% There are $m = 7$ base stations with parameters given in table \ref{tab:BS}:
+
+% \begin{itemize}
+%   \item $P_{tr}^R$ is a transmit power for communication with base stations;
+%   \item $G_{tr}^R$ is an antenna gain for communication with base stations;
+%   \item $P_{recv}^R$ is a sensitivity for communication with base stations;
+%   \item $P_{tr}^r$ is a transmit power for the coverage of section;
+%   \item $G_{tr}^r$ is an antenna gain for the coverage of section;
+%   \item $p$ is a throughput;
+%   \item $c$ is a base station cost.
+% \end{itemize}
+
+% \begin{table}[h!]\begin{center}
+%   \begin{tabular}{|c||c|c|c|c|c|c|c|}\hline
+%     BS & $P_{tr}^R$ &  $G_{tr}^R$ & $P_{recv}^R$ & $P_{tr}^r$ & $G_{tr}^r$ & $p$ & $c$ \\ \hline 
+%     No & [dBm] & [dBi] & [dBm] & [dBm] & [dBi] & Mbit/s & c.u.  \\ \hline
+%     1 & 19 & 5 & -69 & 20 & 2 & 54 & 2300 \\ 
+
+%     2 & 19 & 4 & -80 & 19 & 3 & 54 & 1200 \\ 
+
+%     3 & 19 & 6 & -69 & 18 & 2 & 54 & 4500 \\ 
+
+%     4 & 19 & 5 & -83 & 18 & 3 & 54 & 6000 \\ 
+
+%     5 & 20 & 5 & -85 & 20 & 2 & 54 & 3500 \\ 
+
+%     6 & 22 & 5 & -69 & 18 & 2 & 54 & 4200 \\ 
+
+%     7 & 19 & 5 & -69 & 18 & 2 & 54 & 4200 \\ \hline
+
+% \end{tabular}\caption{Base station parameters.}\label{tab:BS}
+% \end{center}\end{table}
+
+% Finally, gateway stations of special type $s_{m + 1}$ placed on the ends of the segment are specified. Gateway parameters is given in table \ref{tab:Gateway}:
+
+% \begin{table}[h!]\begin{center}
+%   \begin{tabular}{|c||c|c|}\hline
+%     Gateway & $G_{tr}^R$ & $P_{recv}^R$  \\ \hline 
+%      No & [dBi] & [dBm]  \\ \hline
+%     $s_{m+1}$ & 3 & -69 \\ \hline
+
+% \end{tabular}\caption{Gateway parameters.}
+% \label{tab:Gateway}
+% \end{center}\end{table}
+
+% \subsection{Computation of the communication link distance between base stations}
+
+% Base station is equipped with a directional antenna with a high gain to communicate with neighbouring stations.
+% To calculate the losses between stations $j$ and $q$, we use the formula (\ref{eq:L_fs_from_link_budget}):
+
+% \begin{displaymath}
+%   L_{fs}^{jq} = P_{tr}^R(j) - L_{tr} + G_{tr}^R(j) + G_{tr}^R(q) - L_{recv} - SOM - P_{recv}^R(q).
+% \end{displaymath}
+
+% The cable losses at the receiver $L_{recv}$ and transmitter $L_{tr}$ are equal to 1 dB. We will also provide system operating margin $ SOM = 10 $ dB.
+
+% Let us carry out an example of the calculation communication link between stations $ s_1 $ and $ s_2 $:
+
+% \begin{align}
+%   \begin{aligned}
+%   L_{fs}^{12} = P_{tr}^R(1) - L_{tr} + G_{tr}^R(1) + G_{tr}^R(2) - L_{recv} - SOM - P_{recv}^R(2)= \\
+%   = 19 - 1 + 5 + 4 - 1 - 10 - (-80) = 96 (dB).
+%   \end{aligned}
+% \end{align}
+
+% To calculate the communication link, formula ( \ref{eq:D} ) must be used. The stations operate on 6th channel, carrier frequency $f = 2437$ MHz and coefficient $K = -27.55$:
+
+% \begin{align}
+%   \begin{aligned}
+%   R_{jq} = 10^{\left(\frac{L_{fs}^{jq} - 20\lg{F} - K}{20}\right)}
+%   = 10^{\left(\frac{96 - 20\lg{2437} - (-27.55)}{20}\right)} = 617 (m).
+%   \end{aligned}
+% \end{align}
+
+% Table \ref{tab:Rjq} summarizes the maximal communication link distances calculations between all stations $ s_j $, $ j = 1, ..., m $, and the gateway $ s_ {m + 1} $.
+
+% \begin{table}[h!]\begin{center}
+%   \begin{tabular}{|c||c|c|c|c|c|c|c|c|}\hline
+%       $R_{jq}, (m)$ & $s_1$ & $s_2$ & $s_3$ & $s_4$ & $s_5$ & $s_6$ & $s_7$ & $s_{m+1}$ \\ \hline \hline
+
+%       $s_1$ & -- & 617 & 219 & 978 & 1 232 & 195 & 195 & 123 \\ 
+
+%       $s_2$ & 174 & -- & 195 & 872 & 1 098 & 174 & 174 & 109 \\
+
+%       $s_3$ & 219 & 692 & -- & 1098 & 1 382 & 219 & 219 & 138 \\
+
+%       $s_4$ & 195 & 617 & 219 & -- & 1 232 & 195 & 195 & 123 \\
+
+%       $s_5$ & 219 & 692 & 245 & 1 098  &  -- & 219 & 219 & 138 \\
+
+%       $s_6$ & 275 & 872 & 309 & 1 382 &  1 740 & -- & 275 & 174 \\
+
+%       $s_7$ & 195 & 617 & 219 & 978 & 1 232 & 195 & -- & 123 \\ \hline
+
+% \end{tabular}\caption{The calculation of communication link distance between stations.}\label{tab:Rjq}
+% \end{center}\end{table}
+
+
+% \subsection{Computation of the coverage radius}
+
+% To cover a given section, the base station is equipped with an isotropic antenna with output power $ P_ {tr} ^ r $ and gain $ G_ {tr} ^ r $ is equal to 0. The cable loss $ L_ {tr} $ is equal to 1.
+
+% A coverage area depends on a base station, as well as user device characteristics. Let us consider a user device with an antenna sensitivity $P_{RX} = -67$ dBm and gain $G_{RX} = 0$. Loss $L_{RX}$ is equal to 0.
+
+% Free space path loss between the $j$-th station and the user device
+
+% \begin{displaymath}
+%   L_{fs}^{j} = P_{tr}^r(j) - L_{tr}  - SOM - P_{RX}. 
+% \end{displaymath}
+
+% To calculate the coverage radius, must be used the formula (\ref{eq:D}). The stations operate on 6th channel, carrier frequency $f = 2437$ MHz. and coefficient $K = -27.55$
+
+% \begin{displaymath}
+%   r_{j} = 10^{\left(\frac{L_{fs}^{j} - 20\lg{F} - K}{20}\right)}.
+% \end{displaymath}
+
+% An example of calculating the coverage radius for the $1$-st station:
+
+% \begin{displaymath}
+%   r_{1} = 10^{\left(\frac{20 - 1 + 2 - 10 -(-67) - 20\lg{2437} - (-27.55)}{20}\right)} = 77 (m)
+% \end{displaymath}
+
+% Let's calculate the coverage radius for all stations $s_j $, $ j = 1, ..., m$ (table \ref{tab:rj}).
+
+% \begin{table}[h!]\begin{center}
+%   \begin{tabular}{|c||c|c|c|c|c|c|c|}\hline
+%       STA & $s_1$ & $s_2$ & $s_3$ & $s_4$ & $s_5$ & $s_6$ & $s_7$ \\ \hline \hline
+
+%       $r_{j}$ & 77 & 77 & 61 & 69 & 77 & 61 & 61 \\ \hline
+
+% \end{tabular}\caption{Calculation of the coverage radius of stations.}\label{tab:rj}
+% \end{center}\end{table}
+
+% \subsection{Time delay calculation}
+
+% Let's calculate the delay for station $s_1$. The specified throughput is $p_1 = 54$ Mbit/s. Let's assume that the average package size is $w = 2700$ KByte (21.6 MBit). The arrival package rate is $\lambda = 0.5(s^{- 1})$. Then the service rate according to the formula (\ref{eq:service_time}) will be
+
+% \begin{displaymath}
+%   \label{eq:service_time_evaluation}
+%   \mu_1 = \frac{54}{21.6} = 2.5 (s^{-1}).
+% \end{displaymath}
+
+% The utilization is equal to
+
+% \begin{displaymath}
+%   \label{eq:rho_evaluation}
+%   \rho_1 = \frac{0.5}{2.5} = 0.2.
+% \end{displaymath}
+
+% The average package size is
+
+% \begin{displaymath}
+%   \label{eq:N_evaluation}
+%   \overline N_1 = \frac{0.2}{1 - 0.2} = 0.25.
+% \end{displaymath}
+
+% The average delay is
+
+% \begin{displaymath}
+%   \label{eq:node_delay_evaluation}
+%   \overline {T_1} = \frac{0.25}{0.5} = 0.5 (s).
+% \end{displaymath}
+
+% Communication links between stations $R_{jq}$, the coverage radius of the station is $r_j$, the delays $\overline{T_j}$ are calculated, it is possible to search the optimal placement.
+
+% The problem formulated on the basis of (\ref{eq:objective_function}) - (\ref{ineq:cost}) and given constraints on the cost $C = 18000$ and end-to-end delay $T = 3$ was solved by MATLAB Optimization Toolbox.
+
+% The optimal placement is presented in the table \ref{tab:solution}.
+
+% \begin{table}[h!]\begin{center}
+%   \begin{tabular}{|c||c|c|c|c|c|c|c|c|c|c|} \hline
+      
+%       Placed station & $s_6$ & $s_7$ & -- & -- & $s_2$ & -- &  $s_5$ & -- & $s_1$ & -- \\ \hline
+
+%       Placement coordination & $a_1$ &  $a_2$ & $a_3$ & $a_4$ & $a_5$ & $a_6$ & $a_7$ & $a_8$ & $a_9$ & $a_{10}$ \\  \hline
+
+% \end{tabular}\caption{Solution result.}\label{tab:solution}
+% \end{center}\end{table}
+% Obtained total coverage $f$ is equal to 400 (m) with total cost $c$ is equal to $15400$ (c.u.), and end-to-end delay $T$ is equal to $ 2.5$ (s).
+
+% \section{Conclusion}
+% The paper considers the problem of finding an optimal placement of the given redundant set of base stations of wireless broadband communication network on a set of possible placement points to maximize the coverage area while respecting technological conditions and budget constraints.
+
+% To calculate a limit on the network delay time a network is considered as a tandem queue model with $M/M/1$  nodes.
+
+% The problem is formulated in the form of the integer linear programming model. Numerical example solution was presented.
+
+% It is planned to use the obtained model in practice in future work.
+
+
+% \bibliographystyle{splncs04}
+% \bibliography{mukhtarov}
+
+% \end{document}
+
+
+% \section{Таблица обыкновенная}\label{sec:ch3/sect1}
+
+% Так размещается таблица:
+
+% \begin{table} [htbp]
+%     \centering
+%     \begin{threeparttable}% выравнивание подписи по границам таблицы
+%         \caption{Название таблицы}\label{tab:Ts0Sib}%
+%         \begin{tabular}{| p{3cm} || p{3cm} | p{3cm} | p{4cm}l |}
+%             \hline
+%             \hline
+%             Месяц   & \centering \(T_{min}\), К & \centering \(T_{max}\), К & \centering  \((T_{max} - T_{min})\), К & \\
+%             \hline
+%             Декабрь & \centering  253.575       & \centering  257.778       & \centering      4.203                  & \\
+%             Январь  & \centering  262.431       & \centering  263.214       & \centering      0.783                  & \\
+%             Февраль & \centering  261.184       & \centering  260.381       & \centering     \(-\)0.803              & \\
+%             \hline
+%             \hline
+%         \end{tabular}
+%     \end{threeparttable}
+% \end{table}
+
+% \begin{table} [htbp]% Пример записи таблицы с номером, но без отображаемого наименования
+%     \centering
+%     \begin{threeparttable}% выравнивание подписи по границам таблицы
+%         \caption{}%
+%         \label{tab:test1}%
+%         \begin{SingleSpace}
+%             \begin{tabular}{| c | c | c | c |}
+%                 \hline
+%                 Оконная функция & \({2N}\) & \({4N}\) & \({8N}\) \\ \hline
+%                 Прямоугольное   & 8.72     & 8.77     & 8.77     \\ \hline
+%                 Ханна           & 7.96     & 7.93     & 7.93     \\ \hline
+%                 Хэмминга        & 8.72     & 8.77     & 8.77     \\ \hline
+%                 Блэкмана        & 8.72     & 8.77     & 8.77     \\ \hline
+%             \end{tabular}%
+%         \end{SingleSpace}
+%     \end{threeparttable}
+% \end{table}
+
+% Таблица~\cref{tab:test2} "--- пример таблицы, оформленной в~классическом книжном
+% варианте или~очень близко к~нему. \mbox{ГОСТу} по~сути не~противоречит. Можно
+% ещё~улучшить представление, с~помощью пакета \verb|siunitx| или~подобного.
+
+% \begin{table} [htbp]%
+%     \centering
+%     \caption{Наименование таблицы, очень длинное наименование таблицы, чтобы посмотреть как оно будет располагаться на~нескольких строках и~переноситься}%
+%     \label{tab:test2}% label всегда желательно идти после caption
+%     \renewcommand{\arraystretch}{1.5}%% Увеличение расстояния между рядами, для улучшения восприятия.
+%     \begin{SingleSpace}
+%         \begin{tabular}{@{}@{\extracolsep{20pt}}llll@{}} %Вертикальные полосы не используются принципиально, как и лишние горизонтальные (допускается по ГОСТ 2.105 пункт 4.4.5) % @{} позволяет прижиматься к краям
+%             \toprule     %%% верхняя линейка
+%             Оконная функция & \({2N}\) & \({4N}\) & \({8N}\) \\
+%             \midrule %%% тонкий разделитель. Отделяет названия столбцов. Обязателен по ГОСТ 2.105 пункт 4.4.5
+%             Прямоугольное   & 8.72     & 8.77     & 8.77     \\
+%             Ханна           & 7.96     & 7.93     & 7.93     \\
+%             Хэмминга        & 8.72     & 8.77     & 8.77     \\
+%             Блэкмана        & 8.72     & 8.77     & 8.77     \\
+%             \bottomrule %%% нижняя линейка
+%         \end{tabular}%
+%     \end{SingleSpace}
+% \end{table}
+
+% \section{Таблица с многострочными ячейками и примечанием}
+
+% В таблице \cref{tab:makecell} приведён пример использования команды
+% \verb+\multicolumn+ для объединения горизонтальных ячеек таблицы,
+% и команд пакета \textit{makecell} для добавления разрыва строки внутри ячеек.
+% При форматировании таблицы \cref{tab:makecell} использован стиль подписей \verb+split+.
+% Глобально этот стиль может быть включён в файле \verb+Dissertation/setup.tex+ для диссертации и в
+% файле \verb+Synopsis/setup.tex+ для автореферата.
+% Однако такое оформление не~соответствует ГОСТ.
+
+% \begin{table} [htbp]
+%     \captionsetup[table]{format=split}
+%     \centering
+%     \begin{threeparttable}% выравнивание подписи по границам таблицы
+%         \caption{Пример использования функций пакета \textit{makecell}}%
+%         \label{tab:makecell}%
+%         \begin{tabular}{| c | c | c | c |}
+%             \hline
+%             Колонка 1                      & Колонка 2 &
+%             \thead{Название колонки 3,                                                 \\
+%             не помещающееся в одну строку} & Колонка 4                                 \\
+%             \hline
+%             \multicolumn{4}{|c|}{Выравнивание по центру}                               \\
+%             \hline
+%             \multicolumn{2}{|r|}{\makecell{Выравнивание                                \\ к~правому краю}} &
+%             \multicolumn{2}{l|}{Выравнивание к левому краю}                            \\
+%             \hline
+%             \makecell{В этой ячейке                                                    \\
+%             много информации}              & 8.72      & 8.55                   & 8.44 \\
+%             \cline{3-4}
+%             А в этой мало                  & 8.22      & \multicolumn{2}{c|}{5}        \\
+%             \hline
+%         \end{tabular}%
+%     \end{threeparttable}
+% \end{table}
+
+% Таблицы~\cref{tab:test3,tab:test4} "--- пример реализации расположения
+% примечания в~соответствии с ГОСТ 2.105. Каждый вариант со своими достоинствами
+% и~недостатками. Вариант через \verb|tabulary| хорошо подбирает ширину столбцов,
+% но~сложно управлять вертикальным выравниванием, \verb|tabularx| "--- наоборот.
+% \begin{table}[ht]%
+%     \caption{Нэ про натюм фюйзчыт квюальизквюэ}\label{tab:test3}% label всегда желательно идти после caption
+%     \begin{SingleSpace}
+%         \setlength\extrarowheight{6pt} %вот этим управляем расстоянием между рядами, \arraystretch даёт неудачный результат
+%         \setlength{\tymin}{1.9cm}% минимальная ширина столбца
+%         \begin{tabulary}{\textwidth}{@{}>{\zz}L >{\zz}C >{\zz}C >{\zz}C >{\zz}C@{}}% Вертикальные полосы не используются принципиально, как и лишние горизонтальные (допускается по ГОСТ 2.105 пункт 4.4.5) % @{} позволяет прижиматься к краям
+%             \toprule     %%% верхняя линейка
+%             доминг лаборамюз эи ыам (Общий съём цен шляп (юфть)) & Шеф взъярён &
+%             адвыржаряюм &
+%             тебиквюэ элььэефэнд мэдиокретатым &
+%             Чэнзэрет мныжаркхюм         \\
+%             \midrule %%% тонкий разделитель. Отделяет названия столбцов. Обязателен по ГОСТ 2.105 пункт 4.4.5
+%             Эй, жлоб! Где туз? Прячь юных съёмщиц в~шкаф Плюш изъят. Бьём чуждый цен хвощ! &
+%             \({\approx}\) &
+%             \({\approx}\) &
+%             \({\approx}\) &
+%             \( + \) \\
+%             Эх, чужак! Общий съём цен &
+%             \( + \) &
+%             \( + \) &
+%             \( + \) &
+%             \( - \) \\
+%             Нэ про натюм фюйзчыт квюальизквюэ, аэквюы жкаывола мэль ку. Ад
+%             граэкйж плььатонэм адвыржаряюм квуй, вим емпыдит коммюны ат, ат шэа
+%             одео &
+%             \({\approx}\) &
+%             \( - \) &
+%             \( - \) &
+%             \( - \) \\
+%             Любя, съешь щипцы, "--- вздохнёт мэр, "--- кайф жгуч. &
+%             \( - \) &
+%             \( + \) &
+%             \( + \) &
+%             \({\approx}\) \\
+%             Нэ про натюм фюйзчыт квюальизквюэ, аэквюы жкаывола мэль ку. Ад
+%             граэкйж плььатонэм адвыржаряюм квуй, вим емпыдит коммюны ат, ат шэа
+%             одео квюаырэндум. Вёртюты ажжынтиор эффикеэнди эож нэ. &
+%             \( + \) &
+%             \( - \) &
+%             \({\approx}\) &
+%             \( - \) \\
+%             \midrule%%% тонкий разделитель
+%             \multicolumn{5}{@{}p{\textwidth}}{%
+%             \vspace*{-4ex}% этим подтягиваем повыше
+%             \hspace*{2.5em}% абзацный отступ - требование ГОСТ 2.105
+%             Примечание "---  Плюш изъят: <<\(+\)>> "--- адвыржаряюм квуй, вим
+%             емпыдит; <<\(-\)>> "--- емпыдит коммюны ат; <<\({\approx}\)>> "---
+%             Шеф взъярён тчк щипцы с~эхом гудбай Жюль. Эй, жлоб! Где туз?
+%             Прячь юных съёмщиц в~шкаф. Экс-граф?
+%             }
+%             \\
+%             \bottomrule %%% нижняя линейка
+%         \end{tabulary}%
+%     \end{SingleSpace}
+% \end{table}
+
+% Если таблица~\cref{tab:test3} не помещается на той же странице, всё
+% её~содержимое переносится на~следующую, ближайшую, а~этот текст идёт перед ней.
+% \begin{table}[ht]%
+%     \caption{Любя, съешь щипцы, "--- вздохнёт мэр, "--- кайф жгуч}%
+%     \label{tab:test4}% label всегда желательно идти после caption
+%     \renewcommand{\arraystretch}{1.6}%% Увеличение расстояния между рядами, для улучшения восприятия.
+%     \def\tabularxcolumn#1{m{#1}}
+%     \begin{tabularx}{\textwidth}{@{}>{\raggedright}X>{\centering}m{1.9cm} >{\centering}m{1.9cm} >{\centering}m{1.9cm} >{\centering\arraybackslash}m{1.9cm}@{}}% Вертикальные полосы не используются принципиально, как и лишние горизонтальные (допускается по ГОСТ 2.105 пункт 4.4.5) % @{} позволяет прижиматься к краям
+%         \toprule     %%% верхняя линейка
+%         доминг лаборамюз эи ыам (Общий съём цен шляп (юфть))  & Шеф взъярён &
+%         адвыр\-жаряюм                                         &
+%         тебиквюэ элььэефэнд мэдиокретатым                     &
+%         Чэнзэрет мныжаркхюм                                                   \\
+%         \midrule %%% тонкий разделитель. Отделяет названия столбцов. Обязателен по ГОСТ 2.105 пункт 4.4.5
+%         Эй, жлоб! Где туз? Прячь юных съёмщиц в~шкаф Плюш изъят.
+%         Бьём чуждый цен хвощ!                                 &
+%         \({\approx}\)                                         &
+%         \({\approx}\)                                         &
+%         \({\approx}\)                                         &
+%         \( + \)                                                               \\
+%         Эх, чужак! Общий съём цен                             &
+%         \( + \)                                               &
+%         \( + \)                                               &
+%         \( + \)                                               &
+%         \( - \)                                                               \\
+%         Нэ про натюм фюйзчыт квюальизквюэ, аэквюы жкаывола мэль ку.
+%         Ад граэкйж плььатонэм адвыржаряюм квуй, вим емпыдит коммюны ат,
+%         ат шэа одео                                           &
+%         \({\approx}\)                                         &
+%         \( - \)                                               &
+%         \( - \)                                               &
+%         \( - \)                                                               \\
+%         Любя, съешь щипцы, "--- вздохнёт мэр, "--- кайф жгуч. &
+%         \( - \)                                               &
+%         \( + \)                                               &
+%         \( + \)                                               &
+%         \({\approx}\)                                                         \\
+%         Нэ про натюм фюйзчыт квюальизквюэ, аэквюы жкаывола мэль ку. Ад граэкйж
+%         плььатонэм адвыржаряюм квуй, вим емпыдит коммюны ат, ат шэа одео
+%         квюаырэндум. Вёртюты ажжынтиор эффикеэнди эож нэ.     &
+%         \( + \)                                               &
+%         \( - \)                                               &
+%         \({\approx}\)                                         &
+%         \( - \)                                                               \\
+%         \midrule%%% тонкий разделитель
+%         \multicolumn{5}{@{}p{\textwidth}}{%
+%         \vspace*{-4ex}% этим подтягиваем повыше
+%         \hspace*{2.5em}% абзацный отступ - требование ГОСТ 2.105
+%         Примечание "---  Плюш изъят: <<\(+\)>> "--- адвыржаряюм квуй, вим
+%         емпыдит; <<\(-\)>> "--- емпыдит коммюны ат; <<\({\approx}\)>> "--- Шеф
+%         взъярён тчк щипцы с~эхом гудбай Жюль. Эй, жлоб! Где туз? Прячь юных
+%         съёмщиц в~шкаф. Экс-граф?
+%         }
+%         \\
+%         \bottomrule %%% нижняя линейка
+%     \end{tabularx}%
+% \end{table}
+
+% \section{Таблицы с форматированными числами}\label{sec:ch3/formatted-numbers}
+
+% В таблицах \cref{tab:S:parse,tab:S:align} представлены примеры использования опции
+% форматирования чисел \texttt{S}, предоставляемой пакетом \texttt{siunitx}.
+
+% \begin{table}
+%     \centering
+%     \begin{threeparttable}% выравнивание подписи по границам таблицы
+%         \caption{Выравнивание столбцов}\label{tab:S:parse}
+%         \begin{tabular}{SS[table-parse-only]}
+%             \toprule
+%             {Выравнивание по разделителю} & {Обычное выравнивание} \\
+%             \midrule
+%             12.345                        & 12.345                 \\
+%             6,78                          & 6,78                   \\
+%             -88.8(9)                      & -88.8(9)               \\
+%             4.5e3                         & 4.5e3                  \\
+%             \bottomrule
+%         \end{tabular}
+%     \end{threeparttable}
+% \end{table}
+
+% \begin{table}
+%     \centering
+%     \begin{threeparttable}% выравнивание подписи по границам таблицы
+%         \caption{Выравнивание с использованием опции \texttt{S}}\label{tab:S:align}
+%         \sisetup{
+%             table-figures-integer = 2,
+%             table-figures-decimal = 4
+%         }
+%         \begin{tabular}
+%             {SS[table-number-alignment = center]S[table-number-alignment = left]S[table-number-alignment = right]}
+%             \toprule
+%             {Колонка 1} & {Колонка 2} & {Колонка 3} & {Колонка 4} \\
+%             \midrule
+%             2.3456      & 2.3456      & 2.3456      & 2.3456      \\
+%             34.2345     & 34.2345     & 34.2345     & 34.2345     \\
+%             56.7835     & 56.7835     & 56.7835     & 56.7835     \\
+%             90.473      & 90.473      & 90.473      & 90.473      \\
+%             \bottomrule
+%         \end{tabular}
+%     \end{threeparttable}
+% \end{table}
+
+% \section{Параграф \cyrdash{} два}\label{sec:ch3/sect2}
+% % Не все (xe|lua)latex совместимые шрифты умеют работать с русским тире "---
+
+% Некоторый текст.
+
+% \section{Параграф с подпараграфами}\label{sec:ch3/sect3}
+
+% \subsection{Подпараграф \cyrdash{} один}\label{subsec:ch3/sect3/sub1}
+
+% Некоторый текст.
+
+% \subsection{Подпараграф \cyrdash{} два}\label{subsec:ch3/sect3/sub2}
+
+% Некоторый текст.
+
+% \clearpage
