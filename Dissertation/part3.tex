@@ -10,7 +10,7 @@
 % The problem considered in the previous work \cite{Ivanov2019} it was necessary to place a given base station set formed at the previous network design stages. The present paper considers a more general case when solving an optimization problem is also determined by a set of placed stations from a given redundant set while respecting technical and economic constraints. This paper presents the preparation of main station characteristics, such as the coverage radius, link distance, and station service time. We need to prepare these characteristics before proceeding to the optimal placement problem.  The paper proposes the problem in the form of an integer linear programming with the input of the above-calculated characteristics into the problem conditions with the end-to-end delay constraint. This restriction significantly impacts the mathematical model form of the problem.
 
 
-\section{Problem Statement}
+\section{Постановка задачи}
 
 Проблема формулируется следующим образом. Для контроля над заданным линейным участком необходимо разместить базовые приемопередающие станции (далее называемые станциями) таким образом, чтобы максимизировать покрытие с ограничениями на суммарнуб стоимость размещенных станций. Важно обеспечить связи любой станции со шлюзами на концах участка через систему размещенных станций.
 
@@ -27,87 +27,93 @@
 \section{Calculation of Link Distance and Coverage Radius of Stations}
 
 
-Let calculate characteristics of the station, such as link distance $R_{jq}$, coverage radius $r_j$, and service time rate $\mu_j$ before proceeding to integer programming.
+Перед тем как приступить к задаче ЦЛП необходимо рассчитать характеристики станции: радиус связи $R_{jq}$ и радиус покрытия $r_j$.
+
+При развертывания сети необходимо обеспечить максимальное покрытие данного участка связь между шлюзами через систему размещенных базовых станций беспроводной широкополосной сети.
+
+Для оценки производительности канала связи воспользуемся уравнением энергетического потенциала. Полное уравнение можно записать следующим образом:
 
 It is essential during deployment to provide maximum coverage of a given area and ensure communication between the placed base stations in the wireless broadband network. 
 
 Link Budget is a way of estimation of communication link's performance while accounting for the system's power, gains, and losses for both the transmitter and receiver. The complete equation can be written as follows:
 
-% \begin{equation}
-%   \label{eq:link_budget}
-%   P_{tr} - L_{tr} + G_{tr} - L_{fs} + G_{recv} - L_{recv} = SOM + P_{recv},
-% \end{equation}
-% where:
+\begin{equation}
+  \label{eq:part3_link_budget}
+  P_{tr} - L_{tr} + G_{tr} - L_{fs} + G_{recv} - L_{recv} = SOM + P_{recv},
+\end{equation}
+где:
 
-% \begin{itemize}
+\begin{itemize}
 
-%   \item $P_{tr}$ is a transmitter output power, [dBm];
+  \item $P_{tr}$ -- мощность передатчика, дБм;
 
-%   \item $L_{tr}$ is a ransmitter losses, [dB];
+  \item $L_{tr}$ -- потери сигнала на антенном кабеле и разъемах передающего тракта, дБ;
 
-%   \item $G_{tr}$ is a transmitter antenna gain, [dBi];
+  \item $G_{tr}$ -- усиление антенны передатчика, дБ;
 
-%   \item $L_{fs}$ is a free space path loss, [dB];
+  \item $L_{fs}$ -- потери в свободном пространстве, дБ;
 
-%   \item $G_{recv}$ is a receiver antenna gain,  [dBi];
+  \item $G_{recv}$ -- усиление антенны приемника, дБ;
 
-%   \item $L_{recv}$ is a receiver losses, [dB];
+  \item $L_{recv}$ -- потери сигнала на антенном кабеле и разъемах приемного тракта, дБ;
 
-%   \item $SOM$ is a system operating margin, [dB];
+  \item $SOM$ -- запас на замирание сигнала, дБ;
 
-%   \item $P_{recv}$ is a receiver sensitivity, [dBm].
+  \item $P_{recv}$ -- чувствительность приемника, дБм.
 
-% \end{itemize}
+\end{itemize}
 
-% The power received at the antenna is calculated by the Friis transmission equation:
+Мощность принимаемой антенны рассчитывается из уравнения передачи Фрииса:
 
-% \begin{displaymath}
-%   \label{eq:Friis}
-%   \frac{P_{recv}}{P_{tr}} = G_{tr}G_{recv}\left(\frac{c}{4\pi R f} \right)^2,
-% \end{displaymath}
-% where 
-% $c$ is a speed of light,
-% $f$ is a frequency, 
-% $R$ is a distance between transmit and receive antenna.
+\begin{displaymath}
+  \label{eq:part3_Friis}
+  \frac{P_{recv}}{P_{tr}} = G_{tr}G_{recv}\left(\frac{c}{4\pi R f} \right)^2,
+\end{displaymath}
+где
+$c$ --  скорость света,
+$f$ -- частота, 
+$R$ рассточние между приемной и передающей антенной.
 
-% The Free Space Path Loss ($ FSPL $) equation defines the propagation signal loss between two antennas through free space (air):
+The Free Space Path Loss ($ FSPL $) equation defines the propagation signal loss between two antennas through free space (air):
 
-% \begin{equation}
-%   \label{eq:FSPL}
-%   FSPL = \left(\frac{4\pi R f}{c} \right)^2.
-% \end{equation}
+Уравнение потерь в свободном пространстве ($ Free Space Path Loss, FSPL $) определяет потерю сигнала при распространении между двумя антеннами в свободном пространстве (в воздухе):
 
-% The formula (\ref{eq:FSPL}) expressed in decibels will be calculated as:
+\begin{equation}
+  \label{eq:part3_FSPL}
+  FSPL = \left(\frac{4\pi R f}{c} \right)^2.
+\end{equation}
 
-% \begin{equation}
-%   \label{eq:L_fs}
-%   L_{fs} = 20 \lg{F} + 20\lg{R} + K,
-%   \end{equation}
-% where $F$ is a radio wave centre frequency of a communication link, $R$ is a distance between transmit and receive antennas, and $K$ is a constant.
+Формула (\ref{eq:part3_FSPL}), выраженная в децибеллах будет выражаться как
 
-% Constant $K$ depends on frequency and distance:
+\begin{equation}
+  \label{eq:part3_L_fs}
+  L_{fs} = 20 \lg{F} + 20\lg{R} + K,
+  \end{equation}
+где $F$ -- центральная частота, на котором работает канал связи, $R$ -- рассточние между приемной и передающей антенной и $K$ -- константа.
 
-% \begin{itemize}
-%   \item for a frequency in GHz and a distance in km, constant $K$ is equal to 92.45;
-%   \item for a frequency in MHz and distance in km, constant $K$ is equal to 32.4;
-%   \item for a frequency in MHz and distance in m, constant $K$ is equal to -27.55.
-% \end{itemize} 
+Константа $K$ зависит от размерностей частоты и расстояния:
 
-% The loss $L_{fs}$ is expressed from the formula (\ref{eq:link_budget}) as follows:
+\begin{itemize}
+  \item для чистоты, выраженной в ГГц, и рассчтояния, выраженная в км, константа $K$ равна 92.45;
+  \item для чистоты, выраженной в МГц, и рассчтояния, выраженная в км, константа $K$ равна 32.4;
+  \item для чистоты, выраженной в МГц, и рассчтояния, выраженная в м, константа $K$ равна -27.55.
+\end{itemize} 
 
-% \begin{equation}
-%   \label{eq:L_fs_from_link_budget}
-%   L_{fs} = P_{tr} - L_{tr} + G_{tr} + G_{recv} - L_{recv} - SOM - P_{recv}.
-% \end{equation}
+Потерия $L_{fs}$ выразим из формулы (\ref{eq:part3_link_budget}) как:
 
-% Then the communication link equation is obtained from the formulas (\ref{eq:L_fs}) and (\ref{eq:L_fs_from_link_budget}):
+\begin{equation}
+  \label{eq:part3_L_fs_from_link_budget}
+  L_{fs} = P_{tr} - L_{tr} + G_{tr} + G_{recv} - L_{recv} - SOM - P_{recv}.
+\end{equation}
 
-% \begin{equation}
-%   \label{eq:D}
-%   R = 10^{\left(\frac{L_{fs} - 20\lg{F} - K}{20}\right)}.
-% \end{equation}
+Радиус связи получаем из уравнений (\ref{eq:part3_L_fs}) и (\ref{eq:part3_L_fs_from_link_budget}):
 
-% Using formulas \eqref{eq:D} and \eqref{eq:L_fs_from_link_budget}, we can calculate the theoretical maximal communication link distance $ R_{jq}$ between base stations and the coverage radius $ r_j $ assuming the absence of obstacles, reflections, influence of terrain contours, etc.  This is acceptable for our case of an open area.
+\begin{equation}
+  \label{eq:part3_D}
+  R = 10^{\left(\frac{L_{fs} - 20\lg{F} - K}{20}\right)}.
+\end{equation}
+
+Используя формулу \eqref{eq:part3_D} и \eqref{eq:part3_L_fs_from_link_budget}, we can calculate the theoretical maximal communication link distance $ R_{jq}$ between base stations and the coverage radius $ r_j $ assuming the absence of obstacles, reflections, influence of terrain contours, etc.  This is acceptable for our case of an open area.
 
 % \begin{figure}[h!]
 %   \centering
