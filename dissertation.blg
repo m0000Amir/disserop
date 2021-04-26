@@ -1,28 +1,21 @@
 [0] Config.pm:304> INFO - This is Biber 2.14 (beta)
 [0] Config.pm:307> INFO - Logfile is 'dissertation.blg'
-[47] biber:322> INFO - === Пн апр 26, 2021, 20:01:35
-[57] Biber.pm:415> INFO - Reading 'dissertation.bcf'
-[127] Biber.pm:943> INFO - Found 1 citekeys in bib section 0
-[137] Biber.pm:4256> INFO - Processing section 0
-[137] Utils.pm:75> INFO - Globbing data source 'biblio/external.bib'
-[137] Utils.pm:91> INFO - Globbed data source 'biblio/external.bib' to biblio/external.bib
-[137] Utils.pm:75> INFO - Globbing data source 'biblio/author.bib'
-[137] Utils.pm:91> INFO - Globbed data source 'biblio/author.bib' to biblio/author.bib
-[137] Utils.pm:75> INFO - Globbing data source 'biblio/registered.bib'
-[137] Utils.pm:91> INFO - Globbed data source 'biblio/registered.bib' to biblio/registered.bib
-[144] Biber.pm:4455> INFO - Looking for bibtex format file 'biblio/external.bib' for section 0
-[146] bibtex.pm:1653> INFO - LaTeX decoding ...
-[193] bibtex.pm:1471> INFO - Found BibTeX data source 'biblio/external.bib'
-[196] Biber.pm:4455> INFO - Looking for bibtex format file 'biblio/author.bib' for section 0
-[197] bibtex.pm:1653> INFO - LaTeX decoding ...
-[213] bibtex.pm:1471> INFO - Found BibTeX data source 'biblio/author.bib'
-[214] Biber.pm:4455> INFO - Looking for bibtex format file 'biblio/registered.bib' for section 0
-[214] Utils.pm:293> WARN - Data source 'biblio/registered.bib' is empty, ignoring
-[214] Utils.pm:293> WARN - I didn't find a database entry for 'VishnevskyBook' (section 0)
-[217] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[217] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'variable = shifted' with 'variable = non-ignorable'
-[217] Biber.pm:4084> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'ru-RU'
-[217] Biber.pm:4090> INFO - No sort tailoring available for locale 'ru-RU'
-[218] bbl.pm:652> INFO - Writing 'dissertation.bbl' with encoding 'UTF-8'
-[218] bbl.pm:755> INFO - Output to dissertation.bbl
-[218] Biber.pm:128> INFO - WARNINGS: 2
+[46] biber:322> INFO - === Пн апр 26, 2021, 20:04:46
+[59] Biber.pm:415> INFO - Reading 'dissertation.bcf'
+[130] Biber.pm:943> INFO - Found 1 citekeys in bib section 0
+[142] Biber.pm:4256> INFO - Processing section 0
+[143] Utils.pm:75> INFO - Globbing data source 'biblio/external.bib'
+[143] Utils.pm:91> INFO - Globbed data source 'biblio/external.bib' to biblio/external.bib
+[143] Utils.pm:75> INFO - Globbing data source 'biblio/author.bib'
+[143] Utils.pm:91> INFO - Globbed data source 'biblio/author.bib' to biblio/author.bib
+[143] Utils.pm:75> INFO - Globbing data source 'biblio/registered.bib'
+[143] Utils.pm:91> INFO - Globbed data source 'biblio/registered.bib' to biblio/registered.bib
+[149] Biber.pm:4455> INFO - Looking for bibtex format file 'biblio/external.bib' for section 0
+[152] bibtex.pm:1653> INFO - LaTeX decoding ...
+[201] bibtex.pm:1471> INFO - Found BibTeX data source 'biblio/external.bib'
+[219] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[220] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'variable = shifted' with 'variable = non-ignorable'
+[220] Biber.pm:4084> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'ru-RU'
+[220] Biber.pm:4090> INFO - No sort tailoring available for locale 'ru-RU'
+[220] bbl.pm:652> INFO - Writing 'dissertation.bbl' with encoding 'UTF-8'
+[221] bbl.pm:755> INFO - Output to dissertation.bbl
