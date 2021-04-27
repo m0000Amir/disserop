@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.4.6)  27 APR 2021 20:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.4.6)  27 APR 2021 21:54
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1969,6 +1969,14 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
+
+LaTeX Warning: Command \cyrd invalid in math mode on input line 405.
+
+
+LaTeX Warning: Command \CYRB invalid in math mode on input line 405.
+
+Missing character: There is no ä in font cmr12!
+Missing character: There is no Á in font cmr12!
 
 Overfull \hbox (10.55087pt too wide) detected at line 406
 \OML/cmm/m/it/14.4 L[] \OT1/cmr/m/n/14.4 = \OML/cmm/m/it/14.4 P[] \OT1/cmr/m/n/14.4 + \OML/cmm/m/it/14.4 G[] \OT1/cmr/m/n/14.4 + \OML/cmm/m/it/14.4 G[]\OT1/cmr/m/n/14.4 (1) \OMS/cmsy/m/n/14.4 ^^@ \OML/cmm/m/it/14.4 L[]\OT1/cmr/m/n/14.4 (1) \OMS/cmsy/m/n/14.4 ^^@ \OML/cmm/m/it/14.4 SOM \OMS/cmsy/m/n/14.4 ^^@ \OML/cmm/m/it/14.4 P[]\OT1/cmr/m/n/14.4 (1) = 15 + 2 + 5 \OMS/cmsy/m/n/14.4 ^^@ \OT1/cmr/m/n/14.4 1 \OMS/cmsy/m/n/14.4 ^^@ \OT1/cmr/m/n/14.4 (\OMS/cmsy/m/n/14.4 ^^@\OT1/cmr/m/n/14.4 67) \OMS/cmsy/m/n/14.4 ^^@ \OT1/cmr/m/n/14.4 10 = 78\OML/cmm/m/it/14.4 :
