@@ -24,7 +24,7 @@
 
  
 
-\section{Calculation of Link Distance and Coverage Radius of Stations}
+\section{Расчет дальности действия связи}
 
 
 Перед тем как приступить к задаче ЦЛП необходимо рассчитать характеристики станции: радиус связи $R_{jq}$ и радиус покрытия $r_j$.
@@ -76,14 +76,14 @@ $R$ рассточние между приемной и передающей а�
 
 The Free Space Path Loss ($ FSPL $) equation defines the propagation signal loss between two antennas through free space (air):
 
-Уравнение потерь в свободном пространстве ($ Free Space Path Loss, FSPL $) определяет потерю сигнала при распространении между двумя антеннами в свободном пространстве (в воздухе):
+Уравнение потерь в свободном пространстве (Free Space Path Loss, $FSPL $) определяет потерю сигнала при распространении между двумя антеннами в свободном пространстве (в воздухе):
 
 \begin{equation}
   \label{eq:part3_FSPL}
   FSPL = \left(\frac{4\pi R f}{c} \right)^2.
 \end{equation}
 
-Формула (\ref{eq:part3_FSPL}), выраженная в децибеллах будет выражаться как
+Формула (\cref{eq:part3_FSPL}), выраженная в децибеллах будет выражаться как
 
 \begin{equation}
   \label{eq:part3_L_fs}
@@ -99,444 +99,543 @@ The Free Space Path Loss ($ FSPL $) equation defines the propagation signal loss
   \item для чистоты, выраженной в МГц, и рассчтояния, выраженная в м, константа $K$ равна -27.55.
 \end{itemize} 
 
-Потерия $L_{fs}$ выразим из формулы (\ref{eq:part3_link_budget}) как:
+Потерия $L_{fs}$ выразим из формулы (\cref{eq:part3_link_budget}) как:
 
 \begin{equation}
   \label{eq:part3_L_fs_from_link_budget}
   L_{fs} = P_{tr} - L_{tr} + G_{tr} + G_{recv} - L_{recv} - SOM - P_{recv}.
 \end{equation}
 
-Радиус связи получаем из уравнений (\ref{eq:part3_L_fs}) и (\ref{eq:part3_L_fs_from_link_budget}):
+Радиус связи получаем из уравнений (\cref{eq:part3_L_fs}) и (\cref{eq:part3_L_fs_from_link_budget}):
 
 \begin{equation}
   \label{eq:part3_D}
   R = 10^{\left(\frac{L_{fs} - 20\lg{F} - K}{20}\right)}.
 \end{equation}
 
-Используя формулу \eqref{eq:part3_D} и \eqref{eq:part3_L_fs_from_link_budget}, we can calculate the theoretical maximal communication link distance $ R_{jq}$ between base stations and the coverage radius $ r_j $ assuming the absence of obstacles, reflections, influence of terrain contours, etc.  This is acceptable for our case of an open area.
+Используя формулу \cref{eq:part3_D} и \cref{eq:part3_L_fs_from_link_budget}, мы можем расчитать теоритическое максимальную дальность связи $ R_{jq}$ между базовыми станциями и радиусом покрытия $ r_j $ с предположением об отсутствии препятствий, отражений, влияния контуров местности и т. д. Это допущение приемлемо для нашего случая с открытой местностью.
 
-% \begin{figure}[h!]
-%   \centering
-%    \includegraphics[width=0.8\textwidth]{link_distance.pdf}
-% \caption{The link between stations.}
-% \label{fig:link_distance}
-% \end{figure}
+\begin{figure}[h!]
+  \centering
+   \includegraphics[width=0.8\textwidth]{link_distance.pdf}
+\caption{Соеденинение между станциями.}
+\label{fig:part3_link_distance}
+\end{figure}
 
-% To calculate communication link distancw $R_{jq}$ (Fig. \ref{fig:link_distance}), base stations $s_j$ and $s_q$ will be considered as a $transmitter$ and a $receiver$ stations, with directional antenna for which gains $G_{tr}^{R}$ and $G_{recv}^{R}$, respectively.
+Для расчета дальности связи $R_{jq}$ (Рис. \cref{fig:part3_link_distance}), базовые станции $s_j$ и $s_q$ будут рассматриваться как станции \textit{передатчик} и \textit{приемник}, соответственно. Будем считать, что станции обрудованы направленными антеннами с усилениями $G_{tr}^{R}$ и $G_{recv}^{R}$.
 
-% \begin{figure}[h!]
-%   \centering
-%    \includegraphics[width=0.8\textwidth]{coverage.pdf}
-% \caption{Base station coverage.}
-% \label{fig:coverage}
-% \end{figure}
+\begin{figure}[h!]
+  \centering
+   \includegraphics[width=0.8\textwidth]{coverage.pdf}
+\caption{Покрытие станции}
+\label{fig:part3_coverage}
+\end{figure}
 
-% Each base station is equipped with an omnidirectional antenna with given gain antenna $G_{tr}^{r}$. A station uses this antenna to cover a given area.
+Каждая базовая станция оснащена всенаправленной антенной с заданным усилением антенны $G_ {tr}^{r}$. Данная антенн необходимо для покрытия заданной области.
 
-% Calculating the coverage radius $r_j$ (Fig.  \ref{fig:coverage}) base station will be considered a $transmitter$ and a user device will be considered a $receiver$.
+Each base station is equipped with an omnidirectional antenna with given gain antenna $G_{tr}^{r}$. A station uses this antenna to cover a given area.
 
-% \section{Tandem Queue Model for End-to-End Delay Evaluation}
+При вычислении радиуса покрытия $r_j$ (Рис.  \cref{fig:part3_coverage}) базовая станция будем считать \textit{передатчиком} а пользовательское устройство \textit{приемником}.
 
-% Each station is characterized by its throughput. Given a throughput and an average packet size, we can calculate the service time rate as follow:
+\section{Модель ЦЛП}
 
-% \begin{displaymath}
-%   \label{eq:service_time}
-%   \mu_j = \frac{p_j}{w},
-% \end{displaymath}
-% where 
-% $p_j$ is a throughput [Mbit/s] of station $S_j$, and $w$ is an average packet size [Mbit].
+После оценки максимальных радиуса связи между станциями $R_{jq}$, максимального радиуса покрытия $r_j$, можно перейти, непосредственно, к задаче размещения станций в виде модели целочисленного линейного программирования.
 
-% This characteristic $\mu_j$ is required to calculate delay time $T_j$ at each station.
+Пусть $y_i^+$ и $y_i^-$ , $i= \overline{0,n+1}$ определяют охват покрытия (справа и слева, соответственно) станций, покрывающих точку $a_i$ Параметры $y_i^+$ и $y_i^-$ могут принимать только неотрицательные целые значения.
 
-% One of the main performance metric in wireless network design is its end-to-end delay  \cite{Bendel2018,Wu2017}.
+Величины  покрытия для шлюзов $y_0^+, y_0^-, y_{n+1}^+, y_{n+1}^-$ равны 0.
 
-% To calculate end-to-end delay, let us consider a wireless network as a tandem queuing model with cross-traffic and  $M/M/1$ nodes, with Poisson input flow and an exponential distribution of the service times.
 
-% \begin{figure}[h!]
-%   \centering
-%    \includegraphics[width=1\textwidth]{tandem.pdf}
-% \caption{Tandem queueing model $M/M/1 \rightarrow ... \rightarrow \cdot/M/1$.}
-% \label{fig:tandem}
-% \end{figure}
+Целевая функция будет представлена как:
+\begin{equation}
+  \label{eq:part3_objective_function}
+  f =  \sum\limits_{i=1}^n (y_i^- + y_i^+) \rightarrow max
+\end{equation}
 
-% The interval between arrivals is set by the random variable $ A\sim f_A(t), f_A(t) = \lambda e^{-\lambda t} $ and the service time in such a system is set directly using the random variable $B \sim f_B(t), f_B (t) = \mu e^{-\mu t}$.
+Также введем бинарные переменные $x_{ij}$. Тогда $x_{ij}=1$, если станция $s_j$, размещенная на точке $a_i$, и $x_{ij}=0$ в противном случае; $i= \overline{1, n}$; $j = \overline{1,m}$.
 
-% Taking into account that the input packets are represented by a Poisson flow and the service time at the station belongs to the exponential distribution, according to Burke's theorem \cite{Burke1956}, at the exit from the node we also have a Poisson flow.
+Введем двоичные переменные $ e_i $. Тогда $ e_i = 1 $, если какая-либо станция находится в точке $ a_i $, и $ e_i = 0$  в противном случае; $ i = \overline {1, n} $. Для точек размещения шлюзов $ a_0 $ и $a_{n + 1}$ переменные $ e_0 = 1 $ и $ e_{n + 1} =1 $, соответственно. 
 
-% To estimate end-to-end delays, we can use well-known formulas for $M/M/1$ sustems \cite{Heyman1976}. For station $s_j$, the utilization is $\rho_j = \frac{\lambda}{\mu_j}$. The average number of packets on such a system is
+% Let us introduce binary variables $e_i$. Then $e_i$  is equal to 1, if any station is placed at point $a_i$ and $e_i$ is equal to 0 otherwise; $i = \overline{1, n}$. For gateways placement points $e_0$  is equal to 1 and $e_{n+1}$  is equal to 1.
 
-% \begin{displaymath}
-%   \label{eq:N_1}
-%   \overline {N_j} = \frac{\rho_j}{1 - \rho_j} = \frac{\lambda}{\mu_j - \lambda}.
-% \end{displaymath}
+Сформулируем следующую систему ограничений задачи.
 
-% By Little's law \cite{Little1961} the average time delay at each station is
+По определению \cref{eq:part3_ei}:
 
+\begin{equation}
+  \label{eq:part3_ei}
+  e_i =  \sum\limits_{j=1}^m x_{ij}, \quad i = \overline{1,n}. 
+\end{equation}
 
-% \begin{displaymath}
-%   \label{eq:node_delay}
-%   \overline {T_j} = \frac{\overline N_j}{\lambda} = \frac{1}{\mu_j - \lambda}.
-% \end{displaymath}
-% Then end-to-end delay is
+Каждая станция должна быть размещена только в одной точке. \cref{eq:part3_xij}:
 
-% \begin{equation}
-%   \label{eq:e2e_delay}
-%   \overline T = \sum\limits_{j} \overline{T_j}, \quad \overline{T_j} = \frac{1}{\mu_j - \lambda}.
-% \end{equation}
+\begin{equation}
+  \label{eq:part3_xij}
+  \sum\limits_{j=1}^n x_{ij} \leq 1, \quad j = \overline{1,m}. 
+\end{equation}
 
-% \section{Integer Linear Programming Model}
+Значения покрытий не превышают радиус покрытия станции, размещенной в точке $ a_i $, и равны 0, если в точке $a_i$  нет станции \cref{eq:part3_yi_1, eq:part3_yi_2}:
 
-% After estimating maximum communication link distances between stations $R_ {jq}$, the maximum coverage radiuses $r_j$, and the delays at the network station $\overline {T_j}$, it is possible to move to the problem in the form of integer linear programming.
 
+\begin{equation}
+  \label{eq:part3_yi_1}
+  y_i^+ \leq \sum\limits_{j=1}^m x_{ij} \cdot r_j, \quad i = \overline{1,n};
+\end{equation}
 
-% Let $y_i^+$ and $y_i^-$ , $i= \overline{0,n+1}$ determine the size (the right and left, correspondingly) of stations covering at place $a_i$. The parameters $ y_i ^ + $ and $ y_i ^ - $ can take non-negative integer values only.
+\begin{equation}
+  \label{eq:part3_yi_2}
+  y_i^- \leq \sum\limits_{j=1}^m x_{ij} \cdot r_j, \quad i = \overline{1,n}. 
+\end{equation}
 
-% Values of variables for gateways coverages $ y_0 ^ +, y_0 ^ -, y_ {n + 1} ^ +, y_{n + 1} ^ - $ are equal to 0. 
+Общая область покрытия между любыми двумя точками $ a_i $ и $ a_k $, где расположены станции, не может превышать расстояние между этими точками \cref{eq:part3_yi_3, eq:part3_yi_4}.
 
-% Objective function will be presented as:
+\begin{equation}
+  \label{eq:part3_yi_3}
+  y_i^+ + y_k^- \leq \frac{l_k - l_i}{2} \cdot (e_i + e_k ) + (2 - e_i - e_k ) \cdot L, \quad i = \overline{1,n},  \quad k = \overline{i+1,n+1};
+\end{equation}
 
-% \begin{equation}
-%   \label{eq:objective_function}
-%   f =  \sum\limits_{i=1}^n (y_i^- + y_i^+) \rightarrow max
-% \end{equation}
+\begin{equation}
+  \label{eq:part3_yi_4}
+  y_i^- + y_k^+  \leq \frac{l_i-l_k}{2} \cdot (e_i + e_k) + (2 - e_i - e_k) \cdot L, \quad i = \overline{1,n}, \quad k = \overline{i-1,0},
+\end{equation}
+где $ l_k $ и $ l_i $ - координаты точек $ a_i $ и $ a_k $, соответственно. Это условие исключает влияние пересечений покрытий станций при вычислении общего значения покрытия между станциями.
 
-% Let's also introduce binary variables $x_{ij}$. Then $x_{ij}$ is equal to 1, if station $s_j$ is placed at point $a_i$ and $x_{ij}=0$ otherwise; $i= \overline{1, n}$; $j = \overline{1,m}$.
+Согласно условиям задачи, станция, расположенная в $ a_i $, должна быть связана хотя бы с одной станцией слева и одной станцией справа, включая станции на конечных точках $ a_0 $ и $a_{n + 1}$. 
 
+Введем бинарные переменные $z_{ijkq}, i = \overline{1,n}; j= \overline{1,m}; k=\overline{1,n},  k \neq i; q= \overline{1,m}, q \neq j$.
 
-% Let us introduce binary variables $e_i$. Then $e_i$  is equal to 1, if any station is placed at point $a_i$ and $e_i$ is equal to 0 otherwise; $i= \overline{1, n}$. For gateways placement points $e_0$  is equal to 1 and $e_{n+1}$  is equal to 1.
+Переменная $ z_ {ijkq} = 1$, если в точке $ a_i $ размещена станция $ s_j $ и данная станция связана со станцией $ s_q $, размещенная в точке $ a_k $; и $ z_ {ijkq} = 0 $в противном случае.
 
-% Let us formulate the following system of the problem constraints.
+Переменная $ z_{ij0(m + 1)} = 1$, если станция $ s_j $, размещенная в точке $ a_i $, связана со шлюзом $ s_{m + 1} $ в точке $ a_0 $; $ z_{ij0 (m + 1)} = 0 $ в противном случае.
+ 
+Переменная $ z_{ij(n + 1)(m + 1)} = 1 $, если здесь находится станция $ s_j $ в точке $ a_i $ и она связана со шлюзом $ s_{m + 1} $ в точке $ a_{n + 1} $; $ z_{ij0(m + 1)} = 0 $  в противном случае.
 
-% By definition \eqref{eq:ei}:
-% \begin{equation}
-%   \label{eq:ei}
-%   e_i =  \sum\limits_{j=1}^m x_{ij}, \quad i = \overline{1,n}. 
-% \end{equation}
+Станции должны быть размещены в обеих точках $ a_i $ и $ a_k $, \cref{eq:part3_z_ijkq_1, eq:part3_z_ijkq_2}:
 
-% Each station must be placed in only one point \eqref{ineq:xij}:
+\begin{equation}
+  \label{eq:part3_z_ijkq_1}
+  z_{ijkq} \leq e_i , \quad i = \overline{1, n}; \quad j = \overline{1, m}; \quad k = \overline{1,n}, k \neq i; \quad q = \overline{1,m}, q \neq j;
+\end{equation}
 
-% \begin{equation}
-%   \label{ineq:xij}
-%   \sum\limits_{j=1}^n x_{ij} \leq 1, \quad j = \overline{1,m}. 
-% \end{equation}
 
-% The values of coverages are no more than the coverage radius of the station placed at $a_i$, and equal to 0 if there is no station at $a_i$ \eqref{ineq:yi_1} -- \eqref{ineq:yi_2}:
+\begin{equation}
+  \label{eq:part3_z_ijkq_2}
+  z_{ijkq} \leq e_k , \quad k = \overline{1, n}; \quad j = \overline{1, m}; \quad i = \overline{1,n}, i \neq k; \quad q = \overline{1,m}, q \neq j.
+\end{equation}
 
-% \begin{equation}
-%   \label{ineq:yi_1}
-%   y_i^+ \leq \sum\limits_{j=1}^m x_{ij} r_j, \quad i = \overline{1,n};
-% \end{equation}
 
-% \begin{equation}
-%   \label{ineq:yi_2}
-%   y_i^- \leq \sum\limits_{j=1}^m x_{ij} r_j, \quad i = \overline{1,n}. 
-% \end{equation}
+Необходимо, чтобы станция $ s_j $ в точке $ a_i $ была связана с  любой станцией, расположенной в точке $ a_k $, справа от $ a_i $ ($ k> i $) или с правым шлюзом $ s_{m + 1} $ \cref{eq:part3_z_ijkq_3_1, eq:part3_z_ijkq_3_2}. 
 
-% The total coverage area between any two points $a_i$ and $a_k$, where the stations are located cannot exceed the distance between these points \eqref{ineq:yi_3} -- \eqref{ineq:yi_4}.
+\begin{equation}
+  \label{eq:part3_z_ijkq_3_1}
+  \sum\limits_{k=i+1}^{n} \sum\limits_{\substack{q = 1\\ q \neq j}}^m z_{ijkq} + z_{ij(n+1)(m+1)} = x_{ij} ,  \quad i = \overline{1, n}, \quad j = \overline{1, m}.
+\end{equation}
 
-% \begin{equation}
-%   \label{ineq:yi_3}
-%   y_i^+ + y_k^- \leq \frac{l_k - l_i}{2}(e_i + e_k ) + (2- e_i - e_k )L, \quad i = \overline{1,n},  \quad k = \overline{i+1,n+1};
-% \end{equation}
 
-% \begin{equation}
-%   \label{ineq:yi_4}
-%   y_i^- + y_k^+  \leq \frac{l_i-l_k}{2} (e_i + e_k) + (2 - e_i - e_k)L, \quad i = \overline{1,n}, \quad k = \overline{i-1,0},
-% \end{equation}
-% where $l_k$ and $l_i$ are the coordinates of the points $a_i$ and $a_k$, respectively. This condition excludes the effect from intersections of station coverages when calculating the total coverage value for the entire segment.
+Станция $ s_j $, размещенная в $ a_{n} $, справа связана толко со шлюзом $ s_{m + 1} $ на месте $ a_ {n+1}$ \cref{eq:part3_z_ijkq_3_2}. 
 
-% According to the conditions of the problem, the station located at $a_i$ must be connected with at least one station on the left and one station on the right, including stations at the end points $a_0$ and $a_{n+1}$.
+\begin{equation}
+  \label{eq:part3_z_ijkq_3_2}
+  z_{nj(n+1)(m+1)} = x_{nj} \quad j = \overline{1, m}.
+\end{equation}
 
-% We will introduce binary variables $z_{ijkq}, i = \overline{1,n}; j= \overline{1,m}; k=\overline{1,n},  k \neq i; q= \overline{1,m}, q \neq j$.
+Также станция должна быть связана с любой станцией, расположенной в точке $ a_k $ слева от точки $ a_i $ ($ k <i $) или с левым шлюзом $ s_{m + 1} $ \cref{eq:part3_z_ijkq_4_1, eq:part3_z_ijkq_4_2}.
 
-% The variable $ z_ {ijkq}$ is equal to 1, if there is a station $s_j$ at point $a_i$ and it is connected with a station $s_q$ placed at the point $a_k$; and $z_ {ijkq}$ is equal to 0 otherwise.
+\begin{equation}
+  \label{eq:part3_z_ijkq_4_1}
+  z_{1j0(m+1)}= x_{ij}, \quad j = \overline{1, m};
+\end{equation}
 
-% The variable $z_{ij0(m+1)}$ is equal to 1, if here is a station $s_j$ at point $a_i$ and it is connected with a gateway $s_{m+1}$ at the point $a_0$; $z_{ij0(m+1)}$ is equal to 0 otherwise.  
+Станция $s_j$, размещенная в точке $a_{1}$ слева может быть связана только со шлюзом $s_{m+1}$, расположенном в точке $a_0$ \cref{eq:part3_z_ijkq_4_1}.
 
-% The variable $z_{ij(n+1)(m+1)}$ is equal to 1, if here is a station $s_j$ at point $a_i$ and it is connected with a gateway $s_{m+1}$ at the point $a_{n+1}$; $z_{ij0(m+1)}$ is equal to 0 otherwise.
+\begin{equation}
+  \label{eq:part3_z_ijkq_4_2}
+  z_{ij0(m+1)} + \sum\limits_{k=1}^{i-1} \sum\limits_{\substack{q = 1\\ q \neq j}} z_{ijkq}= x_{ij}, \quad i = \overline{2, n}, \quad j = \overline{1, m}.
+\end{equation}
 
-% Stations must be at both points $a_i$ and $a_k$ so that they can be connected \eqref{ineq:z_ijkq_1} -- \eqref{ineq:z_ijkq_2}:
+Необходимо, чтобы станция $ s_q $ в точке $ a_k $ была связана с любой станцией справа, расположенной в точке $ a_i $ \cref{eq:part3_z_ijkq_5}.
 
-% \begin{equation}
-%   \label{ineq:z_ijkq_1}
-%   z_{ijkq} \leq e_i , \quad i = \overline{1, n}; \quad j = \overline{1, m}; \quad k = \overline{1,n}, k \neq i; \quad q = \overline{1,m}, q \neq j;
-% \end{equation}
+\begin{equation}
+  \label{eq:part3_z_ijkq_5}
+  \sum\limits_{i=k+1}^{n} \sum\limits_{\substack{j=1 \\ j \neq q}}^m z_{ijkq} = x_{kq} , \quad k = \overline{1, n-1}, \quad q = \overline{1, m};
+\end{equation}
 
+Кроме того, станция $ s_q $ в точке $ a_k $ подключена к любой станции слева, расположенной в точке $ a_i $ \cref {eq:part3_z_ijkq_6}. 
 
-% \begin{equation}
-%   \label{ineq:z_ijkq_2}
-%   z_{ijkq} \leq e_k , \quad k = \overline{1, n}; \quad j = \overline{1, m}; \quad i = \overline{1,n}, i \neq k; \quad q = \overline{1,m}, q \neq j.
-% \end{equation}
+\begin{equation}
+  \label{eq:part3_z_ijkq_6}
+  \sum\limits_{i=1}^{k} \sum\limits_{\substack{j=1 \\ j \neq q}}^m z_{ijkq} = x_{kq} , \quad k = \overline{2, n}, \quad q = \overline{1, m};
+\end{equation}
 
-% It is necessary that station $s_j$ at point $a_i$ is connected to any one station located at point $a_k$, to the right of $a_i$ ($k>i$) or to the right gateway $s_{m+1}$ \eqref{ineq:z_ijkq_3_1} -- \eqref{ineq:z_ijkq_3_2}.
+Неравенства \cref{eq:part3_z_ijkq_1, eq:part3_z_ijkq_2} и равенства \cref{eq:part3_z_ijkq_3_1, eq:part3_z_ijkq_3_2, eq:part3_z_ijkq_4_1, eq:part3_z_ijkq_4_2, eq:part3_z_ijkq_5, eq:part3_z_ijkq_6} обеспечивают условие симметрии связи между базовыми станциями, расположенными в точках $ a_i $ и $ a_k $, $\forall i, k $.
 
-% \begin{equation}
-%   \label{ineq:z_ijkq_3_1}
-%   \sum\limits_{k=i+1}^{n} \sum\limits_{\substack{q = 1\\ q \neq j}}^m z_{ijkq} + z_{ij(n+1)(m+1)} = x_{ij} ,  \quad i = \overline{1, n}, \quad j = \overline{1, m}.
-% \end{equation}
-% Station $s_j$ placed at $a_{n}$ has only gateway $s_{m+1}$ from the right at place $a_{n+1}$ \eqref{ineq:z_ijkq_3_2}.
 
-% \begin{equation}
-%   \label{ineq:z_ijkq_3_2}
-%   z_{nj(n+1)(m+1)} = x_{nj} \quad j = \overline{1, m}.
-% \end{equation}
+Если станции $ s_j $ и $ s_q $ связаны, то максимальноый радиус связи размещенных станций должен быть не меньше расстояния между точками $ a_i $ и $ a_k $, где расположены станции $ s_i $ и $ s_q $. Формально это можно записать как \cref{eq:part3_z_ijkq_7, eq:part3_z_ijkq_8}.
 
-% Also, at least, it is connected with any one station located at point  $a_k$ to the left of point $a_i$ ($k<i$) or with the left gateway $s_{m+1}$ \eqref{ineq:z_ijkq_4_1} -- \eqref{ineq:z_ijkq_4_2}.
+ $\forall i= \overline{1,n}$:
+\begin{equation}
+  \label{eq:part3_z_ijkq_7}
+  z_{ijkq}(R_{jq}-(a_i-a_k ))\geq 0, \quad k=\overline{0,i-1}; \quad j=\overline{1,m}; \quad q= \overline{1,m}, q \neq j; 
+\end{equation}
 
-% \begin{equation}
-%   \label{ineq:z_ijkq_4_1}
-%   z_{1j0(m+1)}= x_{ij}, \quad j = \overline{1, m};
-% \end{equation}
-% Station $s_j$ placed at $a_{1}$ has only gateway $s_{m+1}$ from the left at place $a_0$ \eqref{ineq:z_ijkq_4_1}.
+\begin{equation}
+  \label{eq:part3_z_ijkq_8}
+  z_{ijkq} (R_{jq}-(a_k-a_i )) \geq 0, \quad k=\overline{i+1,n+1}; \quad j=\overline{1,m}; \quad q= \overline{1,m}, q \neq j.
+\end{equation}
 
-% \begin{equation}
-%   \label{ineq:z_ijkq_4_2}
-%   z_{ij0(m+1)} + \sum\limits_{k=1}^{i-1} \sum\limits_{\substack{q = 1\\ q \neq j}} z_{ijkq}= x_{ij}, \quad i = \overline{2, n}, \quad j = \overline{1, m}.
-% \end{equation}
+И для бюджетного ограничения стоимости $C$:
 
-% It is necessary that station $s_q$ at point $a_k$ is connected to any one station to the right located  at point $a_i$ \eqref{ineq:z_ijkq_5}.
+\begin{equation}
+  \label{eq:part3_cost}
+  \sum\limits_{i=1}^n \sum\limits_{j=1}^m x_{ij} \cdot c_j \leq C.
+\end{equation}
 
-% \begin{equation}
-%   \label{ineq:z_ijkq_5}
-%   \sum\limits_{i=k+1}^{n} \sum\limits_{\substack{j=1 \\ j \neq q}}^m z_{ijkq} = x_{kq} , \quad k = \overline{1, n-1}, \quad q = \overline{1, m};
-% \end{equation}
-% Also, station $s_q$ at point $a_k$ is connected to any one station to the left located at point $a_i$ \eqref{ineq:z_ijkq_6}.
 
-% \begin{equation}
-%   \label{ineq:z_ijkq_6}
-%   \sum\limits_{i=1}^{k} \sum\limits_{\substack{j=1 \\ j \neq q}}^m z_{ijkq} = x_{kq} , \quad k = \overline{2, n}, \quad q = \overline{1, m};
-% \end{equation}
+\section{Численный пример}
+В этой секции представлен численный пример решения данной задачи.
+% This section shows one simple case of the problem.
 
-% Inequalities \eqref{ineq:z_ijkq_1} - \eqref{ineq:z_ijkq_2} and equalities \eqref{ineq:z_ijkq_3_1} - \eqref{ineq:z_ijkq_6} provide a condition for symmetry of communication between base stations located at points $a_i$ and $a_k$ for all $i$, $k$.
+Задан линейный участок $L$ с длиной 300 с количеством $n=7$ точек размещения. Координаты точек размещения представлены в таблице \cref{tab:part3_placed_point}.  Задан бюджет размещения $C=130$. Центарльная частота $f = 2437$ МГц. 
 
-% If station $s_j$ and $s_q$ are connected the the maximal communication link distance of these placed stations must be no less than the distance between $a_i$ and $a_k$, where $s_i$ and $s_q$ are located. Formally, this can be stated as \eqref{ineq:z_ijkq_7} -- \eqref{ineq:z_ijkq_8}.
+\begin{table}[h!]\centering
+  \begin{tabular}{|c||c|c|c|c|c|c|c|}\hline
+    $a_i$ & $a_1$ &  $a_2$ & $a_3$ & $a_4$ & $a_5$ & $a_6$ & $a_7$ \\ \hline \hline
+    Координата & 29 & 40 & 95 & 139 & 181 & 230 & 273 \\ \hline
+\end{tabular}\caption{Точки размещения участка с длиной $L = 300$.}\label{tab:part3_placed_point}
+\end{table}
 
-% For $i= \overline{1,n}$:
-% \begin{equation}
-%   \label{ineq:z_ijkq_7}
-%   z_{ijkq}(R_{jq}-(a_i-a_k ))\geq 0, \quad k=\overline{0,i-1}; \quad j=\overline{1,m}; \quad q= \overline{1,m}, q \neq j; 
-% \end{equation}
+Задано множества базовых станций $m = 8$ с параметрами представленными в таблице \cref{tab:part3_BS}. Также в таблице представлены параметры шлюзов и контролируемых объектов. Параметры объектов необходимы для расчета радиусов покрытия станций.
 
-% \begin{equation}
-%   \label{ineq:z_ijkq_8}
-%   z_{ijkq} (R_{jq}-(a_k-a_i )) \geq 0, \quad k=\overline{i+1,n+1}; \quad j=\overline{1,m}; \quad q= \overline{1,m}, q \neq j.
-% \end{equation}
+\begin{table}[b]\centering
+  \begin{tabular}{|c||c|c|c|c|c|c|c|}\hline
+    BS & $P_{tr}^R$ &  $G_{tr}^R$ & $P_{recv}^R$ & $P_{recv}^r$ & $G_{recv}^r$ & $c$ \\ \cline{2-1} \cline{3-1} \cline{4-1} \cline{5-1}  \cline{6-1} \cline{7-1}
+     & dBm & dBi & dBm & dBm & dBi & c.u.  \\ \hline
+    1 & 20 & 5 & -69 & -67 & 5 & 40 \\ 
 
-% Let $T$ be network end-to-end delay time limit. Using formula \eqref{eq:e2e_delay} to calculate the delay at each station, we write the inequality as:
+    2 & 19 & 5 & -67 & -67 & 5 & 28 \\ 
 
-% \begin{equation}
-%   \label{ineq:end2end_delay}
-%   \sum\limits_{i=1}^n \sum\limits_{j=1}^m x_{ij} \cdot \overline {T_j} \leq T.
-% \end{equation}
+    3 & 18 & 5 & -69 & -67 & 5 & 45 \\ 
 
-% And for cost limit $C$ we have:
+    4 & 19 & 5 & -69 & -67 & 6 & 22 \\ 
 
-% \begin{equation}
-%   \label{ineq:cost}
-%   \sum\limits_{i=1}^n \sum\limits_{j=1}^m x_{ij} \cdot c_j \leq C.
-% \end{equation}
+    5 & 19 & 5 & -67 & -67 & 5 & 21 \\ 
 
-% \section{Example}
+    6 & 20 & 5 & -69 & -67 & 5 & 40 \\ 
 
-% Let's look at one simple case of base stations placement problem.
+    7 & 19 & 5 & -67 & -67 & 5 & 28 \\
 
-% Consider the section of length $L = 400$ with $n = 10$ placement points is given in table \ref{tab:placed_point}:
+    8 & 18 & 5 & -69 & -67 & 5 & 45 \\ \hline \hline  
 
-% \begin{table}[h!]\begin{center}
-%   \begin{tabular}{|c||c|c|c|c|c|c|c|c|c|c|}\hline
-%     $a_i$ & $a_1$ &  $a_2$ & $a_3$ & $a_4$ & $a_5$ & $a_6$ & $a_7$ & $a_8$ & $a_9$ & $a_{10}$ \\ \hline \hline
-%     coordination & 32 & 65 & 101 & 142 & 181 & 241 & 270 & 301 & 325 & 380 \\ \hline
-% \end{tabular}\caption{Placement points at the section of length $L = 400$.}\label{tab:placed_point}
-% \end{center}\end{table}
+    &  $G_{recv}^R$ & $P_{recv}^R$ &  & & $P_{tr}^r$ & $G_{tr}^r$ \\  \cline{2-1} \cline{3-1} \cline{6-1} \cline{7-1} 
 
-% There are $m = 7$ base stations with parameters given in table \ref{tab:BS}:
+    Шлюз& dBi & dBm & & Объект & dBm & dBi  \\  \cline{2-1} \cline{3-1}  \cline{6-1} \cline{7-1}
 
-% \begin{itemize}
-%   \item $P_{tr}^R$ is a transmit power for communication with base stations;
-%   \item $G_{tr}^R$ is an antenna gain for communication with base stations;
-%   \item $P_{recv}^R$ is a sensitivity for communication with base stations;
-%   \item $P_{tr}^r$ is a transmit power for the coverage of section;
-%   \item $G_{tr}^r$ is an antenna gain for the coverage of section;
-%   \item $p$ is a throughput;
-%   \item $c$ is a base station cost.
-% \end{itemize}
+    &  5 & -69 & &  & 15 & 2  \\ \hline
 
-% \begin{table}[h!]\begin{center}
-%   \begin{tabular}{|c||c|c|c|c|c|c|c|}\hline
-%     BS & $P_{tr}^R$ &  $G_{tr}^R$ & $P_{recv}^R$ & $P_{tr}^r$ & $G_{tr}^r$ & $p$ & $c$ \\ \hline 
-%     No & [dBm] & [dBi] & [dBm] & [dBm] & [dBi] & Mbit/s & c.u.  \\ \hline
-%     1 & 19 & 5 & -69 & 20 & 2 & 54 & 2300 \\ 
+  \end{tabular}\caption{Параметры базовых станций, шлюзов и объектов.}\label{tab:part3_BS} 
+\end{table}
 
-%     2 & 19 & 4 & -80 & 19 & 3 & 54 & 1200 \\ 
+\subsection{Расчет радиса связи между станциями}
+Базовые станции оснащены направленной антенной с высоким коэффициентом усиления для связи с соседними станциями.
+Для расчета потерь между станциями $j$ и $q$ воспользуемся формулой (\ref{eq:part3_L_fs_from_link_budget}):
 
-%     3 & 19 & 6 & -69 & 18 & 2 & 54 & 4500 \\ 
+\begin{displaymath}
+  L_{fs}^{jq} = P_{tr}^R(j) - L_{tr} + G_{tr}^R(j) + G_{tr}^R(q) - L_{recv} - SOM - P_{recv}^R(q).
+\end{displaymath}
 
-%     4 & 19 & 5 & -83 & 18 & 3 & 54 & 6000 \\ 
 
-%     5 & 20 & 5 & -85 & 20 & 2 & 54 & 3500 \\ 
+Потери на кабелях приемникп $ L_{recv} $ и передатчике $ L_{tr} $ примем равным 1 дБ и запас на замирания сигнала $ SOM = 10 $ дБ.
 
-%     6 & 22 & 5 & -69 & 18 & 2 & 54 & 4200 \\ 
+Let us carry out an example of the calculation communication link between stations $ s_1 $ and $ s_2 $:
+Для примера расчетаем радиус связи между станциями $ s_1 $ и $ s_2 $:
 
-%     7 & 19 & 5 & -69 & 18 & 2 & 54 & 4200 \\ \hline
+\begin{align}
+  \begin{aligned}
+  L_{fs}^{12} = P_{tr}^R(1) - L_{tr} + G_{tr}^R(1) + G_{tr}^R(2) - L_{recv} - SOM - P_{recv}^R(2)= \\
+  = 20 - 1 + 5 + 5 - 1 - 10 - (-69) = 87 (dB).
+  \end{aligned}
+\end{align}
 
-% \end{tabular}\caption{Base station parameters.}\label{tab:BS}
-% \end{center}\end{table}
+Для расчета канала связи необходимо использовать формулу \cref{eq:part3_D}. Несущая частота $ f = 2437 $ МГц и коэффициент для расчета потерь $ K = -27,55 $:
 
-% Finally, gateway stations of special type $s_{m + 1}$ placed on the ends of the segment are specified. Gateway parameters is given in table \ref{tab:Gateway}:
+\begin{align}
+  \begin{aligned}
+  R_{jq} = 10^{\left(\frac{L_{fs}^{jq} - 20\lg{F} - K}{20}\right)}
+  = 10^{\left(\frac{87 - 20\lg{2437} - (-27.55)}{20}\right)} = 174 (m).
+  \end{aligned}
+\end{align}
 
-% \begin{table}[h!]\begin{center}
-%   \begin{tabular}{|c||c|c|}\hline
-%     Gateway & $G_{tr}^R$ & $P_{recv}^R$  \\ \hline 
-%      No & [dBi] & [dBm]  \\ \hline
-%     $s_{m+1}$ & 3 & -69 \\ \hline
+В таблице \cref{tab:part3_Rjq} приведены расчеты максимальных радиусов связи между всеми станциями $ s_j $, $ j = 1, ..., m $ и шлюзом $ s_ {m + 1} $.
 
-% \end{tabular}\caption{Gateway parameters.}
-% \label{tab:Gateway}
-% \end{center}\end{table}
+\begin{table}[h!]\centering
+  \begin{tabular}{|c||c|c|c|c|c|c|c|c|c|}\hline
+      $R_{jq}, (m)$ & $s_1$ & $s_2$ & $s_3$ & $s_4$ & $s_5$ & $s_6$ & $s_7$ & $s_8$ & $s_{m+1}$ \\ \hline \hline
 
-% \subsection{Computation of the communication link distance between base stations}
+      $s_1$ &--& 174& 219& 219& 174& 219& 174& 219& 219\\ 
+      $s_2$ &195& --& 195& 195& 155& 195& 155& 195& 195\\ 
+      $s_3$ &174& 138& --& 174& 138& 174& 138& 174& 174\\ 
+      $s_4$ &195& 155& 195& --& 155& 195& 155& 195& 195\\ 
+      $s_5$ &195& 155& 195& 195& --& 195& 155& 195& 195\\ 
+      $s_6$ &219& 174& 219& 219& 174& --& 174& 219& 219\\
+      $s_7$ &195& 155& 195& 195& 155& 195& --& 195& 195\\ 
+      $s_8$ &174& 138& 174& 174& 138& 174& 138& --& 174\\ 
+      \hline
 
-% Base station is equipped with a directional antenna with a high gain to communicate with neighbouring stations.
-% To calculate the losses between stations $j$ and $q$, we use the formula (\ref{eq:L_fs_from_link_budget}):
+\end{tabular}\caption{Рассчитанные радиусы связи между станциями}\label{tab:part3_Rjq}
+\end{table}
 
-% \begin{displaymath}
-%   L_{fs}^{jq} = P_{tr}^R(j) - L_{tr} + G_{tr}^R(j) + G_{tr}^R(q) - L_{recv} - SOM - P_{recv}^R(q).
-% \end{displaymath}
+\subsection{Расчет радиуса покрытия}
 
-% The cable losses at the receiver $L_{recv}$ and transmitter $L_{tr}$ are equal to 1 dB. We will also provide system operating margin $ SOM = 10 $ dB.
-
-% Let us carry out an example of the calculation communication link between stations $ s_1 $ and $ s_2 $:
-
-% \begin{align}
-%   \begin{aligned}
-%   L_{fs}^{12} = P_{tr}^R(1) - L_{tr} + G_{tr}^R(1) + G_{tr}^R(2) - L_{recv} - SOM - P_{recv}^R(2)= \\
-%   = 19 - 1 + 5 + 4 - 1 - 10 - (-80) = 96 (dB).
-%   \end{aligned}
-% \end{align}
-
-% To calculate the communication link, formula ( \ref{eq:D} ) must be used. The stations operate on 6th channel, carrier frequency $f = 2437$ MHz and coefficient $K = -27.55$:
-
-% \begin{align}
-%   \begin{aligned}
-%   R_{jq} = 10^{\left(\frac{L_{fs}^{jq} - 20\lg{F} - K}{20}\right)}
-%   = 10^{\left(\frac{96 - 20\lg{2437} - (-27.55)}{20}\right)} = 617 (m).
-%   \end{aligned}
-% \end{align}
-
-% Table \ref{tab:Rjq} summarizes the maximal communication link distances calculations between all stations $ s_j $, $ j = 1, ..., m $, and the gateway $ s_ {m + 1} $.
-
-% \begin{table}[h!]\begin{center}
-%   \begin{tabular}{|c||c|c|c|c|c|c|c|c|}\hline
-%       $R_{jq}, (m)$ & $s_1$ & $s_2$ & $s_3$ & $s_4$ & $s_5$ & $s_6$ & $s_7$ & $s_{m+1}$ \\ \hline \hline
-
-%       $s_1$ & -- & 617 & 219 & 978 & 1 232 & 195 & 195 & 123 \\ 
-
-%       $s_2$ & 174 & -- & 195 & 872 & 1 098 & 174 & 174 & 109 \\
-
-%       $s_3$ & 219 & 692 & -- & 1098 & 1 382 & 219 & 219 & 138 \\
-
-%       $s_4$ & 195 & 617 & 219 & -- & 1 232 & 195 & 195 & 123 \\
-
-%       $s_5$ & 219 & 692 & 245 & 1 098  &  -- & 219 & 219 & 138 \\
-
-%       $s_6$ & 275 & 872 & 309 & 1 382 &  1 740 & -- & 275 & 174 \\
-
-%       $s_7$ & 195 & 617 & 219 & 978 & 1 232 & 195 & -- & 123 \\ \hline
-
-% \end{tabular}\caption{The calculation of communication link distance between stations.}\label{tab:Rjq}
-% \end{center}\end{table}
-
-
-% \subsection{Computation of the coverage radius}
+% Для покрытия заданного участка базовая станция оснащена всенаправленной антенной с выходной мощностью $ P_{tr}^r $ и усилением $ G_{tr}^r$. Потери в кабеле $ L_ {tr} $ равно 1.
 
 % To cover a given section, the base station is equipped with an isotropic antenna with output power $ P_ {tr} ^ r $ and gain $ G_ {tr} ^ r $ is equal to 0. The cable loss $ L_ {tr} $ is equal to 1.
 
 % A coverage area depends on a base station, as well as user device characteristics. Let us consider a user device with an antenna sensitivity $P_{RX} = -67$ dBm and gain $G_{RX} = 0$. Loss $L_{RX}$ is equal to 0.
+Расчет проводится аналогично расчета радиусу связи между станциями. 
+Потери в свободном простанстве для канала между $j$-ой станции и контролируемым объектом
 
-% Free space path loss between the $j$-th station and the user device
+\begin{displaymath}
+  L_{fs}^{j} = P_{tr}^r(j) - L_{tr}  - SOM - P_{RX}. 
+\end{displaymath}
 
-% \begin{displaymath}
-%   L_{fs}^{j} = P_{tr}^r(j) - L_{tr}  - SOM - P_{RX}. 
-% \end{displaymath}
 
-% To calculate the coverage radius, must be used the formula (\ref{eq:D}). The stations operate on 6th channel, carrier frequency $f = 2437$ MHz. and coefficient $K = -27.55$
+Пример расчечта радиуса покрытия для  $1$-ой станции:
 
-% \begin{displaymath}
-%   r_{j} = 10^{\left(\frac{L_{fs}^{j} - 20\lg{F} - K}{20}\right)}.
-% \end{displaymath}
+\begin{displaymath}
+  L_{fs}^{1} = P_{tr}^r + G_{tr}^r + G_{recv}^r(1) - L_{recv}(1)  - SOM - P_{recv}^r(1) = 15+2+5-1-(-67)-10 = 78 .
+\end{displaymath}
 
-% An example of calculating the coverage radius for the $1$-st station:
+\begin{displaymath}
+  r_{1} = 10^{\left(\frac{78 - 20\lg{2437} - (-27.55)}{20}\right)} = 77 (m)
+\end{displaymath}
 
-% \begin{displaymath}
-%   r_{1} = 10^{\left(\frac{20 - 1 + 2 - 10 -(-67) - 20\lg{2437} - (-27.55)}{20}\right)} = 77 (m)
-% \end{displaymath}
 
-% Let's calculate the coverage radius for all stations $s_j $, $ j = 1, ..., m$ (table \ref{tab:rj}).
+Рассчитанные радиусы покрытия для всех станций $ s_j $, $ j = \overline{1, m} $ представлены в таблице \cref{tab:part3_rj}).
 
-% \begin{table}[h!]\begin{center}
-%   \begin{tabular}{|c||c|c|c|c|c|c|c|}\hline
-%       STA & $s_1$ & $s_2$ & $s_3$ & $s_4$ & $s_5$ & $s_6$ & $s_7$ \\ \hline \hline
+\begin{table}[h!]\begin{center}
+  \begin{tabular}{|c||c|c|c|c|c|c|c|c|}\hline
+      STA & $s_1$ & $s_2$ & $s_3$ & $s_4$ & $s_5$ & $s_6$ & $s_7$ & $s_8$\\ \hline \hline
 
-%       $r_{j}$ & 77 & 77 & 61 & 69 & 77 & 61 & 61 \\ \hline
+      $r_{j}$ & 77 & 77 & 77 & 87 & 77 & 77 & 77 & 77\\ \hline
 
-% \end{tabular}\caption{Calculation of the coverage radius of stations.}\label{tab:rj}
-% \end{center}\end{table}
+\end{tabular}\caption{Рассчитанные радиусы покрытия станций}\label{tab:part3_rj}
+\end{center}\end{table}
 
-% \subsection{Time delay calculation}
+Задача ЦЛП решена с помощью Optimization Toolbox MatLab. Таблица \cref{tab:part3_ilp_solution} содержит все возможные целочисленные решения.
 
-% Let's calculate the delay for station $s_1$. The specified throughput is $p_1 = 54$ Mbit/s. Let's assume that the average package size is $w = 2700$ KByte (21.6 MBit). The arrival package rate is $\lambda = 0.5(s^{- 1})$. Then the service rate according to the formula (\ref{eq:service_time}) will be
+\begin{table}[h!]\centering
+  \begin{tabular}{|c||c|c|c|c|c|c|c||c|c|}\hline
+    $a_i$ & $a_1$ &  $a_2$ & $a_3$ & $a_4$ & $a_5$ & $a_6$ & $a_7$  & Coverage & Cost \\ \hline 
+    Point & 29 & 40 & 95 & 139 & 181 & 230 & 273 & m & c.u.\\ \hline \hline
+    Feasible solution 1 & $s_1$ & $s_2$ & $s_6$ & -- & -- & -- & $s_4$ & 286 & 130\\ 
+    Feasible solution 2 & $s_4$ & -- & $s_5$ & $s_7$ & -- & -- & $s_2$ & 289 & 99\\
+    Optimal solution & $s_4$ & $s_2$ & -- & -- & $s_1$ & -- & $s_5$ & 300 & 111 \\ \hline
+\end{tabular}\caption{ILP solution.}\label{tab:part3_ilp_solution}
+\end{table}
 
-% \begin{displaymath}
-%   \label{eq:service_time_evaluation}
-%   \mu_1 = \frac{54}{21.6} = 2.5 (s^{-1}).
-% \end{displaymath}
 
-% The utilization is equal to
 
-% \begin{displaymath}
-%   \label{eq:rho_evaluation}
-%   \rho_1 = \frac{0.5}{2.5} = 0.2.
-% \end{displaymath}
+\section{Example}
 
-% The average package size is
+Let's look at one simple case of base stations placement problem.
 
-% \begin{displaymath}
-%   \label{eq:N_evaluation}
-%   \overline N_1 = \frac{0.2}{1 - 0.2} = 0.25.
-% \end{displaymath}
+Consider the section of length $L = 400$ with $n = 10$ placement points is given in table \ref{tab:placed_point}:
 
-% The average delay is
+\begin{table}[h!]\begin{center}
+  \begin{tabular}{|c||c|c|c|c|c|c|c|c|c|c|}\hline
+    $a_i$ & $a_1$ &  $a_2$ & $a_3$ & $a_4$ & $a_5$ & $a_6$ & $a_7$ & $a_8$ & $a_9$ & $a_{10}$ \\ \hline \hline
+    coordination & 32 & 65 & 101 & 142 & 181 & 241 & 270 & 301 & 325 & 380 \\ \hline
+\end{tabular}\caption{Placement points at the section of length $L = 400$.}\label{tab:placed_point}
+\end{center}\end{table}
 
-% \begin{displaymath}
-%   \label{eq:node_delay_evaluation}
-%   \overline {T_1} = \frac{0.25}{0.5} = 0.5 (s).
-% \end{displaymath}
+There are $m = 7$ base stations with parameters given in table \ref{tab:BS}:
 
-% Communication links between stations $R_{jq}$, the coverage radius of the station is $r_j$, the delays $\overline{T_j}$ are calculated, it is possible to search the optimal placement.
+\begin{itemize}
+  \item $P_{tr}^R$ is a transmit power for communication with base stations;
+  \item $G_{tr}^R$ is an antenna gain for communication with base stations;
+  \item $P_{recv}^R$ is a sensitivity for communication with base stations;
+  \item $P_{tr}^r$ is a transmit power for the coverage of section;
+  \item $G_{tr}^r$ is an antenna gain for the coverage of section;
+  \item $p$ is a throughput;
+  \item $c$ is a base station cost.
+\end{itemize}
 
-% The problem formulated on the basis of (\ref{eq:objective_function}) - (\ref{ineq:cost}) and given constraints on the cost $C = 18000$ and end-to-end delay $T = 3$ was solved by MATLAB Optimization Toolbox.
+\begin{table}[h!]\begin{center}
+  \begin{tabular}{|c||c|c|c|c|c|c|c|}\hline
+    BS & $P_{tr}^R$ &  $G_{tr}^R$ & $P_{recv}^R$ & $P_{tr}^r$ & $G_{tr}^r$ & $p$ & $c$ \\ \hline 
+    No & [dBm] & [dBi] & [dBm] & [dBm] & [dBi] & Mbit/s & c.u.  \\ \hline
+    1 & 19 & 5 & -69 & 20 & 2 & 54 & 2300 \\ 
 
-% The optimal placement is presented in the table \ref{tab:solution}.
+    2 & 19 & 4 & -80 & 19 & 3 & 54 & 1200 \\ 
 
-% \begin{table}[h!]\begin{center}
-%   \begin{tabular}{|c||c|c|c|c|c|c|c|c|c|c|} \hline
+    3 & 19 & 6 & -69 & 18 & 2 & 54 & 4500 \\ 
+
+    4 & 19 & 5 & -83 & 18 & 3 & 54 & 6000 \\ 
+
+    5 & 20 & 5 & -85 & 20 & 2 & 54 & 3500 \\ 
+
+    6 & 22 & 5 & -69 & 18 & 2 & 54 & 4200 \\ 
+
+    7 & 19 & 5 & -69 & 18 & 2 & 54 & 4200 \\ \hline
+
+\end{tabular}\caption{Base station parameters.}\label{tab:BS}
+\end{center}\end{table}
+
+Finally, gateway stations of special type $s_{m + 1}$ placed on the ends of the segment are specified. Gateway parameters is given in table \ref{tab:Gateway}:
+
+\begin{table}[h!]\begin{center}
+  \begin{tabular}{|c||c|c|}\hline
+    Gateway & $G_{tr}^R$ & $P_{recv}^R$  \\ \hline 
+     No & [dBi] & [dBm]  \\ \hline
+    $s_{m+1}$ & 3 & -69 \\ \hline
+
+\end{tabular}\caption{Gateway parameters.}
+\label{tab:Gateway}
+\end{center}\end{table}
+
+\subsection{Computation of the communication link distance between base stations}
+
+Base station is equipped with a directional antenna with a high gain to communicate with neighbouring stations.
+To calculate the losses between stations $j$ and $q$, we use the formula (\ref{eq:L_fs_from_link_budget}):
+
+\begin{displaymath}
+  L_{fs}^{jq} = P_{tr}^R(j) - L_{tr} + G_{tr}^R(j) + G_{tr}^R(q) - L_{recv} - SOM - P_{recv}^R(q).
+\end{displaymath}
+
+The cable losses at the receiver $L_{recv}$ and transmitter $L_{tr}$ are equal to 1 dB. We will also provide system operating margin $ SOM = 10 $ dB.
+
+Let us carry out an example of the calculation communication link between stations $ s_1 $ and $ s_2 $:
+
+\begin{align}
+  \begin{aligned}
+  L_{fs}^{12} = P_{tr}^R(1) - L_{tr} + G_{tr}^R(1) + G_{tr}^R(2) - L_{recv} - SOM - P_{recv}^R(2)= \\
+  = 19 - 1 + 5 + 4 - 1 - 10 - (-80) = 96 (dB).
+  \end{aligned}
+\end{align}
+
+To calculate the communication link, formula ( \ref{eq:D} ) must be used. The stations operate on 6th channel, carrier frequency $f = 2437$ MHz and coefficient $K = -27.55$:
+
+\begin{align}
+  \begin{aligned}
+  R_{jq} = 10^{\left(\frac{L_{fs}^{jq} - 20\lg{F} - K}{20}\right)}
+  = 10^{\left(\frac{96 - 20\lg{2437} - (-27.55)}{20}\right)} = 617 (m).
+  \end{aligned}
+\end{align}
+
+Table \ref{tab:Rjq} summarizes the maximal communication link distances calculations between all stations $ s_j $, $ j = 1, ..., m $, and the gateway $ s_ {m + 1} $.
+
+\begin{table}[h!]\begin{center}
+  \begin{tabular}{|c||c|c|c|c|c|c|c|c|}\hline
+      $R_{jq}, (m)$ & $s_1$ & $s_2$ & $s_3$ & $s_4$ & $s_5$ & $s_6$ & $s_7$ & $s_{m+1}$ \\ \hline \hline
+
+      $s_1$ & -- & 617 & 219 & 978 & 1 232 & 195 & 195 & 123 \\ 
+
+      $s_2$ & 174 & -- & 195 & 872 & 1 098 & 174 & 174 & 109 \\
+
+      $s_3$ & 219 & 692 & -- & 1098 & 1 382 & 219 & 219 & 138 \\
+
+      $s_4$ & 195 & 617 & 219 & -- & 1 232 & 195 & 195 & 123 \\
+
+      $s_5$ & 219 & 692 & 245 & 1 098  &  -- & 219 & 219 & 138 \\
+
+      $s_6$ & 275 & 872 & 309 & 1 382 &  1 740 & -- & 275 & 174 \\
+
+      $s_7$ & 195 & 617 & 219 & 978 & 1 232 & 195 & -- & 123 \\ \hline
+
+\end{tabular}\caption{The calculation of communication link distance between stations.}\label{tab:Rjq}
+\end{center}\end{table}
+
+
+\subsection{Computation of the coverage radius}
+
+To cover a given section, the base station is equipped with an isotropic antenna with output power $ P_ {tr} ^ r $ and gain $ G_ {tr} ^ r $ is equal to 0. The cable loss $ L_ {tr} $ is equal to 1.
+
+A coverage area depends on a base station, as well as user device characteristics. Let us consider a user device with an antenna sensitivity $P_{RX} = -67$ dBm and gain $G_{RX} = 0$. Loss $L_{RX}$ is equal to 0.
+
+Free space path loss between the $j$-th station and the user device
+
+\begin{displaymath}
+  L_{fs}^{j} = P_{tr}^r(j) - L_{tr}  - SOM - P_{RX}. 
+\end{displaymath}
+
+To calculate the coverage radius, must be used the formula (\ref{eq:D}). The stations operate on 6th channel, carrier frequency $f = 2437$ MHz. and coefficient $K = -27.55$
+
+\begin{displaymath}
+  r_{j} = 10^{\left(\frac{L_{fs}^{j} - 20\lg{F} - K}{20}\right)}.
+\end{displaymath}
+
+An example of calculating the coverage radius for the $1$-st station:
+
+\begin{displaymath}
+  r_{1} = 10^{\left(\frac{20 - 1 + 2 - 10 -(-67) - 20\lg{2437} - (-27.55)}{20}\right)} = 77 (m)
+\end{displaymath}
+
+Let's calculate the coverage radius for all stations $s_j $, $ j = 1, ..., m$ (table \ref{tab:rj}).
+
+\begin{table}[h!]\begin{center}
+  \begin{tabular}{|c||c|c|c|c|c|c|c|}\hline
+      STA & $s_1$ & $s_2$ & $s_3$ & $s_4$ & $s_5$ & $s_6$ & $s_7$ \\ \hline \hline
+
+      $r_{j}$ & 77 & 77 & 61 & 69 & 77 & 61 & 61 \\ \hline
+
+\end{tabular}\caption{Calculation of the coverage radius of stations.}\label{tab:rj}
+\end{center}\end{table}
+
+\subsection{Time delay calculation}
+
+Let's calculate the delay for station $s_1$. The specified throughput is $p_1 = 54$ Mbit/s. Let's assume that the average package size is $w = 2700$ KByte (21.6 MBit). The arrival package rate is $\lambda = 0.5(s^{- 1})$. Then the service rate according to the formula (\ref{eq:service_time}) will be
+
+\begin{displaymath}
+  \label{eq:service_time_evaluation}
+  \mu_1 = \frac{54}{21.6} = 2.5 (s^{-1}).
+\end{displaymath}
+
+The utilization is equal to
+
+\begin{displaymath}
+  \label{eq:rho_evaluation}
+  \rho_1 = \frac{0.5}{2.5} = 0.2.
+\end{displaymath}
+
+The average package size is
+
+\begin{displaymath}
+  \label{eq:N_evaluation}
+  \overline N_1 = \frac{0.2}{1 - 0.2} = 0.25.
+\end{displaymath}
+
+The average delay is
+
+\begin{displaymath}
+  \label{eq:node_delay_evaluation}
+  \overline {T_1} = \frac{0.25}{0.5} = 0.5 (s).
+\end{displaymath}
+
+Communication links between stations $R_{jq}$, the coverage radius of the station is $r_j$, the delays $\overline{T_j}$ are calculated, it is possible to search the optimal placement.
+
+The problem formulated on the basis of (\ref{eq:objective_function}) - (\ref{ineq:cost}) and given constraints on the cost $C = 18000$ and end-to-end delay $T = 3$ was solved by MATLAB Optimization Toolbox.
+
+The optimal placement is presented in the table \ref{tab:solution}.
+
+\begin{table}[h!]\begin{center}
+  \begin{tabular}{|c||c|c|c|c|c|c|c|c|c|c|} \hline
       
-%       Placed station & $s_6$ & $s_7$ & -- & -- & $s_2$ & -- &  $s_5$ & -- & $s_1$ & -- \\ \hline
+      Placed station & $s_6$ & $s_7$ & -- & -- & $s_2$ & -- &  $s_5$ & -- & $s_1$ & -- \\ \hline
 
-%       Placement coordination & $a_1$ &  $a_2$ & $a_3$ & $a_4$ & $a_5$ & $a_6$ & $a_7$ & $a_8$ & $a_9$ & $a_{10}$ \\  \hline
+      Placement coordination & $a_1$ &  $a_2$ & $a_3$ & $a_4$ & $a_5$ & $a_6$ & $a_7$ & $a_8$ & $a_9$ & $a_{10}$ \\  \hline
 
-% \end{tabular}\caption{Solution result.}\label{tab:solution}
-% \end{center}\end{table}
-% Obtained total coverage $f$ is equal to 400 (m) with total cost $c$ is equal to $15400$ (c.u.), and end-to-end delay $T$ is equal to $ 2.5$ (s).
+\end{tabular}\caption{Solution result.}\label{tab:solution}
+\end{center}\end{table}
+Obtained total coverage $f$ is equal to 400 (m) with total cost $c$ is equal to $15400$ (c.u.), and end-to-end delay $T$ is equal to $ 2.5$ (s).
 
-% \section{Conclusion}
-% The paper considers the problem of finding an optimal placement of the given redundant set of base stations of wireless broadband communication network on a set of possible placement points to maximize the coverage area while respecting technological conditions and budget constraints.
+\section{Conclusion}
+The paper considers the problem of finding an optimal placement of the given redundant set of base stations of wireless broadband communication network on a set of possible placement points to maximize the coverage area while respecting technological conditions and budget constraints.
 
-% To calculate a limit on the network delay time a network is considered as a tandem queue model with $M/M/1$  nodes.
+To calculate a limit on the network delay time a network is considered as a tandem queue model with $M/M/1$  nodes.
 
-% The problem is formulated in the form of the integer linear programming model. Numerical example solution was presented.
+The problem is formulated in the form of the integer linear programming model. Numerical example solution was presented.
 
-% It is planned to use the obtained model in practice in future work.
+It is planned to use the obtained model in practice in future work.
 
 
 % \bibliographystyle{splncs04}
