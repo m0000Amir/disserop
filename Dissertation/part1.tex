@@ -1,5 +1,118 @@
 \chapter{Оформление различных элементов}\label{ch:ch1}
 
+\section{Расчет дальности действия связи}
+
+
+Перед тем как приступить к задаче ЦЛП необходимо рассчитать характеристики станции: радиус связи $R_{jq}$ и радиус покрытия $r_j$.
+
+При развертывания сети необходимо обеспечить максимальное покрытие данного участка связь между шлюзами через систему размещенных базовых станций беспроводной широкополосной сети.
+
+Для оценки производительности канала связи воспользуемся уравнением энергетического потенциала. Полное уравнение можно записать следующим образом:
+
+% It is essential during deployment to provide maximum coverage of a given area and ensure communication between the placed base stations in the wireless broadband network. 
+
+% Link Budget is a way of estimation of communication link's performance while accounting for the system's power, gains, and losses for both the transmitter and receiver. The complete equation can be written as follows:
+
+\begin{equation}
+  \label{eq:part3_link_budget}
+  P_{tr} - L_{tr} + G_{tr} - L_{fs} + G_{recv} - L_{recv} = SOM + P_{recv},
+\end{equation}
+где:
+
+\begin{itemize}
+
+  \item $P_{tr}$ -- мощность передатчика, дБм;
+
+  \item $L_{tr}$ -- потери сигнала на антенном кабеле и разъемах передающего тракта, дБ;
+
+  \item $G_{tr}$ -- усиление антенны передатчика, дБ;
+
+  \item $L_{fs}$ -- потери в свободном пространстве, дБ;
+
+  \item $G_{recv}$ -- усиление антенны приемника, дБ;
+
+  \item $L_{recv}$ -- потери сигнала на антенном кабеле и разъемах приемного тракта, дБ;
+
+  \item $SOM$ -- запас на замирание сигнала, дБ;
+
+  \item $P_{recv}$ -- чувствительность приемника, дБм.
+
+\end{itemize}
+
+Мощность принимаемой антенны рассчитывается из уравнения передачи Фрииса:
+
+\begin{displaymath}
+  \label{eq:part3_Friis}
+  \frac{P_{recv}}{P_{tr}} = G_{tr}G_{recv}\left(\frac{c}{4\pi R f} \right)^2,
+\end{displaymath}
+где
+$c$ --  скорость света,
+$f$ -- частота, 
+$R$ рассточние между приемной и передающей антенной.
+
+The Free Space Path Loss ($ FSPL $) equation defines the propagation signal loss between two antennas through free space (air):
+
+Уравнение потерь в свободном пространстве (Free Space Path Loss, $FSPL $) определяет потерю сигнала при распространении между двумя антеннами в свободном пространстве (в воздухе):
+
+\begin{equation}
+  \label{eq:part3_FSPL}
+  FSPL = \left(\frac{4\pi R f}{c} \right)^2.
+\end{equation}
+
+Формула (\cref{eq:part3_FSPL}), выраженная в децибеллах будет выражаться как
+
+\begin{equation}
+  \label{eq:part3_L_fs}
+  L_{fs} = 20 \lg{F} + 20\lg{R} + K,
+  \end{equation}
+где $F$ -- центральная частота, на котором работает канал связи, $R$ -- рассточние между приемной и передающей антенной и $K$ -- константа.
+
+Константа $K$ зависит от размерностей частоты и расстояния:
+
+\begin{itemize}
+  \item для чистоты, выраженной в ГГц, и рассчтояния, выраженная в км, константа $K$ равна 92.45;
+  \item для чистоты, выраженной в МГц, и рассчтояния, выраженная в км, константа $K$ равна 32.4;
+  \item для чистоты, выраженной в МГц, и рассчтояния, выраженная в м, константа $K$ равна -27.55.
+\end{itemize} 
+
+Потерия $L_{fs}$ выразим из формулы (\cref{eq:part3_link_budget}) как:
+
+\begin{equation}
+  \label{eq:part3_L_fs_from_link_budget}
+  L_{fs} = P_{tr} - L_{tr} + G_{tr} + G_{recv} - L_{recv} - SOM - P_{recv}.
+\end{equation}
+
+Радиус связи получаем из уравнений (\cref{eq:part3_L_fs}) и (\cref{eq:part3_L_fs_from_link_budget}):
+
+\begin{equation}
+  \label{eq:part3_D}
+  R = 10^{\left(\frac{L_{fs} - 20\lg{F} - K}{20}\right)}.
+\end{equation}
+
+Используя формулу \cref{eq:part3_D} и \cref{eq:part3_L_fs_from_link_budget}, мы можем расчитать теоритическое максимальную дальность связи $ R_{jq}$ между базовыми станциями и радиусом покрытия $ r_j $ с предположением об отсутствии препятствий, отражений, влияния контуров местности и т. д. Это допущение приемлемо для нашего случая с открытой местностью.
+
+\begin{figure}[h!]
+  \centering
+   \includegraphics[width=0.8\textwidth]{link_distance.pdf}
+\caption{Соеденинение между станциями.}
+\label{fig:part3_link_distance}
+\end{figure}
+
+Для расчета дальности связи $R_{jq}$ (Рис. \cref{fig:part3_link_distance}), базовые станции $s_j$ и $s_q$ будут рассматриваться как станции \textit{передатчик} и \textit{приемник}, соответственно. Будем считать, что станции обрудованы направленными антеннами с усилениями $G_{tr}^{R}$ и $G_{recv}^{R}$.
+
+\begin{figure}[h!]
+  \centering
+   \includegraphics[width=0.8\textwidth]{coverage.pdf}
+\caption{Покрытие станции}
+\label{fig:part3_coverage}
+\end{figure}
+
+Каждая базовая станция оснащена всенаправленной антенной с заданным усилением антенны $G_ {tr}^{r}$. Данная антенн необходимо для покрытия заданной области.
+
+Each base station is equipped with an omnidirectional antenna with given gain antenna $G_{tr}^{r}$. A station uses this antenna to cover a given area.
+
+При вычислении радиуса покрытия $r_j$ (Рис.  \cref{fig:part3_coverage}) базовая станция будем считать \textit{передатчиком} а пользовательское устройство \textit{приемником}.
+
 \section{Форматирование текста}\label{sec:ch1/sec1}
 
 Мы можем сделать \textbf{жирный текст} и \textit{курсив}.
