@@ -3406,38 +3406,6 @@
   </bcf:bibdata>
   <bcf:section number="0">
   </bcf:section>
-  <!-- SECTION 1 -->
-  <bcf:bibdata section="1">
-    <bcf:datasource type="file" datatype="bibtex">biblio/author.bib</bcf:datasource>
-    <bcf:datasource type="file" datatype="bibtex">biblio/registered.bib</bcf:datasource>
-  </bcf:bibdata>
-  <bcf:section number="1">
-    <bcf:citekey order="0" nocite="1">*</bcf:citekey>
-  </bcf:section>
-  <!-- SECTION 0 (cont.) -->
-  <bcf:section number="0">
-  </bcf:section>
-  <!-- SECTION 2 -->
-  <bcf:bibdata section="2">
-    <bcf:datasource type="file" datatype="bibtex">biblio/author.bib</bcf:datasource>
-    <bcf:datasource type="file" datatype="bibtex">biblio/registered.bib</bcf:datasource>
-  </bcf:bibdata>
-  <bcf:section number="2">
-    <bcf:citekey order="1" nocite="1">vakbib2</bcf:citekey>
-    <bcf:citekey order="2" nocite="1">patbib1</bcf:citekey>
-    <bcf:citekey order="3" nocite="1">progbib1</bcf:citekey>
-    <bcf:citekey order="4" nocite="1">bib1</bcf:citekey>
-    <bcf:citekey order="5" nocite="1">confbib1</bcf:citekey>
-  </bcf:section>
-  <!-- SECTION 0 (cont.) -->
-  <bcf:section number="0">
-    <bcf:citekey order="1">VishnevskyBook</bcf:citekey>
-    <bcf:citekey order="2">Gari</bcf:citekey>
-    <bcf:citekey order="3">Gari</bcf:citekey>
-    <bcf:citekey order="4">Emelichev</bcf:citekey>
-    <bcf:citekey order="5">Burke1956</bcf:citekey>
-    <bcf:citekey order="6">Little1961</bcf:citekey>
-  </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
     <bcf:sort order="1">
@@ -3445,22 +3413,4 @@
     </bcf:sort>
   </bcf:sortingtemplate>
   <!-- DATALISTS -->
-  <bcf:datalist section="1"
-                name="none/global//global/global"
-                type="entry"
-                sortingtemplatename="none"
-                sortingnamekeytemplatename="global"
-                labelprefix=""
-                uniquenametemplatename="global"
-                labelalphanametemplatename="global">
-  </bcf:datalist>
-  <bcf:datalist section="0"
-                name="none/global//global/global"
-                type="entry"
-                sortingtemplatename="none"
-                sortingnamekeytemplatename="global"
-                labelprefix=""
-                uniquenametemplatename="global"
-                labelalphanametemplatename="global">
-  </bcf:datalist>
 </bcf:controlfile>
