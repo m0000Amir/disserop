@@ -1,4 +1,4 @@
-\chapter{Оформление различных элементов}\label{ch:ch1}
+\chapter{Глава, в которой будет описание практической проблема и вспомоготальные расчета необходимы для расчета задачи оптимизации}\label{ch:ch1}
 
 \section{Расчет дальности действия связи}
 
@@ -112,6 +112,41 @@ The Free Space Path Loss ($ FSPL $) equation defines the propagation signal loss
 Each base station is equipped with an omnidirectional antenna with given gain antenna $G_{tr}^{r}$. A station uses this antenna to cover a given area.
 
 При вычислении радиуса покрытия $r_j$ (Рис.  \cref{fig:part3_coverage}) базовая станция будем считать \textit{передатчиком} а пользовательское устройство \textit{приемником}.
+
+\section{Расчет межконцевой задержки}\label{part4_e2e_delay_section}
+
+Одной из основных характеристик проектируемой сети является ее межконцевая задержка. Рассмотрим беспроводную сеть как сеть массового обслуживания (СеМО) с кросс-трафиком и с узлами $M/M/1$. По теореме Бурке \cite{Burke1956} на выходе узла $M/M/1$, а значит на входе каждой последующей фазы тоже пуассоновский поток. Интенсивность на выходе каждой фазы равна суммарной интенсивности всех входящих потоков с интенсивностями $\lambda$.
+
+По формуле Литтла \cite{Little1961} можно рассчитать время задержки на фазе. Интенсивность времени обслуживания рассчитывается по формуле: 
+
+\begin{displaymath}
+    \mu_j = p_j / w,
+\end{displaymath}
+где: $p_j$ - пропускная спобоность $j$-ой станции, Мбит/с; $w$ - средний размер пакета, Мбит.
+
+Для каждой станции коэффициент загрузки равен:
+
+
+\begin{displaymath}
+\rho_j= \frac{\sum{\lambda}}{\mu_j} = \frac{q \cdot \lambda}{\mu_j} <1,
+\end{displaymath}
+
+где $q$ -- число входящих потоков. Условие $\rho_j<1$ является необходимым и достаточным условием существования стационарного режима функционирования \fixme{СеМО}.
+
+Тогда среднее время задержки по времени на каждой станции:
+
+\begin{displaymath}
+    \overline{T_j} = \frac{\rho_j}{1 - \rho_j} \cdot \frac{1}{q \cdot \lambda}.
+\end{displaymath}
+
+Тогда межконцевая задержки в сети равна
+
+\begin{equation}
+    \label{eq:end_to_end_delay}
+    T^{e2e}= \sum{\overline{T_j}}.
+\end{equation}
+
+\section{Выводы по главе \cref{ch:ch1}}
 
 % \section{Форматирование текста}\label{sec:ch1/sec1}
 
