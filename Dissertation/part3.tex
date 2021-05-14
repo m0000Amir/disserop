@@ -1,1455 +1,765 @@
-\chapter{Математические модели синтеза топологии сети для охвата линейного участка}\label{chapter_linear_network}
-% \chapter{Математические модели синтеза топологии сети для охвата линейного участка в виде задачи целлочисленного линейного программирования}\label{chapter_ilp_model}
+\chapter{Оптимальное размещение базовых станций широкополосной беспроводной сети
+связи для обслуживания заданного множества рассредоточенных объектов}\label{ch:ch2}
 
-\section{Математические модели синтеза топологии сети для охвата линейного участка в виде задачи целлочисленного линейного программирования}
-% \section{Introduction}
-% Wireless technologies are widely used in various areas of human life. Wireless broadband communication networks are used for operational control of industrial or civil objects, technological plants, smart moving vehicles. The use of wireless broadband technologies based on the IEEE 802.11 protocols family to organize such networks has several advantages over wired technologies. These include rapid deployment of communication networks, convenient modernization and scalability of the network architecture, and reduced installation and maintenance costs.
+Построение современной инфраструктуры передачи информации для обслуживания множества объектов промышленного или гражданского назначения, рассредоточенных на некоторой территории, является актуальной задачей при создании единой систем контроля и управления указанными объектами.  Создание такой инфраструктуры позволяет обеспечить оперативный контроль и управление объектами путем передачи необходимой информации с сенсоров и датчиков объектов в соответствующий внешнее приемное устройство. Для создания подобной инфраструктуры эффективно используются сети широкополосной беспроводной связи, необходимым этапом проектирования которых является решение задачи определения мест размещения базовых станций \cite{VishnevskyBook}.
+В настоящей работе строятся и исследуются две математические модели задач размещения базовых станций, которые применимы на этапе синтеза топологии сети в процессе комплексного проектирования мультимедийных сетей. Предлагается модель для проверки существования допустимого решения при условия выполнении технологических ограничений для предложенной на предыдущих этапах схемы расстановки станций и модель для оптимизационной задачи. Оптимизационная задача состоит в выборе множества станций из заданного набора типов станций с различными характеристиками и их расстановки на избыточном множестве возможных мест размещения. В поставленной задаче рассматривается задача обслуживания объектов, расположение которых задано их координатами на плоскости. Особенностью такой задачи в широком классе задач оптимального размещения мощностей является наличие условия на наличие информационной связи между станциями и внешним приемным устройством (шлюзом), выполнение которого гарантирует поступление всей информации с контролируемых объектов в центр управления.
 
-% To improve the design efficiency of such a modern information transmission infrastructure, it is crucial to solving the problem of optimal placement of equipment, in our case, base stations of a wireless broadband communication network at various possible locations. A similar problem has been proposed and discussed in several works \cite{KHireddine2020,BenBrahim2014,Chattopadhyay2018,KIZILOZ2020,Liu2014,Reis2014,Shen2020}.
+\section{Задача при заданных местах размещения станций.}
 
-% This work is a continuation of the researches \cite{Ivanov2018} and \cite{Ivanov2019}, where the particular case of the problem is considered when the controlled area is a linear section, for example, the area along highways, the linear part of trunk pipelines, field communications. In the above papers, the formulation was given in the form of an integer linear programming model. The proof of NP -- completeness was presented.
+Задано множество вершин $A= \left\{ a_i \right\}, i=\overline{0,n}$ на плоскости. Каждая вершина $a_i$ имеет координаты $\left\{ x_i, y_i \right\}$.
 
-% The problem considered in the previous work \cite{Ivanov2019} it was necessary to place a given base station set formed at the previous network design stages. The present paper considers a more general case when solving an optimization problem is also determined by a set of placed stations from a given redundant set while respecting technical and economic constraints. This paper presents the preparation of main station characteristics, such as the coverage radius, link distance, and station service time. We need to prepare these characteristics before proceeding to the optimal placement problem.  The paper proposes the problem in the form of an integer linear programming with the input of the above-calculated characteristics into the problem conditions with the end-to-end delay constraint. This restriction significantly impacts the mathematical model form of the problem.
-
-
-\subsection{Постановка задачи}
-
-Проблема формулируется следующим образом. Для контроля над заданным линейным участком необходимо разместить базовые приемопередающие станции (далее называемые станциями) таким образом, чтобы максимизировать покрытие с ограничениями на суммарнуб стоимость размещенных станций. Важно обеспечить связи любой станции со шлюзами на концах участка через систему размещенных станций.
-
-Задано множество станций $S = \{s_j\}$. Каждой станции приписаны параметры $s_j = \{r_j, \{R_{jq}\}, c_j \}$, $j = \overline{1,m}; q = \overline{1,m}; q \neq j$. Здесь $r_j$ -- радиус покрытия станции, $R_{jq}$ -- это радиус связи между станцями $s_j$ и $s_q$, и $c_j$ -- это стоимость. 
-
-Задан линейный участок длиной $L$ с концами в точка $a_0$ и $a_{n+1}$. Внутри  отрезка $[a_0, a_{n+1}]$ задано конечное множество точек $A=\{a_i\}, i=\overline{1,n}$; эти точки соответствуют набору свободных мест, где могут быть размещены станции. Каждая точка $a_i$ определяется своей одномерной координатой $l_i$.
-
-Заданы станции специального вида $s_{m+1}$ -- шлюзы. Данные шлюзы размещены на концах $a_0$ и $a_{n+1}$ данного линейного участка . Для данных станций параметр радиуса покрытия $r_{m+1}=0$. Радиус связи и стоимость не заданы.
-
-Требуется разместить станции таким образом, чтобы максимизировать покрытие с условием ограничения на суммарное стоиомсть $C$.
-
- 
-
-% \section{Расчет дальности действия связи}
-
-
-% Перед тем как приступить к задаче ЦЛП необходимо рассчитать характеристики станции: радиус связи $R_{jq}$ и радиус покрытия $r_j$.
-
-% При развертывания сети необходимо обеспечить максимальное покрытие данного участка связь между шлюзами через систему размещенных базовых станций беспроводной широкополосной сети.
-
-% Для оценки производительности канала связи воспользуемся уравнением энергетического потенциала. Полное уравнение можно записать следующим образом:
-
-% % It is essential during deployment to provide maximum coverage of a given area and ensure communication between the placed base stations in the wireless broadband network. 
-
-% % Link Budget is a way of estimation of communication link's performance while accounting for the system's power, gains, and losses for both the transmitter and receiver. The complete equation can be written as follows:
-
-% \begin{equation}
-%   \label{eq:part3_link_budget}
-%   P_{tr} - L_{tr} + G_{tr} - L_{fs} + G_{recv} - L_{recv} = SOM + P_{recv},
-% \end{equation}
-% где:
-
-% \begin{itemize}
-
-%   \item $P_{tr}$ -- мощность передатчика, дБм;
-
-%   \item $L_{tr}$ -- потери сигнала на антенном кабеле и разъемах передающего тракта, дБ;
-
-%   \item $G_{tr}$ -- усиление антенны передатчика, дБ;
-
-%   \item $L_{fs}$ -- потери в свободном пространстве, дБ;
-
-%   \item $G_{recv}$ -- усиление антенны приемника, дБ;
-
-%   \item $L_{recv}$ -- потери сигнала на антенном кабеле и разъемах приемного тракта, дБ;
-
-%   \item $SOM$ -- запас на замирание сигнала, дБ;
-
-%   \item $P_{recv}$ -- чувствительность приемника, дБм.
-
-% \end{itemize}
-
-% Мощность принимаемой антенны рассчитывается из уравнения передачи Фрииса:
-
-% \begin{displaymath}
-%   \label{eq:part3_Friis}
-%   \frac{P_{recv}}{P_{tr}} = G_{tr}G_{recv}\left(\frac{c}{4\pi R f} \right)^2,
-% \end{displaymath}
-% где
-% $c$ --  скорость света,
-% $f$ -- частота, 
-% $R$ рассточние между приемной и передающей антенной.
-
-% The Free Space Path Loss ($ FSPL $) equation defines the propagation signal loss between two antennas through free space (air):
-
-% Уравнение потерь в свободном пространстве (Free Space Path Loss, $FSPL $) определяет потерю сигнала при распространении между двумя антеннами в свободном пространстве (в воздухе):
-
-% \begin{equation}
-%   \label{eq:part3_FSPL}
-%   FSPL = \left(\frac{4\pi R f}{c} \right)^2.
-% \end{equation}
-
-% Формула (\cref{eq:part3_FSPL}), выраженная в децибеллах будет выражаться как
-
-% \begin{equation}
-%   \label{eq:part3_L_fs}
-%   L_{fs} = 20 \lg{F} + 20\lg{R} + K,
-%   \end{equation}
-% где $F$ -- центральная частота, на котором работает канал связи, $R$ -- рассточние между приемной и передающей антенной и $K$ -- константа.
-
-% Константа $K$ зависит от размерностей частоты и расстояния:
-
-% \begin{itemize}
-%   \item для чистоты, выраженной в ГГц, и рассчтояния, выраженная в км, константа $K$ равна 92.45;
-%   \item для чистоты, выраженной в МГц, и рассчтояния, выраженная в км, константа $K$ равна 32.4;
-%   \item для чистоты, выраженной в МГц, и рассчтояния, выраженная в м, константа $K$ равна -27.55.
-% \end{itemize} 
-
-% Потерия $L_{fs}$ выразим из формулы (\cref{eq:part3_link_budget}) как:
-
-% \begin{equation}
-%   \label{eq:part3_L_fs_from_link_budget}
-%   L_{fs} = P_{tr} - L_{tr} + G_{tr} + G_{recv} - L_{recv} - SOM - P_{recv}.
-% \end{equation}
-
-% Радиус связи получаем из уравнений (\cref{eq:part3_L_fs}) и (\cref{eq:part3_L_fs_from_link_budget}):
-
-% \begin{equation}
-%   \label{eq:part3_D}
-%   R = 10^{\left(\frac{L_{fs} - 20\lg{F} - K}{20}\right)}.
-% \end{equation}
-
-% Используя формулу \cref{eq:part3_D} и \cref{eq:part3_L_fs_from_link_budget}, мы можем расчитать теоритическое максимальную дальность связи $ R_{jq}$ между базовыми станциями и радиусом покрытия $ r_j $ с предположением об отсутствии препятствий, отражений, влияния контуров местности и т. д. Это допущение приемлемо для нашего случая с открытой местностью.
-
-% \begin{figure}[h!]
-%   \centering
-%    \includegraphics[width=0.8\textwidth]{link_distance.pdf}
-% \caption{Соеденинение между станциями.}
-% \label{fig:part3_link_distance}
-% \end{figure}
-
-% Для расчета дальности связи $R_{jq}$ (Рис. \cref{fig:part3_link_distance}), базовые станции $s_j$ и $s_q$ будут рассматриваться как станции \textit{передатчик} и \textit{приемник}, соответственно. Будем считать, что станции обрудованы направленными антеннами с усилениями $G_{tr}^{R}$ и $G_{recv}^{R}$.
-
-% \begin{figure}[h!]
-%   \centering
-%    \includegraphics[width=0.8\textwidth]{coverage.pdf}
-% \caption{Покрытие станции}
-% \label{fig:part3_coverage}
-% \end{figure}
-
-% Каждая базовая станция оснащена всенаправленной антенной с заданным усилением антенны $G_ {tr}^{r}$. Данная антенн необходимо для покрытия заданной области.
-
-% Each base station is equipped with an omnidirectional antenna with given gain antenna $G_{tr}^{r}$. A station uses this antenna to cover a given area.
-
-% При вычислении радиуса покрытия $r_j$ (Рис.  \cref{fig:part3_coverage}) базовая станция будем считать \textit{передатчиком} а пользовательское устройство \textit{приемником}.
-
-\subsection{Модель ЦЛП}
-
-После оценки максимальных радиуса связи между станциями $R_{jq}$, максимального радиуса покрытия $r_j$, можно перейти, непосредственно, к задаче размещения станций в виде модели целочисленного линейного программирования.
-
-Пусть $y_i^+$ и $y_i^-$ , $i= \overline{0,n+1}$ определяют охват покрытия (справа и слева, соответственно) станций, покрывающих точку $a_i$ (Рис. \cref{fig:part3_station_coverage}). Параметры $y_i^+$ и $y_i^-$ могут принимать только неотрицательные целые значения.
-
-Величины  покрытия для шлюзов $y_0^+, y_0^-, y_{n+1}^+, y_{n+1}^-$ равны 0.
-
-\begin{figure}[ht]
-  \centerfloat{
-      \includegraphics[scale=0.5]{station_coverage.pdf}
-  }
-  \caption{Охват покрытия станции]}\label{fig:part3_station_coverage}
-\end{figure}
-
-Целевая функция будет представлена как:
-\begin{equation}
-  \label{eq:part3_objective_function}
-  f =  \sum\limits_{i=1}^n (y_i^- + y_i^+) \rightarrow max
-\end{equation}
-
-Также введем бинарные переменные $x_{ij}$. Тогда $x_{ij}=1$, если станция $s_j$, размещенная на точке $a_i$, и $x_{ij}=0$ в противном случае; $i= \overline{1, n}$; $j = \overline{1,m}$.
-
-Введем двоичные переменные $ e_i $. Тогда $ e_i = 1 $, если какая-либо станция находится в точке $ a_i $, и $ e_i = 0$  в противном случае; $ i = \overline {1, n} $. Для точек размещения шлюзов $ a_0 $ и $a_{n + 1}$ переменные $ e_0 = 1 $ и $ e_{n + 1} =1 $, соответственно. 
-
-% Let us introduce binary variables $e_i$. Then $e_i$  is equal to 1, if any station is placed at point $a_i$ and $e_i$ is equal to 0 otherwise; $i = \overline{1, n}$. For gateways placement points $e_0$  is equal to 1 and $e_{n+1}$  is equal to 1.
-
-Сформулируем следующую систему ограничений задачи.
-
-По определению \cref{eq:part3_ei}:
-
-\begin{equation}
-  \label{eq:part3_ei}
-  e_i =  \sum\limits_{j=1}^m x_{ij}, \quad i = \overline{1,n}. 
-\end{equation}
-
-Каждая станция должна быть размещена только в одной точке. \cref{eq:part3_xij}:
-
-\begin{equation}
-  \label{eq:part3_xij}
-  \sum\limits_{j=1}^n x_{ij} \leq 1, \quad j = \overline{1,m}. 
-\end{equation}
-
-Значения покрытий не превышают радиус покрытия станции, размещенной в точке $ a_i $, и равны 0, если в точке $a_i$  нет станции \cref{eq:part3_yi_1, eq:part3_yi_2}:
-
-
-\begin{equation}
-  \label{eq:part3_yi_1}
-  y_i^+ \leq \sum\limits_{j=1}^m x_{ij} \cdot r_j, \quad i = \overline{1,n};
-\end{equation}
-
-\begin{equation}
-  \label{eq:part3_yi_2}
-  y_i^- \leq \sum\limits_{j=1}^m x_{ij} \cdot r_j, \quad i = \overline{1,n}. 
-\end{equation}
-
-Общая область покрытия между любыми двумя точками $ a_i $ и $ a_k $, где расположены станции, не может превышать расстояние между этими точками \cref{eq:part3_yi_3, eq:part3_yi_4}.
-
-\begin{equation}
-  \label{eq:part3_yi_3}
-  y_i^+ + y_k^- \leq \frac{l_k - l_i}{2} \cdot (e_i + e_k ) + (2 - e_i - e_k ) \cdot L, \quad i = \overline{1,n},  \quad k = \overline{i+1,n+1};
-\end{equation}
-
-\begin{equation}
-  \label{eq:part3_yi_4}
-  y_i^- + y_k^+  \leq \frac{l_i-l_k}{2} \cdot (e_i + e_k) + (2 - e_i - e_k) \cdot L, \quad i = \overline{1,n}, \quad k = \overline{i-1,0},
-\end{equation}
-где $ l_k $ и $ l_i $ - координаты точек $ a_i $ и $ a_k $, соответственно. Это условие исключает влияние пересечений покрытий станций при вычислении общего значения покрытия между станциями (Рис. \cref{fig:part3_total_coverage_between_points}).
-
-\begin{figure}[ht]
-  \centerfloat{
-      \includegraphics[scale=0.5]{total_coverage_between_points.pdf}
-  }
-  \caption{Область покрытия между любыми двумя точками}\label{fig:part3_total_coverage_between_points}
-\end{figure}
-
-Согласно условиям задачи, станция, расположенная в $ a_i $, должна быть связана хотя бы с одной станцией слева и одной станцией справа, включая станции на конечных точках $ a_0 $ и $a_{n + 1}$. 
-
-Введем бинарные переменные $z_{ijkq}, i = \overline{1,n}; j= \overline{1,m}; k=\overline{1,n},  k \neq i; q= \overline{1,m}, q \neq j$.
-
-Переменная $ z_ {ijkq} = 1$, если в точке $ a_i $ размещена станция $ s_j $ и данная станция связана со станцией $ s_q $, размещенная в точке $ a_k $; и $ z_ {ijkq} = 0 $ в противном случае.
-
-Переменная $ z_{ij0(m + 1)} = 1$, если станция $ s_j $, размещенная в точке $ a_i $, связана со шлюзом $ s_{m + 1} $ в точке $ a_0 $; $ z_{ij0 (m + 1)} = 0 $ в противном случае.
- 
-Переменная $ z_{ij(n + 1)(m + 1)} = 1 $, если здесь находится станция $ s_j $ в точке $ a_i $ и она связана со шлюзом $ s_{m + 1} $ в точке $ a_{n + 1} $; $ z_{ij0(m + 1)} = 0 $  в противном случае.
-
-Станции должны быть размещены в обеих точках $ a_i $ и $ a_k $, \cref{eq:part3_z_ijkq_1, eq:part3_z_ijkq_2}:
-
-\begin{equation}
-  \label{eq:part3_z_ijkq_1}
-  z_{ijkq} \leq e_i , \quad i = \overline{1, n}; \quad j = \overline{1, m}; \quad k = \overline{1,n}, k \neq i; \quad q = \overline{1,m}, q \neq j;
-\end{equation}
-
-
-\begin{equation}
-  \label{eq:part3_z_ijkq_2}
-  z_{ijkq} \leq e_k , \quad k = \overline{1, n}; \quad j = \overline{1, m}; \quad i = \overline{1,n}, i \neq k; \quad q = \overline{1,m}, q \neq j.
-\end{equation}
-
-
-Необходимо, чтобы станция $ s_j $ в точке $ a_i $ была связана с  любой станцией, расположенной в точке $ a_k $, справа от $ a_i $ ($ k> i $) или с правым шлюзом $ s_{m + 1} $ \cref{eq:part3_z_ijkq_3_1, eq:part3_z_ijkq_3_2}. 
-
-\begin{equation}
-  \label{eq:part3_z_ijkq_3_1}
-  \sum\limits_{k=i+1}^{n} \sum\limits_{\substack{q = 1\\ q \neq j}}^m z_{ijkq} + z_{ij(n+1)(m+1)} = x_{ij} ,  \quad i = \overline{1, n}, \quad j = \overline{1, m}.
-\end{equation}
-
-
-Станция $ s_j $, размещенная в $ a_{n} $, справа связана толко со шлюзом $ s_{m + 1} $ на месте $ a_ {n+1}$ \cref{eq:part3_z_ijkq_3_2}. 
-
-\begin{equation}
-  \label{eq:part3_z_ijkq_3_2}
-  z_{nj(n+1)(m+1)} = x_{nj} \quad j = \overline{1, m}.
-\end{equation}
-
-Также станция должна быть связана с любой станцией, расположенной в точке $ a_k $ слева от точки $ a_i $ ($ k <i $) или с левым шлюзом $ s_{m + 1} $ \cref{eq:part3_z_ijkq_4_1, eq:part3_z_ijkq_4_2}.
-
-\begin{equation}
-  \label{eq:part3_z_ijkq_4_1}
-  z_{1j0(m+1)}= x_{ij}, \quad j = \overline{1, m};
-\end{equation}
-
-Станция $s_j$, размещенная в точке $a_{1}$ слева может быть связана только со шлюзом $s_{m+1}$, расположенном в точке $a_0$ \cref{eq:part3_z_ijkq_4_1}.
-
-\begin{equation}
-  \label{eq:part3_z_ijkq_4_2}
-  z_{ij0(m+1)} + \sum\limits_{k=1}^{i-1} \sum\limits_{\substack{q = 1\\ q \neq j}} z_{ijkq}= x_{ij}, \quad i = \overline{2, n}, \quad j = \overline{1, m}.
-\end{equation}
-
-Необходимо, чтобы станция $ s_q $ в точке $ a_k $ была связана с любой станцией справа, расположенной в точке $ a_i $ \cref{eq:part3_z_ijkq_5}.
-
-\begin{equation}
-  \label{eq:part3_z_ijkq_5}
-  \sum\limits_{i=k+1}^{n} \sum\limits_{\substack{j=1 \\ j \neq q}}^m z_{ijkq} = x_{kq} , \quad k = \overline{1, n-1}, \quad q = \overline{1, m};
-\end{equation}
-
-Кроме того, станция $ s_q $ в точке $ a_k $ подключена к любой станции слева, расположенной в точке $ a_i $ \cref {eq:part3_z_ijkq_6}. 
-
-\begin{equation}
-  \label{eq:part3_z_ijkq_6}
-  \sum\limits_{i=1}^{k} \sum\limits_{\substack{j=1 \\ j \neq q}}^m z_{ijkq} = x_{kq} , \quad k = \overline{2, n}, \quad q = \overline{1, m};
-\end{equation}
-
-Неравенства \cref{eq:part3_z_ijkq_1, eq:part3_z_ijkq_2} и равенства \cref{eq:part3_z_ijkq_3_1, eq:part3_z_ijkq_3_2, eq:part3_z_ijkq_4_1, eq:part3_z_ijkq_4_2, eq:part3_z_ijkq_5, eq:part3_z_ijkq_6} обеспечивают условие симметрии связи между базовыми станциями, расположенными в точках $ a_i $ и $ a_k $, $\forall i, k $ (Рис.\cref{fig:part3_station_link}).
-
-\begin{figure}[ht]
-  \centerfloat{
-      \includegraphics[scale=0.5]{station_link.pdf}
-  }
-  \caption{Связь между базовыми станциями}\label{fig:part3_station_link}
-\end{figure}
-
-Если станции $ s_j $ и $ s_q $ связаны, то максимальноый радиус связи размещенных станций должен быть не меньше расстояния между точками $ a_i $ и $ a_k $, где расположены станции $ s_i $ и $ s_q $ (Рис. \cref{fig:part3_station_link_between_points}). Формально это можно записать как \cref{eq:part3_z_ijkq_7, eq:part3_z_ijkq_8}.
-
- $\forall i= \overline{1,n}$:
-\begin{equation}
-  \label{eq:part3_z_ijkq_7}
-  z_{ijkq}(R_{jq}-(a_i-a_k ))\geq 0, \quad k=\overline{0,i-1}; \quad j=\overline{1,m}; \quad q= \overline{1,m}, q \neq j; 
-\end{equation}
-
-\begin{equation}
-  \label{eq:part3_z_ijkq_8}
-  z_{ijkq} (R_{jq}-(a_k-a_i )) \geq 0, \quad k=\overline{i+1,n+1}; \quad j=\overline{1,m}; \quad q= \overline{1,m}, q \neq j.
-\end{equation}
-
-\begin{figure}[ht]
-  \centerfloat{
-      \includegraphics[scale=0.5]{station_link_between_points.pdf}
-  }
-  \caption{Обеспечение связи с соседней станцией}\label{fig:part3_station_link_between_points}
-\end{figure}
-
-И для бюджетного ограничения стоимости $C$:
-
-\begin{equation}
-  \label{eq:part3_cost}
-  \sum\limits_{i=1}^n \sum\limits_{j=1}^m x_{ij} \cdot c_j \leq C.
-\end{equation}
-
-Числовой пример решения полученной матемаческой модели задачи ЦЛП представлен в приложении \cref{app:ilp_solution}. В приложении также представлена методика расчета дальности связи для обеспечения коммуникации между базовыми станциями и охвата зоны покрытия.
-
-% \section{Численный пример}
-% В этой секции представлен численный пример решения данной задачи.
-% % This section shows one simple case of the problem.
-
-% Задан линейный участок $L$ с длиной 300 с количеством $n=7$ точек размещения. Координаты точек размещения представлены в таблице \cref{tab:part3_placed_point}.  Задан бюджет размещения $C=130$. Центарльная частота $f = 2437$ МГц. 
-
-% \begin{table}[h!]\centering
-%   \begin{tabular}{|c||c|c|c|c|c|c|c|}\hline
-%     $a_i$ & $a_1$ &  $a_2$ & $a_3$ & $a_4$ & $a_5$ & $a_6$ & $a_7$ \\ \hline \hline
-%     Координата & 29 & 40 & 95 & 139 & 181 & 230 & 273 \\ \hline
-% \end{tabular}\caption{Точки размещения участка с длиной $L = 300$.}\label{tab:part3_placed_point}
-% \end{table}
-
-% Задано множества базовых станций $m = 8$ с параметрами представленными в таблице \cref{tab:part3_BS}. Также в таблице представлены параметры шлюзов и контролируемых объектов. Параметры объектов необходимы для расчета радиусов покрытия станций.
-
-% \begin{table}[b]\centering
-%   \begin{tabular}{|c||c|c|c|c|c|c|c|}\hline
-%     BS & $P_{tr}^R$ &  $G_{tr}^R$ & $P_{recv}^R$ & $P_{recv}^r$ & $G_{recv}^r$ & $c$ \\ \cline{2-1} \cline{3-1} \cline{4-1} \cline{5-1}  \cline{6-1} \cline{7-1}
-%      & дБм & дБ & Дбм & дБм & дБ & у.е.  \\ \hline
-%     1 & 20 & 5 & -69 & -67 & 5 & 40 \\ 
-
-%     2 & 19 & 5 & -67 & -67 & 5 & 28 \\ 
-
-%     3 & 18 & 5 & -69 & -67 & 5 & 45 \\ 
-
-%     4 & 19 & 5 & -69 & -67 & 6 & 22 \\ 
-
-%     5 & 19 & 5 & -67 & -67 & 5 & 21 \\ 
-
-%     6 & 20 & 5 & -69 & -67 & 5 & 40 \\ 
-
-%     7 & 19 & 5 & -67 & -67 & 5 & 28 \\
-
-%     8 & 18 & 5 & -69 & -67 & 5 & 45 \\ \hline \hline  
-
-%     &  $G_{recv}^R$ & $P_{recv}^R$ &  & & $P_{tr}^r$ & $G_{tr}^r$ \\  \cline{2-1} \cline{3-1} \cline{6-1} \cline{7-1} 
-
-%     Шлюз& дБ & дБм & & Объект & дБм & дБ  \\  \cline{2-1} \cline{3-1}  \cline{6-1} \cline{7-1}
-
-%     &  5 & -69 & &  & 15 & 2  \\ \hline
-
-%   \end{tabular}\caption{Параметры базовых станций, шлюзов и объектов.}\label{tab:part3_BS} 
-% \end{table}
-
-% \subsection{Расчет радиса связи между станциями}
-% Базовые станции оснащены направленной антенной с высоким коэффициентом усиления для связи с соседними станциями.
-% Для расчета потерь между станциями $j$ и $q$ воспользуемся формулой (\ref{eq:part3_L_fs_from_link_budget}):
-
-% \begin{displaymath}
-%   L_{fs}^{jq} = P_{tr}^R(j) - L_{tr} + G_{tr}^R(j) + G_{tr}^R(q) - L_{recv} - SOM - P_{recv}^R(q).
-% \end{displaymath}
-
-
-% Потери на кабелях приемникп $ L_{recv} $ и передатчике $ L_{tr} $ примем равным 1 дБ и запас на замирания сигнала $ SOM = 10 $ дБ.
-
-% Let us carry out an example of the calculation communication link between stations $ s_1 $ and $ s_2 $:
-% Для примера расчетаем радиус связи между станциями $ s_1 $ и $ s_2 $:
-
-% \begin{align}
-%   \begin{aligned}
-%   L_{fs}^{12} = P_{tr}^R(1) - L_{tr} + G_{tr}^R(1) + G_{tr}^R(2) - L_{recv} - SOM - P_{recv}^R(2)= \\
-%   = 20 - 1 + 5 + 5 - 1 - 10 - (-69) = 87 (dB).
-%   \end{aligned}
-% \end{align}
-
-% Для расчета канала связи необходимо использовать формулу \cref{eq:part3_D}. Несущая частота $ f = 2437 $ МГц и коэффициент для расчета потерь $ K = -27,55 $:
-
-% \begin{align}
-%   \begin{aligned}
-%   R_{jq} = 10^{\left(\frac{L_{fs}^{jq} - 20\lg{F} - K}{20}\right)}
-%   = 10^{\left(\frac{87 - 20\lg{2437} - (-27.55)}{20}\right)} = 174 (m).
-%   \end{aligned}
-% \end{align}
-
-% В таблице \cref{tab:part3_Rjq} приведены расчеты максимальных радиусов связи между всеми станциями $ s_j $, $ j = 1, ..., m $ и шлюзом $ s_ {m + 1} $.
-
-% \begin{table}[h!]\centering
-%   \begin{tabular}{|c||c|c|c|c|c|c|c|c|c|}\hline
-%       $R_{jq}, (m)$ & $s_1$ & $s_2$ & $s_3$ & $s_4$ & $s_5$ & $s_6$ & $s_7$ & $s_8$ & $s_{m+1}$ \\ \hline \hline
-
-%       $s_1$ &--& 174& 219& 219& 174& 219& 174& 219& 219\\ 
-%       $s_2$ &195& --& 195& 195& 155& 195& 155& 195& 195\\ 
-%       $s_3$ &174& 138& --& 174& 138& 174& 138& 174& 174\\ 
-%       $s_4$ &195& 155& 195& --& 155& 195& 155& 195& 195\\ 
-%       $s_5$ &195& 155& 195& 195& --& 195& 155& 195& 195\\ 
-%       $s_6$ &219& 174& 219& 219& 174& --& 174& 219& 219\\
-%       $s_7$ &195& 155& 195& 195& 155& 195& --& 195& 195\\ 
-%       $s_8$ &174& 138& 174& 174& 138& 174& 138& --& 174\\ 
-%       \hline
-
-% \end{tabular}\caption{Рассчитанные радиусы связи между станциями}\label{tab:part3_Rjq}
-% \end{table}
-
-% \subsection{Расчет радиуса покрытия}
-
-% % Для покрытия заданного участка базовая станция оснащена всенаправленной антенной с выходной мощностью $ P_{tr}^r $ и усилением $ G_{tr}^r$. Потери в кабеле $ L_ {tr} $ равно 1.
-
-% % To cover a given section, the base station is equipped with an isotropic antenna with output power $ P_ {tr} ^ r $ and gain $ G_ {tr} ^ r $ is equal to 0. The cable loss $ L_ {tr} $ is equal to 1.
-
-% % A coverage area depends on a base station, as well as user device characteristics. Let us consider a user device with an antenna sensitivity $P_{RX} = -67$ dBm and gain $G_{RX} = 0$. Loss $L_{RX}$ is equal to 0.
-% Расчет проводится аналогично расчета радиусу связи между станциями. 
-% Потери в свободном простанстве для канала между $j$-ой станции и контролируемым объектом
-
-% \begin{displaymath}
-%   L_{fs}^{j} = P_{tr}^r(j) - L_{tr}  - SOM - P_{RX}. 
-% \end{displaymath}
-
-
-% Пример расчечта радиуса покрытия для  $1$-ой станции:
-
-% \begin{displaymath}
-%   L_{fs}^{1} = P_{tr}^r + G_{tr}^r + G_{recv}^r(1) - L_{recv}(1)  - SOM - P_{recv}^r(1) = 15+2+5-1-(-67)-10 = 78 \text{ (дБ)}.
-% \end{displaymath}
-
-% \begin{displaymath}
-%   r_{1} = 10^{\left(\frac{78 - 20\lg{2437} - (-27.55)}{20}\right)} = 77 \text{ (м)}.
-% \end{displaymath}
-
-% Рассчитанные радиусы покрытия для всех станций $ s_j $, $ j = \overline{1, m} $ представлены в таблице \cref{tab:part3_rj}).
-
-% \begin{table}[h!]\begin{center}
-%   \begin{tabular}{|c||c|c|c|c|c|c|c|c|}\hline
-%       STA & $s_1$ & $s_2$ & $s_3$ & $s_4$ & $s_5$ & $s_6$ & $s_7$ & $s_8$\\ \hline \hline
-
-%       $r_{j}$ & 77 & 77 & 77 & 87 & 77 & 77 & 77 & 77\\ \hline
-
-% \end{tabular}\caption{Рассчитанные радиусы покрытия станций}\label{tab:part3_rj}
-% \end{center}\end{table}
-
-% Задача ЦЛП решена с помощью Optimization Toolbox MatLab. Таблица \cref{tab:part3_ilp_solution} содержит все возможные целочисленные решения.
-
-% \begin{table}[h!]\centering
-%   \begin{tabular}{|c||c|c|c|c|c|c|c||c|c|}\hline
-%     $a_i$ & $a_1$ &  $a_2$ & $a_3$ & $a_4$ & $a_5$ & $a_6$ & $a_7$  & Покрытие & Цена \\ \hline 
-%     Координаты & 29 & 40 & 95 & 139 & 181 & 230 & 273 & м & у.е.\\ \hline \hline
-%     Целлочисленное решение 1 & $s_1$ & $s_2$ & $s_6$ & -- & -- & -- & $s_4$ & 286 & 130\\ 
-%     Целлочисленное решение 2 & $s_4$ & -- & $s_5$ & $s_7$ & -- & -- & $s_2$ & 289 & 99\\
-%     Оптимальное решение & $s_4$ & $s_2$ & -- & -- & $s_1$ & -- & $s_5$ & 300 & 111 \\ \hline
-% \end{tabular}\caption{Решение задачи ЦЛП.}\label{tab:part3_ilp_solution}
-% \end{table}
-
-% \chapter{Математические модели синтеза топологии сети для охвата линейного участка в виде экстремальной задачи в комбинаторной форме}\label{chapter_combinatorial_model}
-
-\section{Математические модели синтеза топологии сети для охвата линейного участка в виде экстремальной задачи в комбинаторной форме}
-
-Эффективным способом повышения технико-экономических показателей при проектировании \fixme{БШС} является оптимизация топологии сети, а именно решение задачи выбора оптимального набора станций из заданного избыточного множества и определение мест их размещения вдоль линейной контролируемой территории.
-Основным результатом работы, представленной в этой главе, является разработка итерационного метода выбора оптимальной топологии сети в процессе комплексного проектирования БШС. 
-Принципиальной особенностью предлагаемого метода, повышающей его эффективность, является то, что для рассмотрения на этапе моделирования предлагается не одно решения, а последовательности лучших решений задачи оптимизации топологии сети. Это позволяет с помощью разработанной итерационной процедуры выбирать на этапе моделирования лучшее решение среди тех решений по топологии, которые удовлетворяют требуемым характеристикам проектируемой БШС. 
-
-\subsection{Постановка задачи и ее формулировка в экстремальной комбинаторной форме}
-
-Пусть задано множество станций $S=\{s_j\}$ с параметрами $s_j=\{r_j,\{R_{jq} \},\mu_j, c_j \},j=1,...,m;q=1,...,m;j \neq q $. Здесь $r_j$ -- максимальный радиус покрытия станции, $\{R_{jq} \}$ -- множество максимальных радиусов связи между $j$-ой и $q$-ой базовой станции, $\mu_j$ - интенсивность времени обслуживания и $c_j$ -- стоимость станции.
-
-Задана максимальная допустимая стоимость размещенных станций $C$. 
-
-
-Задан отрезок $\alpha$ длиной $L$ с концами в точках $a_0$ и $a_{n+1}$. Внутри отрезка $\alpha = [a_0, a_{n+1}]$ задано множество возможных точек размещения станций множества $A=\{a_i \},i=1,...,n$ c координатами $l_i$.Точка $a_0$ имеет координату $l_0=0$, точка $a_{n+1}$ имеет координату $l_{n+1}=L$. На концах отрезка, в вершинах $a_0$ и $a_{n+1}$, стоят станции специального вида $s_0$ и $s_{m+1}$, соответственно, для которых радиусы покрытия, пропускные способности и стоимости не задаются. Радиусы связи задаются как $R_{0j}$ и $R_{(m+1)j}$, соответственно.
-Требуется разместить станции таким образом, чтобы максимизировать размер контролируемой ими территории (покрытие) отрезка $L$ при выполнении требования наличия связи каждой станции со станциями на концах отрезка (шлюзами) через систему размещенных станций при выполнении ограничений на время межконцевой задержки $T$ и суммарную стоимость размещенных станций $C$.
-Сформулируем задачу в виде экстремальной задачи на конечном множестве.
-
-\textit{Допустимой расстановкой станций} назовем такой возрастающий по величине координат $l_i$  набор пар $P = \{a_i, s_j\},a_i \in A,i \neq 0,i \neq n+1;s_j \in S$, для которого выполняются требования:
-
-% \begin{enumerate}
-% 	\item left connectivity: $\forall\;(a_i, s_j),\,1 \leq i \leq n,$ either $\exists (a_k, s_q):\:l_k < l_i $ 
-% 	and $l_i - l_k \leq \min \{R_j, R_q \},$ or $l_i - l_0 \leq R_j$;
-% 	\item right connectivity: $\forall\;(a_i, s_j),\,1 \leq i \leq n,$ either $\exists (a_t, s_g):\:l_t > l_i $ 
-% 	and $ l_t - l_i \leq \min \{R_j, R_g \}, $ or $ l_{n+1} - l_i \leq R_j$;	
-% 	\item $|P| = m$.
-% \end{enumerate}
-\begin{enumerate}
-    \item  для каждой пары $(a_i,s_j)$:
-        \begin{enumerate}
-            \item слева: либо найдется такая пара $(a_k,s_q)$, что, $l_i - l_k \leqslant R_{jq}$  и $l_i - l_k  \leqslant R_{qj}$, либо $l_i-l_0 \leqslant R_{j0}$ и $l_i - l_0 \leqslant R_{0j}$;
-            \item справа: либо найдется такая пара $(a_t,s_g)$, что, $l_t-l_i \leqslant R_{jq}$ и $l_t - l_i \leqslant R_{qj}$, либо $l_{n+1}-l_i \leqslant R_{j(m+1)}$ и $l_{n+1}-l_i \leqslant R_{(m+1)j}$. 
-        \end{enumerate}
-% - слева: либо найдется такая пара (a_k,s_q), что, l_i-l_k≤R_jq  и l_i-l_k  ≤R_qj, либо l_i-l_0≤R_j0 и l_i-l_0≤R_0j;
-% - справа: либо найдется такая пара (a_t,s_g), что, l_t-l_i≤R_jq и l_t-l_i  ≤R_qj, либо l_(n+1)-l_i≤R_(j(m+1)) и l_(n+1)-l_i≤R_((m+1)j). 
-Данное требование гарантирует, что любая станция может быть связана со станциями на концах отрезка либо через промежуточные станции, либо непосредственно;
-    \item в одной точке стоит не более одной станции;
-    \item сумма задержек по всем размещенным станциям меньше заданной величины $T$ – средней межконцевой задержки по времени по всей системе станций:
-    \begin{displaymath}
-        \label{eq:part3_e2e_delay}
-        \sum\limits_{j \in S_\sigma} \overline{T_j} \leqslant T,
-    \end{displaymath}
-где $S_\sigma$ – множество размещенных станций, $\overline{T_j}$ -- среднее время задержки на станции. Расчет задержек описан в параграфе \cref{part4_e2e_delay_section}
-    \item суммарная стоимость размещенных станций меньше заданного бюджетного ограничения  $C$.
-\end{enumerate}
-
-Каждой допустимой расстановке станций $P$ соответствует величина покрытия $z(P)$, определяемая как суммарная длина всех таких участков $\tau,\tau \subset \alpha$, что каждая точка этих 
-участков попадает в зону покрытия, по крайней мере, одной станции, входящей в набор пар $P$.
-
-Для удобства описании в дальнейшем алгоритмов введем понятие «недопокрытия» отрезка $\alpha$:
-
-\begin{displaymath}
-    f(P) = L - z(P)
-\end{displaymath} 
-
-Пусть $G$ -- множество всех допустимых расстановок $P$.
-Тогда мы можем сформулировать нашу задачу в следующей комбинаторной форме экстремальной задачи на конечном множестве. 
-
-\textbf{Задача 1.}
-
-Требуется найти такую допустимую расстановку  $P^*$, что
-\begin{equation}
-    \label{eq:part3_P}
-    P^* = \argmin \limits_{P \in G} f(P)
-\end{equation}
-
-Обозначим через $\Gamma$ все множество вариантов размещения станций (не обязательно допустимых) из множества $S$ на заданном множестве возможных мест их размещения.
-
-\subsection{Дерево ветвлений для перебора элементов в множестве \texorpdfstring{$\Gamma$}{Lg}}
-
-Опишем процедуру построения бинарного дерева поиска (дерева ветвлений) для полного перебора без повторений всех элементов множества $\Gamma$. Данная процедура будет использована в дальнейшем при построении дерева поиска в алгоритме МВиГ решения \textbf{задачи 1}.
-
-В дальнейшем будем предполагать, что в множестве $S$ станции упорядочены по не убыванию радиусов покрытия. 
-Описываемая процедура использует известный прием разбиения множества $G$ на подмножества с использованием некоторого параметра. Процесс формирования и последовательность исследования подмножеств обычно представляется с помощью дерева поиска, представляющего собой ориентированное от корня «дерева ветвлений», где каждому подмножеству соответствует вершина на дереве. Множеству $\Gamma$ соответствует корневая вершина. 
-
-\paragraph{Параметр для разбиения множеств на подмножества}
-\textit{\textbf{Процедура 1.}}
-
-Пусть $G_0$, где нижний индекс – номер итерации, исходное множество $\Gamma$. На каждой итерации, начиная с итерации $\nu=0$, разбиваем текущее подмножество $G_\nu$ на два подмножества $G^1_\nu$ и $G^2_\nu$. При этом множество $G_\nu$ обычно называется «материнским», а множества $G^1_\nu$  и $G^2_\nu$  - «потомками» множества $G_\nu$ или дочерними узлами.
-
-В качестве параметра разбиения воспользуемся переменной $\pi_{ij}$, принимающей два значения 0 и 1:
-
+Множество $A$ состоит из двух подмножеств:
 \begin{itemize}
-    \item $\pi_{ij}=1$, если наложено условие, что на месте $a_i$ расположена станция $s_j$;
-    \item $\pi_{ij} = 0$, если наложено условие, что на месте $a_i$ станция $s_j$  располагаться не будет.
+    \item $A_1$ –- множество вершин, которое соответствует объектам, с которых необходимо собирать информацию. Каждой вершине $a_i$ приписана величина $v_i$ -– максимальный объем информации, снимаемой с объекта, расположенного на этой вершине. В частности, объектами могут быть любые стационарные абонентские устройства сети 802.11n. В дальнейшем будем считать, что каждая вершина из $A_1$ является объектом контроля.
+    \item $A_2$ =– множество мест, где размещены базовые станции. В дальнейшем вершину из $A_2$ будем идентифицировать  не только как место размещения, но и как соответствующую станцию.
 \end{itemize}
 
-В дальнейшем будем считать, что для множества $G^1_\nu$ задано условие $\pi_{ij}=1$, а для множества $G^2_\nu$  задано условие $\pi_{ij} = 0$.
+По определению:
+$$
+A_1 \cup A_2 = \varnothing;
+$$
 
-Очевидно, что
+$$
+A_1 \cap A_2 = A.
+$$
 
-\begin{equation}
-    \label{eq:part4_G_cup}
-    G^1_\nu \cup G^2_\nu = G_\nu;
+Все вершины пронумерованы так,что:
+$$
+A_1 = \left\{a_i \right\}, i= \overline{1,n_1};
+$$
+
+$$
+A_2 = \left\{ a_i  \right\}, i= \overline{n_1+1,n}.
+$$
+
+Каждой вершине из $A_2$ приписаны три параметра $s_i = \left\{ r_i, R_{ij},\vartheta_i \right\} $, где:
+
+\begin{itemize}
+    \item $r_i$ -- максимальный радиус покрытия станции. Параметр, который характеризует зону охвата территории каждой станцией;
+    \item $R_{ij}$ -- максимальный радиус связи между $i$-ой и $j$-ой станциями. Параметр характеризует расстояние, на котором обеспечивается связь между станциями;
+    \item $\vartheta_i$ -- максимальный объем информации в единицу времени, который может быть получен от объектов, обслуживаемых станцией.
+\end{itemize}
+
+Также задана вершина специального вида (шлюз) $s_0 = \left\{ r_0, R_0, \vartheta_0 \right\} $ с координатами $\left\{x_0, y_0 \right\}$. По условию задачи величина $\vartheta_0$ больше суммы величин $\vartheta_i$ у всех вершин множества $A_1$.
+
+Задано условие, что со шлюзом и между собой могут быть связаны только вершины множества $A_2$.
+
+Требуется проверить, что при заданных наборе и размещении станций вся имеющаяся информация с объектов (множество $A_1$) может быть собрана и передана системой станций (множество $A_2$) до шлюза $s_0$.
+
+Сформулируем задачу в виде модели \fixme{ЛП}.
+
+Составим граф $ H = \left\{A,E \right\} $ для возможного потока информации между вершинами множества $ A = A_1 \cup A_2 $. По определению, каждой вершине из $ A_2 $ соответствует свой набор параметров $\left\{ r_i  R_i, \vartheta_i \right\} $.
+Матрица смежности $E = \left\{ e_{ij} \right\}$ графа $H$ строится по следующим правилам:
+
+\begin{itemize}
+    \item $e_{ij} = 1$, если расстояние между $i$-ым объектом ($a_i \in A_1$) и $j$-ым местом размещения станции ($a_j \in A_2$) не более радиуса покрытия для станции соответствующего этой вершине типа; 
+    \item $e_{ij} = 1$, если расстояние между $i$-ым местом размещения ($a_i \in A_2$) и $j$-ым местом размещения  ($a_j \in A_2$), не более радиуса связи той станции, у которой радиус связи не больше радиуса связи другой станции;
+    \item $e_{i0} = 1$, если расстояние от вершины $a_i \in A_2$ до шлюза не более $R_i$;
+    \item $e_{ij} = 0$, во всех остальных случаях.
+\end{itemize}
+
+Введем переменные $x_{ij} \geqslant 0$. Это искомое количество информации, передаваемой в единицу времени по дуге $e_{ij}$ графа $H$.
+Распишем условия для нашей задачи.
+Величина суммарного потока, который выходит с объекта равен весу $\vartheta_i$:
+
+\begin{equation}\label{eq:part2_1.1}
+    \sum_{a_j \in \Gamma^+(a_i)} x_{ij} = \vartheta_i, \forall a_i, i=\overline{1, n_1},
+\end{equation}
+где $\Gamma^+(a_i)$ – множество вершин на графе $H$, в которые входят дуги, исходящие из вершины $a_i$. 
+
+Сумма входящих и выходящих потоков для любой $i$-ой вершины множества $A_2$ равна нулю:
+
+\begin{equation}\label{eq:part2_1.2}
+    \sum_{a_j \in \Gamma_1^-(a_i)} x_{ij} + \sum_{a_j \in \Gamma_2^-(a_i)} x_{ji} -  \sum_{a_j \in \Gamma_2^+(a_i)} x_{ij} =0 ,\forall a_i \in A_2. 
 \end{equation}
 
+Здесь множество $\Gamma_1^-(a_i)$ – вершины множества $A_1$, из которых выходят дуги, входящие в вершину $a_i$, $\Gamma_2^-(a_i)$ – вершины множества $A_2$, из которых выходят дуги, входящие в  вершину $a_i$, $\Gamma_2^+(a_i)$ – вершины множества $A_2$, в которые входят дуги, исходящие из вершины $a_i$.
 
-\begin{equation}
-    \label{eq:part4_G_cap}
-    G^1_\nu \cap G^2_\nu = \varnothing.
+Через систему станций вся информация от объектов  должна поступить  на шлюз $s_0$:
+
+\begin{equation}\label{eq:part2_1.3}
+    \sum_{a_j \in \Gamma_2^-(a_0)} x_{j0} =  \sum_{a_i \in A_1} \vartheta_i;
 \end{equation}
 
-Выбор переменной для разбиения на $\nu$-ой итерации
+Объем информации, поступающей с других вершин на станцию, если она размещена на $j$-ой вершине, ограничен мощностью станции $\vartheta_j$:
 
-На этапе разбиения любого множества $G_\nu$ все множество переменных $\Pi = \{\pi_{ij}\}$ можно разделить на три подмножества: множество $\Pi^+$ -- «фиксированные» переменные, для которых $\pi_{ij}=1$, множество $\Pi^-$ -- «запрещенные» переменные, для которых $\pi_{ij}=0$, и множество $\Pi^f$ -- «свободные» переменные, для которых значения на данной итерации еще не заданы.
-
-Правило выбора переменной для разбиения множества $G_\nu$. Для разбиения множества $G_\nu$ на данной итерации выбирается из множества $\Pi^f$ переменная c наименьшим индексом $j$ среди всех переменных с наименьшим индексом $i$. Таким образом сначала определяется незанятое место размещения $a_i$ с наименьшим номером (индексом $i$) и на нем размещается еще не размещенная станция $s_j$ с наименьшим номером (индексом $j$).
-
-\paragraph{Движение по дереву ветвлений}
-
-После разбиения очередного подмножества $G_\nu$ два подмножества $G^1_\nu$  и $G^2_\nu$, последним на дереве ветвлений присваиваются порядковые индексы $G_{\nu+1}$ и $G_{\nu+2}$, соответственно.
-При формировании дерева ветвлений различаются два типа шагов: «прямой» шаг и «обратный» шаг. Прямой шаг -- это движение «в глубину» по той же ветви дерева, реализующее очередное разбиение множества $G_\nu$ на два потомка, и обратный шаг, реализующий переход от множества $G_\nu$  к одному из ранее сформированных подмножеств. Обратный шаг делается в том случае, когда либо получено множество $G_\nu$, состоящее из единственного элемента, либо множество $G_\nu$  при данном наборе значений переменных $\pi_{ij}$, выделяющих данное подмножество $G_\nu$ из множества $G_0$, пусто. В этих случаях соответствующая вершина дерева называется «закрытой».
-
-Для движения по дереву будем использовать правило \fixme{LIFO}. На основании этого правила прямые шаги будут выполняться до тех пор, пока не будет получена закрытая вершина. На дереве ветвлений это соответствует продолжению движения по той же ветви дерева. При этом из двух множеств $G^1_\nu$  и $G^2_\nu$ первым будет исследоваться на возможность закрытия соответствующей вершины множество $G^1_\nu$. Если вершина в результате проведенного исследования не будет закрыта, то из неё будет продолжено дальнейшее движение по той же ветви (выполнение прямого шага). Если вершина будет закрыта, то будет выполнен обратный шаг: для дальнейшего рассмотрения и продолжения движения будет выбрана незакрытая вершина с наибольшим порядковым номером $\nu$ среди всех висячих вершин дерева (последняя сформированная вершина из нерассмотренных). Процедура будет завершена, когда все вершины дерева будут закрыты.
-
-Заметим, что выполнение условий \cref{eq:part4_G_cup, eq:part4_G_cap} гарантирует, что в результате завершения работы \textit{\textbf{процедуры 1}} будут просмотрены все элементы множества $\Gamma$ без повторений. Эти же условия определяют фундаментальное свойство дерева ветвлений: на каждой итерации объединение множеств $G_\nu$ всех висячих вершин дерева дает исходное множество $G_0$ корневой вершины.
-
-
-\paragraph{Алгоритм метода ветвей и границ} \label{BnB}
-Для построения алгоритма \fixme{МВиГ} для решения \textbf{задачи 1} с использованием \textit{\textbf{процедуры 1}} для построения дерева ветвлений нам достаточно разработать методы исследования вершин дерева на возможность их закрытия.
-В соответствии с техникой \fixme{МВиГ} закрытие вершины в результате исследования, соответствующего ей множества $G_\nu$ возможно в трех случаях.
-
-\underline{\textit{\textbf{Случай 1.}}} Множество $G_\nu$ -- пусто, т.е. доказано, что в множестве $G_\nu$ при данном наборе фиксированных и запрещенных переменных $\pi_{ij}$ нет ни одной допустимой расстановки $P$.
-
-\underline{\textit{\textbf{Случай 2.}}} Доказано, что в множестве $G_\nu$ не может быть допустимой расстановки P с меньшим значением целевой функции (1), чем у лучшей расстановки $\widehat{P}$ из уже найденных. Значение функции $f(\widehat{P})$ называется «рекордом», а расстановка $\widehat{P}$ -- «рекордным решением». В качестве начального рекорда принимается число заведомо большое искомого оптимального решения, например, $L$ – длина всего отрезка.
-
-\underline{\textit{\textbf{Случай 3.}}} Найдено оптимальное решение \textbf{задачи 1} на множестве $G_\nu$.
-Прежде чем рассмотреть эти три случая, запишем важное свойство любого множеств $G_\nu$, являющееся следствием принятого правила выбора свободной переменной для разбиения очередного множества $G_\nu$ при прямом шаге. 
-
-\textit{\textbf{Свойство 1.}} Пусть для исследуемого множества $G_\nu, \nu > 0$, точка $a_k$ -- это одно любое из мест, на которых уже размещены станция из множества $S$ в соответствии с набором фиксированных и запрещенных переменных $\pi_{ij}$, выделяющим данное множество из множества $G_0$. Тогда для всех мест «слева» от $a_k$, т.е. точек $a_i$, $i<k$, размещение станций уже определенно (при этом некоторые места могут быть пустыми).
-Перейдем непосредственно к исследованию \underline{\textit{\textbf{случаев 1 – 3}}}.
-
-\underline{\textit{\textbf{Случай 1.}}}
-
-Проверка текущего множества $G_\nu$ на пустоту состоит в установлении факта невозможности выполнения требований 1) – 4) введенных ранее при определении допустимой расстановки.
-
-Рассмотрим проверку условия выполнения требования 1) для множества $G_\nu, \nu > 0$. 
-
-Пусть множество $G_\nu$  образовано разбиением материнского множества при помощи переменной $\pi_{kt}=1$. Проверяем, что каждый из радиусов $R_{th}$ и $R_{ht}$, где $h$ – индекс станции, размещенной на ближайшей слева к точке $a_k$ точке $a_d$ больше расстояния $l_k-l_d$. Если ближайшая слева точка – это точка $a_0$ (левый конец отрезка $\alpha$), то делается проверка, для радиуса $R_{t0}$ и $R_{0t}$. 
-
-Если данное условие не выполняется, то множество $G_\nu$ недопустимо, соответствующая вершина закрывается и делается шаг обратного хода в соответствии с \textit{\textbf{процедурой 1}}. 
-
-Если множество $G_\nu$ образовано разбиением материнского множества при помощи переменной $\pi_{kt}=0$ и $a_d$ -- точка с наибольшим индексом, среди точек, на которых уже размещены станции (точки $a_0$, если размещенных станций нет), то надо проверить, что среди нераспределенных станций, без учета станции $s_t$, есть такая станция $s_q$ что расстояние между точками $a_k$ и $a_d$ не больше, чем $R_{qh}$ и $R_{hq}$. Если проверка отрицательна, то множество $G_\nu$ -- пусто, соответствующая этому множеству на дереве поиска вершина должна быть закрыта и выполняется шаг обратного хода в соответствии с  \textit{\textbf{процедурой 1}}.
-
-Требование 2) выполняется соответствующим выбором очередной станции для размещения, требования 3) и 4) выполняются непосредственным суммированием соответствующих параметров у размещенных станций.
-
-\underline{\textit{\textbf{Случай 2.}}}
-Построим оценку величины «недопокрытия» для множества $G_\nu$, полученного из материнского множества добавлением условия $\pi_{kt}=1$. Частичным «недопокрытием» назовем величину $\Delta(k,d,p,t)$, которая вычисляется по формуле:
-
-\begin{equation}\label{eq:part4_delta}
-\Delta(k,d,p,t) = max\{\left(a_{k} - a_{d} \right) - \left(r_{p} + r_{t} \right), 0\}.
+\begin{equation}\label{eq:part2_1.4}
+    \sum_{a_j \in \Gamma^-(a_i)} x_{ji} \leqslant \vartheta_j, \forall a_j \in A_2D.
 \end{equation}
 
-Частичное «недопокрытие» \cref{eq:part4_delta} определяется для любых двух точек $a_d$ и $a_k$,$k>d$, на которых расположены станции $s_p$ и $s_t$ при условии, что между этими точками нет других станций. Очевидно, что для любой расстановки $P$ «недопокрытие» $f(P)$ вычисляется как сумма всех «недопокрытий» $\Delta(k,d,p,t)$ между местами размещения станций, включая концы отрезка $\alpha$, на которых стоят станции особого типа $s_0$ и $s_{m+1}$.
+Для нахождение допустимого решения задачb \cref{eq:part2_1.1, eq:part2_1.2, eq:part2_1.3, eq:part2_1.4} (или доказательства, что допустимого решения не существует) может быть применена стандартная процедура нахождения допустимого решения задачи линейного программирования с вводом искусственных переменных в уравнения \cref{eq:part2_1.1, eq:part2_1.2, eq:part2_1.3, eq:part2_1.4} и минимизации состоящей из этих переменных линейной формы. Если значение целевой функции в результате решения задачи окажется больше нуля, то допустимого решения для данного размещения станций не существует, в противном случае полученное решение дает допустимое распределение потоков по каналам связи.
 
-\begin{displaymath}
-W(G_\nu) \leq f(P), P \in G_\nu. 
-\end{displaymath}
+\section{Оптимизационная задача выбора набора размещаемых станций и определения мест их размещения}
+Постановка задачи
+Задано множество вершин $A = a_i$, $i=\overline{0,n}$ на плоскости. Каждая вершина $a_i$ имеет координаты $\left\{ x_i, y_i \right\}$.
+Множество $A$ состоит из двух подмножеств: 
+\begin{itemize}
+    \item $A_1$ -- множество вершин, с которых необходимо собирать информацию. Каждой вершине $a_i$ приписана   величина $v_i$ -- максимальный объем информации, снимаемой с объекта, расположенного на этой вершине;
+    \item $A_2$ -- множество возможных мест размещения базовых станций. 
+\end{itemize}
 
-Если $W(G_\nu) \geq f(\widehat{P})$, то множество $G_\nu$ не может содержать расстановки лучше уже найденной расстановки $\widehat{P}$ соответствующая множеству $G_\nu$  вершина на дереве поиска должна быть закрыта и далее выполняется шаг обратного хода в соответствии с  \textit{\textbf{процедурой 1}}. 
+По определению
 
-Построим оценку «недопокрытия» для множества $G_\nu$, полученного из материнского множества добавлением условия $\pi_{kt}=1$. Оценку будем искать в в
-иде суммы
+$$
+A_1 \cup A_2 = \varnothing;
+$$
 
-\begin{displaymath}
-    W\left(G_\nu\right) = w_1 + w_2. 
-\end{displaymath}
+$$
+A_1 \cap A_2 = A.
+$$
 
-Величина $w_1 \left(G_\nu \right)$ вычисляется как сумма все частичных «недопокрытий» слева от вершины $a_k$ и величины радиуса покрытия, размещаемой станций $r_t$. Оценку $w_2 \left(G_\nu \right)$ вычислим «для недопокрытия» справа на части $\beta$ до конца отрезка $\alpha$ (точки $a_{n+1}$). Данную оценку получим релаксацией условий, определяющих допустимую расстановку станций на участке $\beta$. Найдем такое подмножество $S_\beta$ множества станций $S$, состоящее из еще не размещенных станций и дающее минимальное «недопокрытие» на участке $\beta$ при выполнении только условий 2) – 4). Для этого сформулируем следующую задачу булевого программирования.
+Все вершины пронумерованы так, что:
 
-\underline{\textit{\textbf{Задача 2.}}}
-\begin{displaymath}
-    z = |\beta| - \sum\limits_{x_j \in S_\beta} r_j x_j \rightarrow min.
-\end{displaymath}
-при условии:
+$$
+A_1 = \left\{a_i \right\}, i= \overline{1,n_1};
+$$
 
-\begin{equation}\label{eq:part4_task2_cost}
-    \sum\limits_{x_j \in S_\beta} c_j x_j \leqslant C,
+$$
+A_2 = \left\{ a_i  \right\}, i= \overline{n_1+1,n}.
+$$
+
+
+Задано множество типов базовых станций $S = s_j$, $j=\overline{1,s}$, которые необходимо разместить на множестве $A_2$.
+
+Каждой станции приписаны четыре параметра $s_j = \left\{r_j, R_j, \vartheta_j, c_j \right\}$, где: 
+\begin{itemize}
+    \item $r_j$ -- максимальный радиус покрытия;
+    \item $R_{ij}$ -- максимальный радиус связи между $i$-ой и $j$-ой станциями. Параметр характеризует расстояние, на котором обеспечивается связь между станциями;
+    \item $\vartheta_j$ -- максимальный объем информации в единицу времени, который может быть получен от объектов, обслуживаемых данной станцией;
+    \item $c_j$ -- стоиомость станции.
+\end{itemize}
+
+Также задана станция специального вида (шлюз) $s_0 = \left\{ r_0, R_0, \vartheta_0, c_0 \right\}$ с координатами $\left\{x_0, y_0 \right\}$, где $r_0 = R_0 = \vartheta_0 = c_0 = 0$
+
+
+Требуется разместить станции таким образом, чтобы вся информация с объектов (вершинах множества $A_1$) могла быть собрана и передана системой станций, размещенных на выбранных в результате решения задачи вершинах множества  $A_2$, до шлюза $s_0$ и общая стоимость размещенных станций была бы минимальной.
+Как и в предыдущих задачах вершины и станции будем, соответственно, идентифицировать как объекты или станции на них размещенные.
+Задано условие, что информация c вершин множества $A_1$ может передаваться непосредственно только на вершины множества $A_2$, а со шлюзом и между собой могут быть связаны только вершины множества $A_2$.
+
+\fixme{Заметим, что в отличие от предыдущих двух задач в данной задаче задано не множество станций, которые все должны быть использованы в проектируемой сети, а только типы станций. Таким образом в результате решения задачи определяется как набор станций, так и места их размещения.}
+Формулировка задачи в виде модели частично целочисленного ЛП.
+Вместо каждой вершины $ai$, $i= \overline{n_1+1,n}$ введем $m$ вершин с координатами вершины $a_i$, и различными параметрами, соответствующими различным типам станций. Обозначим такую группу вершин, записанных с одинаковыми координатами вместо вершины $a_i$,как $D_i$. Каждой вершине из $D_i$ поставим в соответствие набор параметров только одного типа станции из $S$, т.е. на данной вершине может стоять либо станция приписанного типа либо никакая. Обозначим расширенное множество вершин $A_2$ через $A_2D$.
+
+Составим граф $H=\left\{AD,E\right\}$, описывающий сеть для передачи потока информации между вершинами расширенного множествa $AD=A_1 \cup A_2D$ и шлюзом.
+Матрица смежности $E = e_{ij}$ графа $H$ строится по следующим правилам.
+
+\begin{itemize}
+    \item $e_{ij} = 1$, если расстояние между $i$-ой вершиной ($a_i \in A_1$) и $j$-ой вершиной ($a_j \in A_2D$) не более радиуса покрытия, приписанного этой вершине;
+    \item $e_{ij} = 1$, если вершины $a_i$ и $a_j$   принадлежат разным множествам $D_i$ и $D_j$ и расстояние между ними не более радиуса связи той вершины, у которой радиус связи не больше радиуса связи другой вершины;
+    \item $e_{i0} = 1$ ($a_i \in A_2D$ ) если расстояние от вершины до шлюза не более $R_i$;
+    \item $e_{ij} = 0$, во всех остальных случаях.
+\end{itemize}
+
+Введем потоковые переменные $x_{ij} \geqslant 0$.
+
+Распишем условия для нашей задачи.
+Величина суммарного потока, который выходит с вершины $a_i$ равен весу $\vartheta_i$
+
+\begin{equation}\label{eq:part2_1.5}
+    \sum_{a_j \in \Gamma^+(a_i)} x_{ij} = \vartheta_i, \forall a_i, i =\overline{1, n_1};
+\end{equation} 
+где $\Gamma^+(a_i)$ -- множество вершин на графе $H$, в которые входят дуги, исходящие из вершины $a_i$.
+
+Сумма входящих и выходящих потоков для любой $i$-ой вершины множества $A_2D$ равна нулю
+\begin{equation}\label{eq:part2_1.6}
+    \sum_{a_j \in \Gamma_1^-(a_i)} x_{ij} + \sum_{a_j \in \Gamma_2^-(a_i)} x_{ji} -  \sum_{a_j \in \Gamma_2^+(a_i)} x_{ij} =0 ,\forall a_i \in A_2. 
+\end{equation} 
+
+Здесь множество $\Gamma_1^-(a_i)$ -- вершины множества $A_1$, из которые выходят дуги, входящие в вершину $a_i$, $\Gamma_2^-(a_i)$ -- вершины множества $A_2D$, из которых выходят дуги, входящие в  вершину $a_i$, $\Gamma_2^+(a_i)$ -- вершины множества $A_2D$, в которые входят дуги, исходящие из вершины  $a_i$.
+
+Через систему станций вся информация от объектов  должна поступить на шлюз $s_0$ 
+
+\begin{equation}\label{eq:part2_1.7}
+    \sum_{a_j \in \Gamma_2^-(a_0)} x_{j0} = \sum_{a_i \in A_1} \vartheta_i.
+\end{equation}
+Здесь $\Gamma_2^-(a_0)$ –- подмножество вершин множества $A_2D$, дуги которых входят в шлюз $a_0$.
+
+Введем булевы переменные $y_i$ для вершин $a_i$, $ai \in A_2D$
+\begin{itemize}
+    \item $y_i = 1$, если станция стоит на месте $a_i$;
+    \item $y_i = 0$, в противном случае.
+\end{itemize}
+
+Объем информации, поступающей от вершин множества $A_1$ на вершину $a_i \in A_2D$, ограничен мощностью станции $\vartheta_i$.
+
+\begin{equation}\label{eq:part2_1.8}
+    \sum_{a_j \in \Gamma^-(a_i)} x_{ji} \leqslant y_i \cdot \vartheta_i, \forall a_i \in A_2D.
 \end{equation}
 
-\begin{equation}\label{eq:part4_task2_m}
-    \sum\limits_{x_j \in S_\beta} x_j \leqslant m,
+На множестве $D_i$ может быть размещено не более одной станции 
+
+
+\begin{equation}\label{eq:part2_1.9}
+    \sum_{a_j \in D_i} y_j \leqslant 1, \forall D_i.
 \end{equation}
 
-\begin{displaymath}
-    x_j \in \{0, 1\},
-\end{displaymath}
-где $|\beta|$ -- длина отрезка отрезка  $\beta$, $m$ -- число свободных мест для размещения станций на отрезке $\beta$.
+Целевая функция
 
-Очевидно, что эффективность использования оценки в методе ветвей и границ определяется точностью оценки и временем ее вычисления. \underline{\textit{\textbf{Задача 2}}} -- это задача ЦЛП, являющаяся труднорешаемой \cite{Gari}. На основании \underline{\textit{\textbf{задачи 2}}} можно получить две оценки менее точные, но имеющие более эффективные методы решения. Заметим, что при снятии ограничения \cref{eq:part4_task2_cost} или \cref{eq:part4_task2_m} \underline{\textit{\textbf{задача 2}}} представляет собой целочисленную задачу о ранце c эффективным псевдополиномиальным алгоритмом решения \cite{Gari}. При этом с точки зрения точности оценки, более перспективным представляется снятие ограничения \cref{eq:part4_task2_m}, так как на практике, обычно, число возможных мест размещения станций существенно меньше числа размещенных станций, полученного в результате решения задачи. Назовем задачу, полученную снятием ограничения \cref{eq:part4_task2_m}, \underline{\textit{\textbf{задачей 3}}}.
-
-\underline{\textit{\textbf{Задачу 2}}} при снятии условия целочисленности на переменные назовем \underline{\textit{\textbf{задачей 4}}}. \underline{\textit{\textbf{Задача 4}}} есть задача линейного программирования. Очевидно, что \underline{\textit{\textbf{задачи 3}}} и \underline{\textit{\textbf{задачи 4}}}, являясь оценками целевой функции решения \underline{\textit{\textbf{задачи 2}}}, могут служить оценками $w_2 (G_\nu)$. Результаты численного эксперимента с различными оценками вынесены в \fixme{приложение 2}.
-
-Если множество $G_\nu$ получено из материнского добавлением условия $\pi_{kt}=0$, то оценка $W(G_\nu)$ равна оценке материнского множества.
-
-\fixme{В приложении 1} приведены результаты вычислительного эксперимента, показывающего время решения \underline{\textit{\textbf{задач 2, 3, 4}}} и относительную точность \underline{\textit{\textbf{задачи 3 и 4}}} по отношению к \underline{\textit{\textbf{задаче 2}}}.
-
-Перейдем к рассмотрению \underline{\textit{\textbf{случая 3}}}. Рассматривается только для множеств $G_\nu$, состоящих из единственной расстановки $P$, для которой «недопокрытие» $f(P)$ вычисляется как сумма всех недопокрытий $\Delta(k,d,p,t)$ между местами, где размещены станций, включая концы отрезка $\alpha$, на которых стоят станции $s_0$ и $s_{m+1}$. 
-
-Если для найденной расстановки $P$ выполняются условия 1) – 4), которые для единственной расстановки легко проверяются, и
-
-\begin{equation}
-    \label{eq:part4_is_less_than_record}
-    f(P) < f(\widehat{P}),
+\begin{equation}\label{eq:part2_1.10}
+    \sum_{a_i \in A_2D} c_i \cdot y_i \to min.
 \end{equation}
-то $f(P)$ принимается за новый рекорд $f(\widehat{P})$, расстановка $P$ становиться новым рекордным решением $\widehat{P}$ и выполняется шаг обратного хода в соответствии с \textit{\textbf{Процедурой 1}}, если неравенство \cref{eq:part4_is_less_than_record} не выполняется, то рекорд остается прежним и выполняется шаг обратного хода.
 
-Работа алгоритма МВиГ заканчивается, когда все вершины дерева поиска закрыты, при этом решение задачи: 
+Задача \cref{eq:part2_1.5, eq:part2_1.6, eq:part2_1.7, eq:part2_1.8, eq:part2_1.9, eq:part2_1.10} представляет собой частично целочисленную задачу линейного программирования с $s \cdot |A_2|$ булевыми переменными.
 
-\begin{displaymath}
-    P^{*} = \widehat{P},  f(P^*) = f(\widehat{P}).
-\end{displaymath}
+Численный пример решения задачи оптимизации представлен в Приложении \cref{app:milp_place_solution}.
 
-\subsection{Построения последовательности топологий для итерационной процедуры моделирования \fixme{БШС}}
+% \section{Пример решения задачи}
+% Рассмотрим пример для оптимизационной задачи выбора набора размещаемых станций и определения мест их размещения.
+% Задано множество рассредоточенных объектов $A_1$, $|A_1| = 4$ и шлюз (таблица \cref{tab:part2_placement_coordinates}).
 
-В результате проектирования \fixme{БШС} надо найти ее оптимальную топологию среди всех топологий, для которых будут выполняться все требования к показателям, исследуемым и рассчитываемым на этапе моделировании сети. Для решения этой задачи воспользуемся идеей метода построения последовательности планов \cite{Emelichev}.
+% \begin{table}
+%     \centering
+%     \captionsetup{justification=centering} % выравнивание подписи по-центру
+%     \caption{Координаты размещения}\label{tab:part2_placement_coordinates}
+%     \begin{tabular}{|l|c|c|}
+%         \toprule
+%         0   & (7,4) & \textbf{Координаты шлюза} \\
+%         \midrule
+%         1   & (1, 5)& \textbf{Координаты объектов}  \\
+%         2   & (4.5, 4) & \\
+%         3   & (6, 3) & \\
+%         4   & (3.5, 5) & \\
+%         \midrule
+%         5   & (2, 4) & \textbf{Координаты размещения станций}  \\
+%         6   & (5, 5) & \\
+%         7   & (2, 6) & \\
+%         8   & (6, 5.5) & \\
+%         \bottomrule
+%     \end{tabular}
+% \end{table}
 
-Рассмотрим \textbf{задачу 1.}
-
-Требуется найти такую допустимую расстановку $P^*$, что
-
-\begin{displaymath}
-    f(P^*) = min \{f(P), P \in G \}.
-\end{displaymath}
-
-Построим для этой задачи последовательность $\Gamma = P^1, P^2, ... ,P^k$ допустимых расстановок (решений) множества $G$ для заданного $k$, где 
-\begin{align}
-    f(P^1) &= f(P^*), \nonumber  \\
-    f(P^2) &= extr\{ f(P), P \in G \ P^1 \}, \nonumber \\
-    ... \nonumber \\
-    f(P^k) &= extr\{ f(P), P \in G \ P^1 \cup P^2 \cup ... P^k \}, \nonumber 
-\end{align}
-
-В последовательности $\Gamma$ каждое решение не лучше предыдущего и не хуже последующего.
-
-Теперь воспользуемся следующей процедурой. Будем последовательно, начиная с первой расстановки, выполнять этап моделирования \fixme{БШС}. Очевидно, что как только мы получим расстановку, удовлетворяющую всем требованиям этапа моделирования, мы решим задачу нахождения оптимальной топологии среди всех топологий, для которых выполняются все требования к показателям, исследуемым и рассчитываемым на этапе моделировании сети. Действительно, для всех предыдущих расстановок эти условия не выполняются, а все последующие расстановки в последовательности $\Gamma$ не могут быть лучше по критерию $f(P)$.
-
-Обсудим вопрос как строить подобную последовательность на основании алгоритма \fixme{МВиГ}, описанного в параграфе \cref{BnB}. Заменив неравенство \cref{eq:part4_is_less_than_record} на нестрогое и записывая все рекорды, полученные в процессе работы алгоритма, мы, очевидно, получим последовательность расстановок, где каждая расстановка не хуже предыдущей и не лучше последующей. Для получения последовательности $\Gamma$ достаточно «перевернуть» полученную последовательность, где первый элемент станет последним.
-
-Недостатком такой процедуры является то, что для исследования на этапе моделирования будут отобраны только расстановки не хуже первого рекорда и среди них может не оказаться расстановки, удовлетворяющей критериям моделирования.
-Для расширения множества $\Gamma$ можно сделать следующее. Зададим условие. что в результате решения \textbf{задачи 1} мы хотим получить не только оптимальное решение, но и все решения не хуже оптимального на величину $d$. Для решения такого варианта задачи достаточно неравенство \cref{eq:part4_is_less_than_record} в алгоритме \fixme{МВиГ} заменить следующим неравенством 
-
-\begin{equation}
-    \label{eq:part4_is_less_than_record_d}
-    f(P) \leqslant f(\widehat{P}) + d,
-\end{equation}
-где $d = \varepsilon \cdot L > 0, \varepsilon$ -- заданное отклонение в процентах, и запоминать все рекорды, полученные в процессе решения задачи.
-
-На основании неравенства \cref{eq:part4_is_less_than_record_d} можно построить итерационную процедуру, увеличивая величину $d$, если при данном ее значении допустимого решения на этапе моделирования не найдено.
-В \fixme{приложение 2} представлены результаты численного примера.
-
-% \subsection{Расчет межконцевой задержки}\label{part4_e2e_delay_section}
-
-% Одной из основных характеристик проектируемой сети является ее межконцевая задержка. Рассмотрим беспроводную сеть как сеть массового обслуживания (СеМО) с кросс-трафиком и с узлами $M/M/1$. По теореме Бурке \cite{Burke1956} на выходе узла $M/M/1$, а значит на входе каждой последующей фазы тоже пуассоновский поток. Интенсивность на выходе каждой фазы равна суммарной интенсивности всех входящих потоков с интенсивностями $\lambda$.
-
-% По формуле Литтла \cite{Little1961} можно рассчитать время задержки на фазе. Интенсивность времени обслуживания рассчитывается по формуле: 
-
-% \begin{displaymath}
-%     \mu_j = p_j / w,
-% \end{displaymath}
-% где: $p_j$ - пропускная спобоность $j$-ой станции, Мбит/с; $w$ - средний размер пакета, Мбит.
-
-% Для каждой станции коэффициент загрузки равен:
-
-
-% \begin{displaymath}
-% \rho_j= \frac{\sum{\lambda}}{\mu_j} = \frac{q \cdot \lambda}{\mu_j} <1,
-% \end{displaymath}
-
-% где $q$ -- число входящих потоков. Условие $\rho_j<1$ является необходимым и достаточным условием существования стационарного режима функционирования \fixme{СеМО}.
-
-% Тогда среднее время задержки по времени на каждой станции:
-
-% \begin{displaymath}
-%     \overline{T_j} = \frac{\rho_j}{1 - \rho_j} \cdot \frac{1}{q \cdot \lambda}.
-% \end{displaymath}
-
-% Тогда межконцевая задержки в сети равна
-
-% \begin{equation}
-%     \label{eq:end_to_end_delay}
-%     T^{e2e}= \sum{\overline{T_j}}.
-% \end{equation}
-
-% \subsection{Выводы по Главе \cref{chapter_combinatorial_model}}
-\section{Выводы по Главе \cref{chapter_linear_network}}
-Представлена математическая модель задачи размещения базовых станций беспроводной сети связи вдоль линейного участка в виде задачи ЦЛП. В качестве примера представлен численный пример решения задачи.
-
-
-В работе предложена методика проектирования беспроводной широкополосной сети для контроля линейной трассы с использованием итерационной процедуры построения последовательности лучших решений задачи выбора и размещения базовых станций при выполнении технологических условий на проектирование сети и ограничения на стоимость размещаемых станций. 
-
-Предложенная методика позволяет на этапе моделирования выбирать лучшее решение среди тех решений по выбору и размещению станций, которые удовлетворяют требованиям, предъявляемым к проектируемой сети.
-
-Процедура нахождения последовательности лучших решений задачи выбора и размещения базовых станций основана на разработанном алгоритме \fixme{МВиГ}.
-
-
-% First we shall build $W(G_0)$.
-
-% Since all the stations must be placed, then the maximum coverage of $\alpha$ is obtained in situations when  it would be possible to place all the stations without intersections of their coverage radiuses . Each station $s_j$ covers the segment of length 2$r_j$, therefore, a total non - coverage cannot exceed the value.
-
-% \begin{displaymath}
-% W\left(G_0\right) = \max{\left\{L-\sum_{j=1}^{m}{2r_j,0}\right\}}.                                                                                  
-% \end{displaymath}
-
-% Now we will define $W(G_\nu)$, $\nu > 0$ as the sum of partial sums $w_1$ and $w_2$. 
-
-% \begin{displaymath}
-% W\left(G_\nu\right) = w_1 + w_2.                                                                                  
-% \end{displaymath}
-
-% Suppose $G_\nu$ is obtained by splitting a parent set by setting the variable $\pi_{kt}$ = 1. Then $w_1$ is "non-coverage" of the segment from $a_0$ to $a_k$ while $w_2$ is non-coverage of the segment from $a_k$ to $a_{n+1}$.
-
-% The sum $w_1$ is calculated by formula (\ref{eq1}) by summing non-coverages between the places where stations have been placed already. 
-
-% The sum $w_2$ is calculated as
-
-% \begin{equation}\label{eq2}
-% w_2 = max\left\{\left(l_{n+1}-l_k\right)-\left(r_t+\sum_{j\in S_v}{2r_j}\right),0\right\},
-% \end{equation}
-% where $S_\nu$ is the set of unplaced stations. 
-
-% The formula (\ref{eq2}) is analogous to the formula (\ref{eq1}) except the fact, that it is applicable to the part of segment $\alpha$ which is to the right from the last place where any station has been placed.
-
-% If $\pi_{kt}$ = 0 the estimation $W(G_{\nu})$ remains unchanged after splitting.
-
-% \subsection{Case 3.}
-% In this case we review only sets $G_\nu$, which consist of a single placement $P$, and $f(P)$ is obtained as the sum of non-coverages $\Delta(k,d,p,t)$ between known places where  stations are placed.
-
-%  If for the given placement the inequality $f(P) < f(\widehat{P})$ takes place, then the placement $P$ becomes a new current best value $\widehat{P}$ and backward step is applied.
+% Задано множество $A_2$ возможных мест расположения станций, $|A_2| = 4$. Все вершины представлены на рисунке \ref{fig:part2_coordinates}.
  
-% The branch and bound algorithm will stop when all the vertexes of the searching tree will be closed.
- 
-% The solution is
-% \begin{displaymath}
-% P^{*} = \widehat{P},  \widehat{f}(P^*) = f(\widehat{P}).
-% \end{displaymath}
-
-% \section{Example 1}
-
-% \textit{Input data.}
-
-% The segment $\alpha$  with $L$ = 50, end points $a_0$  and  $a_4$  with coordinates $l_0$ = 0 and $l_4$= 50 is given. There are internal  points $a_1$, $a_2$, $a_3$ with coordinates $l_1$ = 20, $l_2$= 30, $l_3$=40.
-
-% The set of stations $S=\left\{s_j\right\}, j=1,2$  is given, where station $s_j$ has parameters: $r_1$ = 20, $R_1$ = 40; $r_2$ = 5, $R_2$ = 20. There are special stations $s_0$ and $s_4$, on the end points with $r_0$=$R_0$= 
-% $r_4$=$R_4$=0.
-
-% We have to find a feasible placement $P^*$, such that
-
-% \begin{displaymath}
-% P^* = \min \limits_{P \in G} f(P)
-% \end{displaymath}
-
-% The process of solving the problem is presented in the form of a binary search tree (see Fig.~\ref{fig2}).
- 
-% The initial value of $f(\widehat{P})=L=50$, $G_0=G$.
-
-% The vertices of the tree indicated by $\emptyset$  correspond to the sets $G_\nu$ for which there are no feasible placements.
-
-% Two placements $P_1$ and $P_2$ were obtained as the current best solutions  with $f(P_1)=15$ and $f(P_2)=5$.
-
-% The optimal solution is $P^\ast=P_2,\ \ f\left(P^\ast\right)=f\left(P_2\right)=5$.
-
-% \begin{figure}
-% \includegraphics[width=\textwidth]{tree.pdf}
-% \caption{The search tree of branch and bound algorithm.} \label{fig2}
+% \begin{figure}[ht]
+%     \centerfloat{
+%         \includegraphics[scale=0.75]{part2_coordinates.png}
+%     }
+%     \caption{Координаты размещения}\label{fig:part2_coordinates}
 % \end{figure}
 
-% \section{The statement of problem as a mixed – integer programming model}
-% Here we will formulate our placement problem in the form of a mixed – integer programming model. The description of problem is given in section 2.
-
-% Let us introduce binary variables $x_{ij}$ where $x_{ij}=1$ if a station $s_j$ is placed at point $a_i$ and $x_{ij}=0$ otherwise.
-
-% Let us introduce binary variables $e_i$ where $e_i$=1 if any station is placed at point $a_i$ and $e_i=0$ otherwise.
-
-% By definition
-
-% \begin{displaymath}
-% e_i=\sum_{j}^{m}{x_{ij}}, i=1,2,\ldots,n.
-% \end{displaymath}
-
-% We have $e_0$ = 1 and $e_{n+1}$ = 1 for the end points.
-
-% Let us formulate the following system of the problem constraints.
-
-% Each station must be placed in one and only one place
-
-% \begin{displaymath}
-% \sum_{i=1}^{n}{x_{ij}=1}, j=1,2,\ldots,m.
-% \end{displaymath}
-
-% At any point there can be no more than one station
-
-% \begin{displaymath}
-% \sum_{j=1}^{m}{x_{ij} \leq 1}, i=1,2,\ldots,m.
-% \end{displaymath}
-
-% We will introduce non-negative variables $y_i^+$  and  $y_i^-$ for points $a_i$, $i=0,1,2,..,n$, $n+1$.
-% Variables $y_i^+$ and  $y_i^-$  are the area sizes (right and left from point $a_i$) which are covered by station placed at point $a_i$.
-
-% Values of  variables $y_0^+$, $y_0^-$,$y_{n+1}^+$, $y_{n+1}^-$ equal 0.
-
-% The values of coverages are not greater than the coverage radius of the station located at $a_i$, and equal to 0 if is no station at $a_i$:
-
-% \begin{displaymath}
-% y_i^+\le\sum_{j=1}^{m}{x_{ij}r_j} ,i=1,2,\ldots,n,
-% \end{displaymath}
-
-% \begin{displaymath}
-% y_i^-\le\sum_{j=1}^{m}{x_{ij}r_j} ,i=1,2,\ldots,n.
-% \end{displaymath}
-
-% The total coverage area between any two points $a_i$ and $a_k$ on which the stations are located cannot exceed the distance between these points.
-
-% For  $i=1,\ldots,n$:
-
-% \begin{displaymath}
-% y_i^+ + y_k^- \le\frac{l_k - l_i}{2}\left(e_i + e_k\right)+\left(2 - e_i - e_k\right)L, k=i+1,\ldots,n+1,
-% \end{displaymath}
-
-% \begin{displaymath}
-% y_i^- + y_k^+  \le\frac{l_i - l_k}{2}\left(e_i + e_k\right)+\left(2 - e_i - e_k\right)L ,k=i-1,\ldots,0.
-% \end{displaymath}
-
-% 	This condition excludes the effect from intersections of station coverages when calculating the total coverage value for the entire segment $\alpha$.
-	
-% 	According to the conditions of the problem, the station located at $a_i$ must be connected with at least one station on the left and one station on the right, including stations  at the end points $a_0$ and $a_{n+1}$.
-
-% 	We will introduce variables $z_{ijk}, i=1,2,\ldots,n$; $j=1,2,\ldots,m$; $k=1,2,\ldots,n$; $k\neq i$ to formulate this requirement where:
-
-% \begin{itemize}
-% 	\item $z_{ijk}=1$ if a station $s_j$ is located at point $a_i$ and connected with a station which is located at point  $a_k$;
-% 	\item $z_{ijk}=0$ otherwise.
-% \end{itemize}	
-	
-% 	We will also introduce variables $z_{ij0}$ and $z_{ijn+1}$ where $z_{ij0}=1$ if a station $s_j$ is located at point $a_i$ and connected with a station $s_0$ which is located at point  $a_0$  and $z_{ij0} = 0$ otherwise; $z_{ijn+1}=1$ if a station $s_j$ is located at point $a_i$ and connected with a station $s_{n+1}$ which is located at point $a_{n+1}$  and $z_{ijn+1} = 0$ otherwise.
-
-% Stations must be at both points so that they can be connected: 
-
-% \begin{displaymath}
-% z_{ijk}\le e_i,  \forall i,j,k,
-% \end{displaymath}
-
-% \begin{displaymath}
-% z_{ijk}\le e_k, \forall i,j,k.
-% \end{displaymath}
-
-% The station $s_j$ which is located at $a_i$ must be connected with at least one station which is located right from $a_i$ and at least one station  which is located left from $a_i$
-
-% \begin{displaymath}
-% \sum_{k=i+1}^{n+1}{z_{ijk} \geq x_{ij}}, \forall i,j,
-% \end{displaymath}
-
-% \begin{displaymath}
-% \sum_{k=0}^{i-1}{z_{ijk} \geq x_{ij}}, \forall i,j.
-% \end{displaymath}
-
-% The communication radius $R_j$ of the station located at the point  $a_i$, must be no less than the distance to the point $a_k$, where there is a station with which it is connected:
-
-% \begin{displaymath}
-% z_{ijk\ }\left(R_j-\left(a_i-a_k\right)\right)\geq 0, k=i-1,\ldots,0, j=1,2,\ldots,m,  
-% \end{displaymath}
-
-% \begin{displaymath}
-% z_{ijk}\left(R_j-\left(a_k-a_i\right)\right)\geq 0, k=i+1,\ldots,n+1, j=1,2,\ldots,m. 
-% \end{displaymath}
-
-% Objective function
-
-% \begin{displaymath}
-% f=\sum_{i=1}^{n}{\left(y_i^++y_i^-\right)\rightarrow max} 
-% \end{displaymath}
-
-
-% \section{Numerical results}
-% The algorithms Branch and Bound (BnB) and brute-force algorithm (BF) were implemented using Python.
-% Table 1 shows the results of solving several problems for a different number of locations and a different number of stations using the B and B algorithm, the BF algorithm and the standard program for solving mixed – integer problem in the MATLAB package. We compare the number of vertices in the search trees so that the execution parameters of the algorithms do not depend on the speed of the machine and/or the quality the computer program. For each set of stations and set of placements   10 examples were computed with different numerical input data. For B and B and the MATLAB package the table shows the average execution parameters of the number of vertices in the search tree for each of the 10 examples.
+% Задано ограничение по мощности для кадого объекта (таблица \ref{tab:part2_object_capacity}).
 
 % \begin{table}
-% \caption{The results of solving problems.}\label{tab1}
-% \begin{tabular}{|l|l|l|l|l|}
-% \hline
-% {\bfseries Places} & {\bfseries Stations} &	{\bfseries BF}& {\bfseries BnB} & {\bfseries MILP} \\ 
-% \hline
-% 7 &		5 &	17550  &	933 &		753\\
-% 9 &		5 &	71090  &	6478 &		2669\\
-% 10 &	5 &	126180 &	1041 &		8551\\
-% 12 &	6 &	No &		8294 &		38569\\
-% 13 & 	6 &	No &		18485 &		30369\\
-% \hline
-% \end{tabular}
+%     \centering
+%     \captionsetup{justification=centering} % выравнивание подписи по-центру
+%     \caption{Координаты размещения}\label{tab:part2_object_capacity}
+%     \begin{tabular}{|c|cccc|}
+%         \toprule
+%         Объекты   & 1 & 2 & 3 & 4 \\
+%         \midrule
+%         Мощность  & 10 & 15 & 17 & 18 \\
+%         \bottomrule
+%     \end{tabular}
 % \end{table}
 
-% \textit {The numerical results. “No” means the problem was not solved after 3 hours}. 
+% Задано множество типов станций (таблица \ref{tab:part2_station_types}).
 
-% \section{Conclusion}
+% \begin{table}
+%     \centering
+%     \captionsetup{justification=centering} % выравнивание подписи по-центру
+%     \caption{Множество типов станций}\label{tab:part2_station_types}
+%     \begin{tabular}{|c|c|c|c|c|}
+%         \toprule
+%         Тип & Мощность, $\vartheta_j$ & Радиус покрытия, $r_j$  & Радиус связи, $R_j$ & Стоимость, $c_j$ \\
+%         \toprule
+%         1   & 80 & 1 & 6 & 70 \\
+%         2  & 100 & 2 & 5 & 75 \\
+%         3  & 100 & 2 & 5 & 75 \\
+%         \bottomrule
+%     \end{tabular}
+% \end{table}
 
-% In this  paper the problem of finding optimal location for the  given set of base stations in wireless network with linear topology was analyzed. The problem has been formulated as an  extremal combinatorial problem and also as mixed – integer linear programming model.  The branch and bound algorithm for solving the problem in combinatorial form was developed. The results of the computer experiment show that the branch and bound algorithm is more effective than the brute-force algorithm and using of the branch and bound algorithm also more effective than to solve the problem represented as a mixed–integer programming model.
+% Необходимо разместить станции таким образом, чтобы минимизировать их  суммарную общую стоимость.
+% Построим граф сети $H$ для данного набора типов станции. Матрица смежности представлена на рисункке \cref{fig:part2_adjacency_matrix}
+ 
+% \begin{figure}[ht]
+%     \centerfloat{
+%         \includegraphics[scale=0.5]{part2_adjacency_matrix.pdf}
+%     }
+%     \caption{Координаты размещения}\label{fig:part2_adjacency_matrix}
+% \end{figure}
+
+% % \begin{table}
+% %     \centering
+% %     \captionsetup{justification=centering} % выравнивание подписи по-центру
+% %     \caption{Матрица смежности графа $H$}\label{tab:part2_adjacency_matrix}
+% %     \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+% %         \toprule
+% %         a_0 & a_1 & a_2 & a_3 & a_4 & a_5s_1 & a_6s_1 & a_7s_1 & a_8s_1 & a_5s_2 a_6s_2 & a_7s_2 & a_8s_2 & a_5s_3 & a_6s_3 & a_7s_3 & a_8s_3 \\
+% %         \toprule
+% %         1   & 80 & 1 & 6 & 70 \\
+% %         2  & 100 & 2 & 5 & 75 \\
+% %         3  & 100 & 2 & 5 & 75 \\
+% %         \bottomrule
+% %     \end{tabular}
+% % \end{table}
+
+
+% На основе матрицы смежности полученного графа запишем систему равенств и неравенств\cref{eq:part2_1.5, eq:part2_1.6, eq:part2_1.7, eq:part2_1.8, eq:part2_1.9, eq:part2_1.10} и решим задачу частично целочисленного ЛП.
+% В ходе решения мы получили следующее размещение станции (рис. \cref{fig:part2_solution})
+
+% \begin{figure}[ht]
+%     \centerfloat{
+%         \includegraphics[scale=0.75]{part2_solution.png}
+%     }
+%     \caption{Координаты размещения}\label{fig:part2_solution}
+% \end{figure}
+
+% Из графика видно, что были размещены на точках 7 и 8 две станции типа 2 и 3, соответственно.
+% Решением задачи является суммарная стоимость равная:
+% $f=160$.
 
 
 
-% \section{Выводы по Главе \cref{chapter_ilp_model}}
-% Представлена математическая модель задачи размещения базовых станций беспроводной сети связи вдоль линейного участка в виде задачи ЦЛП. В качестве примера представлен численный пример решения задачи.
 
-% \section{Example}
 
-% Let's look at one simple case of base stations placement problem.
+% % \section{Результаты численного эксперимента}
 
-% Consider the section of length $L = 400$ with $n = 10$ placement points is given in table \ref{tab:placed_point}:
+% Алгоритмы построения графов $H$ были запрограммированы на языке Python. Задачи, сформулированные на основании графов $H$ в виде соответствующих задач математического программирования, были решены пакетом Optimization Toolbox MATLAB.
+% В таблице 4 представлены результаты времени счета задач частично целочисленного ЛП для различных случаев числа мест размещения станций и числа объектов. Для каждого случая было проведено по 10 примеров.
 
-% \begin{table}[h!]\begin{center}
-%   \begin{tabular}{|c||c|c|c|c|c|c|c|c|c|c|}\hline
-%     $a_i$ & $a_1$ &  $a_2$ & $a_3$ & $a_4$ & $a_5$ & $a_6$ & $a_7$ & $a_8$ & $a_9$ & $a_{10}$ \\ \hline \hline
-%     coordination & 32 & 65 & 101 & 142 & 181 & 241 & 270 & 301 & 325 & 380 \\ \hline
-% \end{tabular}\caption{Placement points at the section of length $L = 400$.}\label{tab:placed_point}
-% \end{center}\end{table}
+% \begin{table}
+%     \centering
+%     \captionsetup{justification=centering} % выравнивание подписи по-центру
+%     \caption{Множество типов станций}\label{tab:part2_station_types}
+%     \begin{tabular}{|c|c|c|}
+%         \toprule
+%         Количество & Количество мест  & Среднее время 
+%         \tabularnewline объектов, $n_1$ & размещения станций, $n-n_1$ &  счета, сек.  \\
+%         \toprule
+%         4   & 3 & 12,34 \\
+%         4   & 4 & 12,42 \\
+%         4   & 5 & 12,31 \\
+%         6   & 6 & 11,20 \\
+%         8   & 7 & 11,27 \\
+%         10  & 7 & 12,32 \\
+%         12  & 10 & 12,51 \\
+%         14  & 7 & 12,42 \\
+%         17  & 8 & 12,18 \\
+%         21  & 8 & 12,53 \\
+%         25  & 8 & 14,22 \\
+%         \bottomrule
+%     \end{tabular}
+% \end{table}
 
-% There are $m = 7$ base stations with parameters given in table \ref{tab:BS}:
+\section{Выводы к главе 2}
+В работе рассмотрены задачи размещения базовых станций при проектировании беспроводных широкополосных сетей связи. Предложены формулировки задач в виде   моделей линейного и частично целочисленного линейного программирования как для случая проверки  наличия допустимых решений для вариантов, предложенных проектировщиками, так и для экстремальной задачи отбора множества станций из имеющегося набора типов станций и оптимального размещения станций выбранного множества на избыточном множестве возможных мест размещения. Предложены алгоритмы построения графов информационных потоков, позволившие формализовать задачи в виде соответствующих моделей математического программирования. Приведены результаты вычислительного эксперимента.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% \section{Одиночное изображение}\label{sec:ch2/sec1}
+
+% \begin{figure}[ht]
+%     \centerfloat{
+%         \includegraphics[scale=0.27]{latex}
+%     }
+%     \caption{TeX.}\label{fig:latex}
+% \end{figure}
+
+
+
+% Для выравнивания изображения по-центру используется команда \verb+\centerfloat+, которая является во
+% многом улучшенной версией встроенной команды \verb+\centering+.
+
+% \section{Длинное название параграфа, в котором мы узнаём как сделать две картинки с~общим номером и названием}\label{sec:ch2/sect2}
+
+% А это две картинки под общим номером и названием:
+% \begin{figure}[ht]
+%     \begin{minipage}[b][][b]{0.49\linewidth}\centering
+%         \includegraphics[width=0.5\linewidth]{knuth1} \\ а)
+%     \end{minipage}
+%     \hfill
+%     \begin{minipage}[b][][b]{0.49\linewidth}\centering
+%         \includegraphics[width=0.5\linewidth]{knuth2} \\ б)
+%     \end{minipage}
+%     \caption{Очень длинная подпись к изображению,
+%         на котором представлены\section{Одиночное изображение}\label{sec:ch2/sec1}
+
+%         \begin{figure}[ht]
+%             \centerfloat{
+%                 \includegraphics[scale=0.27]{latex}
+%             }
+%             \caption{TeX.}\label{fig:latex}
+%         \end{figure}
+        
+        
+        
+%         Для выравнивания изображения по-центру используется команда \verb+\centerfloat+, которая является во
+%         многом улучшенной версией встроенной команды \verb+\centering+.
+        
+%         \section{Длинное название параграфа, в котором мы узнаём как сделать две картинки с~общим номером и названием}\label{sec:ch2/sect2}
+%          две фотографии Дональда Кнута}
+%     \label{fig:knuth}
+% \end{figure}
+
+% Те~же~две картинки под~общим номером и~названием,
+% но с автоматизированной нумерацией подрисунков:
+% \begin{figure}[ht]
+%     \centerfloat{
+%         \hfill
+%         \subcaptionbox[List-of-Figures entry]{Первый подрисунок\label{fig:knuth_2-1}}{%
+%             \includegraphics[width=0.25\linewidth]{knuth1}}
+%         \hfill
+%         \subcaptionbox{\label{fig:knuth_2-2}}{%
+%             \includegraphics[width=0.25\linewidth]{knuth2}}
+%         \hfill
+%         \subcaptionbox{Третий подрисунок, подпись к которому
+%             не~помещается на~одной строке}{%
+%             \includegraphics[width=0.3\linewidth]{example-image-c}}
+%         \hfill
+%     }
+%     \legend{Подрисуночный текст, описывающий обозначения, например. Согласно
+%         ГОСТ 2.105, пункт 4.3.1, располагается перед наименованием рисунка.}
+%     \caption[Этот текст попадает в названия рисунков в списке рисунков]{Очень
+%         длинная подпись к второму изображению, на~котором представлены две
+%         фотографии Дональда Кнута}\label{fig:knuth_2}
+% \end{figure}
+
+% На рисунке~\cref{fig:knuth_2-1} показан Дональд Кнут без головного убора.
+% На рисунке~\cref{fig:knuth_2}\subcaptionref*{fig:knuth_2-2}
+% показан Дональд Кнут в головном уборе.
+
+% Возможно вставлять векторные картинки, рассчитываемые \LaTeX\ <<на~лету>>
+% с~их~предварительной компиляцией. Надписи в таких рисунках будут выполнены
+% тем же~шрифтом, который указан для документа в целом.
+% На~рисунке~\cref{fig:tikz_example} на~странице~\pageref{fig:tikz_example}
+% представлен пример схемы, рассчитываемой пакетом \verb|tikz| <<на~лету>>.
+% Для ускорения компиляции, подобные рисунки могут быть <<кешированы>>, что
+% определяется настройками в~\verb|common/setup.tex|.
+% Причём имя предкомпилированного
+% файла и~папка расположения таких файлов могут быть отдельно заданы,
+% что удобно, если не~для подготовки диссертации,
+% то~для подготовки научных публикаций.
+% \begin{figure}[ht]
+%     \centerfloat{
+%         \ifdefmacro{\tikzsetnextfilename}{\tikzsetnextfilename{tikz_example_compiled}}{}% присваиваемое предкомпилированному pdf имя файла (не обязательно)
+%         \input{Dissertation/images/tikz_scheme.tikz}
+
+%     }
+%     \legend{}
+%     \caption[Пример \texttt{tikz} схемы]{Пример рисунка, рассчитываемого
+%         \texttt{tikz}, который может быть предкомпилирован}\label{fig:tikz_example}
+% \end{figure}
+
+% Множество программ имеют либо встроенную возможность экспортировать векторную
+% графику кодом \verb|tikz|, либо соответствующий пакет расширения.
+% Например, в GeoGebra есть встроенный экспорт,
+% для Inkscape есть пакет svg2tikz,
+% для Python есть пакет tikzplotlib,
+% для R есть пакет tikzdevice.
+
+% \section{Пример вёрстки списков}\label{sec:ch2/sec3}
+
+% \noindent Нумерованный список:
+% \begin{enumerate}
+%     \item Первый пункт.
+%     \item Второй пункт.
+%     \item Третий пункт.
+% \end{enumerate}
+
+% \noindent Маркированный список:
 % \begin{itemize}
-%   \item $P_{tr}^R$ is a transmit power for communication with base stations;
-%   \item $G_{tr}^R$ is an antenna gain for communication with base stations;
-%   \item $P_{recv}^R$ is a sensitivity for communication with base stations;
-%   \item $P_{tr}^r$ is a transmit power for the coverage of section;
-%   \item $G_{tr}^r$ is an antenna gain for the coverage of section;
-%   \item $p$ is a throughput;
-%   \item $c$ is a base station cost.
+%     \item Первый пункт.
+%     \item Второй пункт.
+%     \item Третий пункт.
 % \end{itemize}
 
-% \begin{table}[h!]\begin{center}
-%   \begin{tabular}{|c||c|c|c|c|c|c|c|}\hline
-%     BS & $P_{tr}^R$ &  $G_{tr}^R$ & $P_{recv}^R$ & $P_{tr}^r$ & $G_{tr}^r$ & $p$ & $c$ \\ \hline 
-%     No & [dBm] & [dBi] & [dBm] & [dBm] & [dBi] & Mbit/s & c.u.  \\ \hline
-%     1 & 19 & 5 & -69 & 20 & 2 & 54 & 2300 \\ 
-
-%     2 & 19 & 4 & -80 & 19 & 3 & 54 & 1200 \\ 
-
-%     3 & 19 & 6 & -69 & 18 & 2 & 54 & 4500 \\ 
-
-%     4 & 19 & 5 & -83 & 18 & 3 & 54 & 6000 \\ 
-
-%     5 & 20 & 5 & -85 & 20 & 2 & 54 & 3500 \\ 
-
-%     6 & 22 & 5 & -69 & 18 & 2 & 54 & 4200 \\ 
-
-%     7 & 19 & 5 & -69 & 18 & 2 & 54 & 4200 \\ \hline
-
-% \end{tabular}\caption{Base station parameters.}\label{tab:BS}
-% \end{center}\end{table}
-
-% Finally, gateway stations of special type $s_{m + 1}$ placed on the ends of the segment are specified. Gateway parameters is given in table \ref{tab:Gateway}:
-
-% \begin{table}[h!]\begin{center}
-%   \begin{tabular}{|c||c|c|}\hline
-%     Gateway & $G_{tr}^R$ & $P_{recv}^R$  \\ \hline 
-%      No & [dBi] & [dBm]  \\ \hline
-%     $s_{m+1}$ & 3 & -69 \\ \hline
-
-% \end{tabular}\caption{Gateway parameters.}
-% \label{tab:Gateway}
-% \end{center}\end{table}
-
-% \subsection{Computation of the communication link distance between base stations}
-
-% Base station is equipped with a directional antenna with a high gain to communicate with neighbouring stations.
-% To calculate the losses between stations $j$ and $q$, we use the formula (\ref{eq:L_fs_from_link_budget}):
-
-% \begin{displaymath}
-%   L_{fs}^{jq} = P_{tr}^R(j) - L_{tr} + G_{tr}^R(j) + G_{tr}^R(q) - L_{recv} - SOM - P_{recv}^R(q).
-% \end{displaymath}
-
-% The cable losses at the receiver $L_{recv}$ and transmitter $L_{tr}$ are equal to 1 dB. We will also provide system operating margin $ SOM = 10 $ dB.
-
-% Let us carry out an example of the calculation communication link between stations $ s_1 $ and $ s_2 $:
-
-% \begin{align}
-%   \begin{aligned}
-%   L_{fs}^{12} = P_{tr}^R(1) - L_{tr} + G_{tr}^R(1) + G_{tr}^R(2) - L_{recv} - SOM - P_{recv}^R(2)= \\
-%   = 19 - 1 + 5 + 4 - 1 - 10 - (-80) = 96 (dB).
-%   \end{aligned}
-% \end{align}
-
-% To calculate the communication link, formula ( \ref{eq:D} ) must be used. The stations operate on 6th channel, carrier frequency $f = 2437$ MHz and coefficient $K = -27.55$:
-
-% \begin{align}
-%   \begin{aligned}
-%   R_{jq} = 10^{\left(\frac{L_{fs}^{jq} - 20\lg{F} - K}{20}\right)}
-%   = 10^{\left(\frac{96 - 20\lg{2437} - (-27.55)}{20}\right)} = 617 (m).
-%   \end{aligned}
-% \end{align}
-
-% Table \ref{tab:Rjq} summarizes the maximal communication link distances calculations between all stations $ s_j $, $ j = 1, ..., m $, and the gateway $ s_ {m + 1} $.
-
-% \begin{table}[h!]\begin{center}
-%   \begin{tabular}{|c||c|c|c|c|c|c|c|c|}\hline
-%       $R_{jq}, (m)$ & $s_1$ & $s_2$ & $s_3$ & $s_4$ & $s_5$ & $s_6$ & $s_7$ & $s_{m+1}$ \\ \hline \hline
-
-%       $s_1$ & -- & 617 & 219 & 978 & 1 232 & 195 & 195 & 123 \\ 
-
-%       $s_2$ & 174 & -- & 195 & 872 & 1 098 & 174 & 174 & 109 \\
-
-%       $s_3$ & 219 & 692 & -- & 1098 & 1 382 & 219 & 219 & 138 \\
-
-%       $s_4$ & 195 & 617 & 219 & -- & 1 232 & 195 & 195 & 123 \\
-
-%       $s_5$ & 219 & 692 & 245 & 1 098  &  -- & 219 & 219 & 138 \\
-
-%       $s_6$ & 275 & 872 & 309 & 1 382 &  1 740 & -- & 275 & 174 \\
-
-%       $s_7$ & 195 & 617 & 219 & 978 & 1 232 & 195 & -- & 123 \\ \hline
-
-% \end{tabular}\caption{The calculation of communication link distance between stations.}\label{tab:Rjq}
-% \end{center}\end{table}
-
-
-% \subsection{Computation of the coverage radius}
-
-% To cover a given section, the base station is equipped with an isotropic antenna with output power $ P_ {tr} ^ r $ and gain $ G_ {tr} ^ r $ is equal to 0. The cable loss $ L_ {tr} $ is equal to 1.
-
-% A coverage area depends on a base station, as well as user device characteristics. Let us consider a user device with an antenna sensitivity $P_{RX} = -67$ dBm and gain $G_{RX} = 0$. Loss $L_{RX}$ is equal to 0.
-
-% Free space path loss between the $j$-th station and the user device
-
-% \begin{displaymath}
-%   L_{fs}^{j} = P_{tr}^r(j) - L_{tr}  - SOM - P_{RX}. 
-% \end{displaymath}
-
-% To calculate the coverage radius, must be used the formula (\ref{eq:D}). The stations operate on 6th channel, carrier frequency $f = 2437$ MHz. and coefficient $K = -27.55$
-
-% \begin{displaymath}
-%   r_{j} = 10^{\left(\frac{L_{fs}^{j} - 20\lg{F} - K}{20}\right)}.
-% \end{displaymath}
-
-% An example of calculating the coverage radius for the $1$-st station:
-
-% \begin{displaymath}
-%   r_{1} = 10^{\left(\frac{20 - 1 + 2 - 10 -(-67) - 20\lg{2437} - (-27.55)}{20}\right)} = 77 (m)
-% \end{displaymath}
-
-% Let's calculate the coverage radius for all stations $s_j $, $ j = 1, ..., m$ (table \ref{tab:rj}).
-
-% \begin{table}[h!]\begin{center}
-%   \begin{tabular}{|c||c|c|c|c|c|c|c|}\hline
-%       STA & $s_1$ & $s_2$ & $s_3$ & $s_4$ & $s_5$ & $s_6$ & $s_7$ \\ \hline \hline
-
-%       $r_{j}$ & 77 & 77 & 61 & 69 & 77 & 61 & 61 \\ \hline
-
-% \end{tabular}\caption{Calculation of the coverage radius of stations.}\label{tab:rj}
-% \end{center}\end{table}
-
-% \subsection{Time delay calculation}
-
-% Let's calculate the delay for station $s_1$. The specified throughput is $p_1 = 54$ Mbit/s. Let's assume that the average package size is $w = 2700$ KByte (21.6 MBit). The arrival package rate is $\lambda = 0.5(s^{- 1})$. Then the service rate according to the formula (\ref{eq:service_time}) will be
-
-% \begin{displaymath}
-%   \label{eq:service_time_evaluation}
-%   \mu_1 = \frac{54}{21.6} = 2.5 (s^{-1}).
-% \end{displaymath}
-
-% The utilization is equal to
-
-% \begin{displaymath}
-%   \label{eq:rho_evaluation}
-%   \rho_1 = \frac{0.5}{2.5} = 0.2.
-% \end{displaymath}
-
-% The average package size is
-
-% \begin{displaymath}
-%   \label{eq:N_evaluation}
-%   \overline N_1 = \frac{0.2}{1 - 0.2} = 0.25.
-% \end{displaymath}
-
-% The average delay is
-
-% \begin{displaymath}
-%   \label{eq:node_delay_evaluation}
-%   \overline {T_1} = \frac{0.25}{0.5} = 0.5 (s).
-% \end{displaymath}
-
-% Communication links between stations $R_{jq}$, the coverage radius of the station is $r_j$, the delays $\overline{T_j}$ are calculated, it is possible to search the optimal placement.
-
-% The problem formulated on the basis of (\ref{eq:objective_function}) - (\ref{ineq:cost}) and given constraints on the cost $C = 18000$ and end-to-end delay $T = 3$ was solved by MATLAB Optimization Toolbox.
-
-% The optimal placement is presented in the table \ref{tab:solution}.
-
-% \begin{table}[h!]\begin{center}
-%   \begin{tabular}{|c||c|c|c|c|c|c|c|c|c|c|} \hline
-      
-%       Placed station & $s_6$ & $s_7$ & -- & -- & $s_2$ & -- &  $s_5$ & -- & $s_1$ & -- \\ \hline
-
-%       Placement coordination & $a_1$ &  $a_2$ & $a_3$ & $a_4$ & $a_5$ & $a_6$ & $a_7$ & $a_8$ & $a_9$ & $a_{10}$ \\  \hline
-
-% \end{tabular}\caption{Solution result.}\label{tab:solution}
-% \end{center}\end{table}
-% Obtained total coverage $f$ is equal to 400 (m) with total cost $c$ is equal to $15400$ (c.u.), and end-to-end delay $T$ is equal to $ 2.5$ (s).
-
-% \section{Conclusion}
-% The paper considers the problem of finding an optimal placement of the given redundant set of base stations of wireless broadband communication network on a set of possible placement points to maximize the coverage area while respecting technological conditions and budget constraints.
-
-% To calculate a limit on the network delay time a network is considered as a tandem queue model with $M/M/1$  nodes.
-
-% The problem is formulated in the form of the integer linear programming model. Numerical example solution was presented.
-
-% It is planned to use the obtained model in practice in future work.
-
-
-
-
-% \bibliographystyle{splncs04}
-% \bibliography{mukhtarov}
-
-% \end{document}
-
-
-% \section{Таблица обыкновенная}\label{sec:ch3/sect1}
-
-% Так размещается таблица:
-
-% \begin{table} [htbp]
-%     \centering
-%     \begin{threeparttable}% выравнивание подписи по границам таблицы
-%         \caption{Название таблицы}\label{tab:Ts0Sib}%
-%         \begin{tabular}{| p{3cm} || p{3cm} | p{3cm} | p{4cm}l |}
-%             \hline
-%             \hline
-%             Месяц   & \centering \(T_{min}\), К & \centering \(T_{max}\), К & \centering  \((T_{max} - T_{min})\), К & \\
-%             \hline
-%             Декабрь & \centering  253.575       & \centering  257.778       & \centering      4.203                  & \\
-%             Январь  & \centering  262.431       & \centering  263.214       & \centering      0.783                  & \\
-%             Февраль & \centering  261.184       & \centering  260.381       & \centering     \(-\)0.803              & \\
-%             \hline
-%             \hline
-%         \end{tabular}
-%     \end{threeparttable}
-% \end{table}
-
-% \begin{table} [htbp]% Пример записи таблицы с номером, но без отображаемого наименования
-%     \centering
-%     \begin{threeparttable}% выравнивание подписи по границам таблицы
-%         \caption{}%
-%         \label{tab:test1}%
-%         \begin{SingleSpace}
-%             \begin{tabular}{| c | c | c | c |}
-%                 \hline
-%                 Оконная функция & \({2N}\) & \({4N}\) & \({8N}\) \\ \hline
-%                 Прямоугольное   & 8.72     & 8.77     & 8.77     \\ \hline
-%                 Ханна           & 7.96     & 7.93     & 7.93     \\ \hline
-%                 Хэмминга        & 8.72     & 8.77     & 8.77     \\ \hline
-%                 Блэкмана        & 8.72     & 8.77     & 8.77     \\ \hline
-%             \end{tabular}%
-%         \end{SingleSpace}
-%     \end{threeparttable}
-% \end{table}
-
-% Таблица~\cref{tab:test2} "--- пример таблицы, оформленной в~классическом книжном
-% варианте или~очень близко к~нему. \mbox{ГОСТу} по~сути не~противоречит. Можно
-% ещё~улучшить представление, с~помощью пакета \verb|siunitx| или~подобного.
-
-% \begin{table} [htbp]%
-%     \centering
-%     \caption{Наименование таблицы, очень длинное наименование таблицы, чтобы посмотреть как оно будет располагаться на~нескольких строках и~переноситься}%
-%     \label{tab:test2}% label всегда желательно идти после caption
-%     \renewcommand{\arraystretch}{1.5}%% Увеличение расстояния между рядами, для улучшения восприятия.
-%     \begin{SingleSpace}
-%         \begin{tabular}{@{}@{\extracolsep{20pt}}llll@{}} %Вертикальные полосы не используются принципиально, как и лишние горизонтальные (допускается по ГОСТ 2.105 пункт 4.4.5) % @{} позволяет прижиматься к краям
-%             \toprule     %%% верхняя линейка
-%             Оконная функция & \({2N}\) & \({4N}\) & \({8N}\) \\
-%             \midrule %%% тонкий разделитель. Отделяет названия столбцов. Обязателен по ГОСТ 2.105 пункт 4.4.5
-%             Прямоугольное   & 8.72     & 8.77     & 8.77     \\
-%             Ханна           & 7.96     & 7.93     & 7.93     \\
-%             Хэмминга        & 8.72     & 8.77     & 8.77     \\
-%             Блэкмана        & 8.72     & 8.77     & 8.77     \\
-%             \bottomrule %%% нижняя линейка
-%         \end{tabular}%
-%     \end{SingleSpace}
-% \end{table}
-
-% \section{Таблица с многострочными ячейками и примечанием}
-
-% В таблице \cref{tab:makecell} приведён пример использования команды
-% \verb+\multicolumn+ для объединения горизонтальных ячеек таблицы,
-% и команд пакета \textit{makecell} для добавления разрыва строки внутри ячеек.
-% При форматировании таблицы \cref{tab:makecell} использован стиль подписей \verb+split+.
-% Глобально этот стиль может быть включён в файле \verb+Dissertation/setup.tex+ для диссертации и в
-% файле \verb+Synopsis/setup.tex+ для автореферата.
-% Однако такое оформление не~соответствует ГОСТ.
-
-% \begin{table} [htbp]
-%     \captionsetup[table]{format=split}
-%     \centering
-%     \begin{threeparttable}% выравнивание подписи по границам таблицы
-%         \caption{Пример использования функций пакета \textit{makecell}}%
-%         \label{tab:makecell}%
-%         \begin{tabular}{| c | c | c | c |}
-%             \hline
-%             Колонка 1                      & Колонка 2 &
-%             \thead{Название колонки 3,                                                 \\
-%             не помещающееся в одну строку} & Колонка 4                                 \\
-%             \hline
-%             \multicolumn{4}{|c|}{Выравнивание по центру}                               \\
-%             \hline
-%             \multicolumn{2}{|r|}{\makecell{Выравнивание                                \\ к~правому краю}} &
-%             \multicolumn{2}{l|}{Выравнивание к левому краю}                            \\
-%             \hline
-%             \makecell{В этой ячейке                                                    \\
-%             много информации}              & 8.72      & 8.55                   & 8.44 \\
-%             \cline{3-4}
-%             А в этой мало                  & 8.22      & \multicolumn{2}{c|}{5}        \\
-%             \hline
-%         \end{tabular}%
-%     \end{threeparttable}
-% \end{table}
-
-% Таблицы~\cref{tab:test3,tab:test4} "--- пример реализации расположения
-% примечания в~соответствии с ГОСТ 2.105. Каждый вариант со своими достоинствами
-% и~недостатками. Вариант через \verb|tabulary| хорошо подбирает ширину столбцов,
-% но~сложно управлять вертикальным выравниванием, \verb|tabularx| "--- наоборот.
-% \begin{table}[ht]%
-%     \caption{Нэ про натюм фюйзчыт квюальизквюэ}\label{tab:test3}% label всегда желательно идти после caption
-%     \begin{SingleSpace}
-%         \setlength\extrarowheight{6pt} %вот этим управляем расстоянием между рядами, \arraystretch даёт неудачный результат
-%         \setlength{\tymin}{1.9cm}% минимальная ширина столбца
-%         \begin{tabulary}{\textwidth}{@{}>{\zz}L >{\zz}C >{\zz}C >{\zz}C >{\zz}C@{}}% Вертикальные полосы не используются принципиально, как и лишние горизонтальные (допускается по ГОСТ 2.105 пункт 4.4.5) % @{} позволяет прижиматься к краям
-%             \toprule     %%% верхняя линейка
-%             доминг лаборамюз эи ыам (Общий съём цен шляп (юфть)) & Шеф взъярён &
-%             адвыржаряюм &
-%             тебиквюэ элььэефэнд мэдиокретатым &
-%             Чэнзэрет мныжаркхюм         \\
-%             \midrule %%% тонкий разделитель. Отделяет названия столбцов. Обязателен по ГОСТ 2.105 пункт 4.4.5
-%             Эй, жлоб! Где туз? Прячь юных съёмщиц в~шкаф Плюш изъят. Бьём чуждый цен хвощ! &
-%             \({\approx}\) &
-%             \({\approx}\) &
-%             \({\approx}\) &
-%             \( + \) \\
-%             Эх, чужак! Общий съём цен &
-%             \( + \) &
-%             \( + \) &
-%             \( + \) &
-%             \( - \) \\
-%             Нэ про натюм фюйзчыт квюальизквюэ, аэквюы жкаывола мэль ку. Ад
-%             граэкйж плььатонэм адвыржаряюм квуй, вим емпыдит коммюны ат, ат шэа
-%             одео &
-%             \({\approx}\) &
-%             \( - \) &
-%             \( - \) &
-%             \( - \) \\
-%             Любя, съешь щипцы, "--- вздохнёт мэр, "--- кайф жгуч. &
-%             \( - \) &
-%             \( + \) &
-%             \( + \) &
-%             \({\approx}\) \\
-%             Нэ про натюм фюйзчыт квюальизквюэ, аэквюы жкаывола мэль ку. Ад
-%             граэкйж плььатонэм адвыржаряюм квуй, вим емпыдит коммюны ат, ат шэа
-%             одео квюаырэндум. Вёртюты ажжынтиор эффикеэнди эож нэ. &
-%             \( + \) &
-%             \( - \) &
-%             \({\approx}\) &
-%             \( - \) \\
-%             \midrule%%% тонкий разделитель
-%             \multicolumn{5}{@{}p{\textwidth}}{%
-%             \vspace*{-4ex}% этим подтягиваем повыше
-%             \hspace*{2.5em}% абзацный отступ - требование ГОСТ 2.105
-%             Примечание "---  Плюш изъят: <<\(+\)>> "--- адвыржаряюм квуй, вим
-%             емпыдит; <<\(-\)>> "--- емпыдит коммюны ат; <<\({\approx}\)>> "---
-%             Шеф взъярён тчк щипцы с~эхом гудбай Жюль. Эй, жлоб! Где туз?
-%             Прячь юных съёмщиц в~шкаф. Экс-граф?
-%             }
-%             \\
-%             \bottomrule %%% нижняя линейка
-%         \end{tabulary}%
-%     \end{SingleSpace}
-% \end{table}
-
-% Если таблица~\cref{tab:test3} не помещается на той же странице, всё
-% её~содержимое переносится на~следующую, ближайшую, а~этот текст идёт перед ней.
-% \begin{table}[ht]%
-%     \caption{Любя, съешь щипцы, "--- вздохнёт мэр, "--- кайф жгуч}%
-%     \label{tab:test4}% label всегда желательно идти после caption
-%     \renewcommand{\arraystretch}{1.6}%% Увеличение расстояния между рядами, для улучшения восприятия.
-%     \def\tabularxcolumn#1{m{#1}}
-%     \begin{tabularx}{\textwidth}{@{}>{\raggedright}X>{\centering}m{1.9cm} >{\centering}m{1.9cm} >{\centering}m{1.9cm} >{\centering\arraybackslash}m{1.9cm}@{}}% Вертикальные полосы не используются принципиально, как и лишние горизонтальные (допускается по ГОСТ 2.105 пункт 4.4.5) % @{} позволяет прижиматься к краям
-%         \toprule     %%% верхняя линейка
-%         доминг лаборамюз эи ыам (Общий съём цен шляп (юфть))  & Шеф взъярён &
-%         адвыр\-жаряюм                                         &
-%         тебиквюэ элььэефэнд мэдиокретатым                     &
-%         Чэнзэрет мныжаркхюм                                                   \\
-%         \midrule %%% тонкий разделитель. Отделяет названия столбцов. Обязателен по ГОСТ 2.105 пункт 4.4.5
-%         Эй, жлоб! Где туз? Прячь юных съёмщиц в~шкаф Плюш изъят.
-%         Бьём чуждый цен хвощ!                                 &
-%         \({\approx}\)                                         &
-%         \({\approx}\)                                         &
-%         \({\approx}\)                                         &
-%         \( + \)                                                               \\
-%         Эх, чужак! Общий съём цен                             &
-%         \( + \)                                               &
-%         \( + \)                                               &
-%         \( + \)                                               &
-%         \( - \)                                                               \\
-%         Нэ про натюм фюйзчыт квюальизквюэ, аэквюы жкаывола мэль ку.
-%         Ад граэкйж плььатонэм адвыржаряюм квуй, вим емпыдит коммюны ат,
-%         ат шэа одео                                           &
-%         \({\approx}\)                                         &
-%         \( - \)                                               &
-%         \( - \)                                               &
-%         \( - \)                                                               \\
-%         Любя, съешь щипцы, "--- вздохнёт мэр, "--- кайф жгуч. &
-%         \( - \)                                               &
-%         \( + \)                                               &
-%         \( + \)                                               &
-%         \({\approx}\)                                                         \\
-%         Нэ про натюм фюйзчыт квюальизквюэ, аэквюы жкаывола мэль ку. Ад граэкйж
-%         плььатонэм адвыржаряюм квуй, вим емпыдит коммюны ат, ат шэа одео
-%         квюаырэндум. Вёртюты ажжынтиор эффикеэнди эож нэ.     &
-%         \( + \)                                               &
-%         \( - \)                                               &
-%         \({\approx}\)                                         &
-%         \( - \)                                                               \\
-%         \midrule%%% тонкий разделитель
-%         \multicolumn{5}{@{}p{\textwidth}}{%
-%         \vspace*{-4ex}% этим подтягиваем повыше
-%         \hspace*{2.5em}% абзацный отступ - требование ГОСТ 2.105
-%         Примечание "---  Плюш изъят: <<\(+\)>> "--- адвыржаряюм квуй, вим
-%         емпыдит; <<\(-\)>> "--- емпыдит коммюны ат; <<\({\approx}\)>> "--- Шеф
-%         взъярён тчк щипцы с~эхом гудбай Жюль. Эй, жлоб! Где туз? Прячь юных
-%         съёмщиц в~шкаф. Экс-граф?
-%         }
-%         \\
-%         \bottomrule %%% нижняя линейка
-%     \end{tabularx}%
-% \end{table}
-
-% \section{Таблицы с форматированными числами}\label{sec:ch3/formatted-numbers}
-
-% В таблицах \cref{tab:S:parse,tab:S:align} представлены примеры использования опции
-% форматирования чисел \texttt{S}, предоставляемой пакетом \texttt{siunitx}.
-
-% \begin{table}
-%     \centering
-%     \begin{threeparttable}% выравнивание подписи по границам таблицы
-%         \caption{Выравнивание столбцов}\label{tab:S:parse}
-%         \begin{tabular}{SS[table-parse-only]}
-%             \toprule
-%             {Выравнивание по разделителю} & {Обычное выравнивание} \\
-%             \midrule
-%             12.345                        & 12.345                 \\
-%             6,78                          & 6,78                   \\
-%             -88.8(9)                      & -88.8(9)               \\
-%             4.5e3                         & 4.5e3                  \\
-%             \bottomrule
-%         \end{tabular}
-%     \end{threeparttable}
-% \end{table}
-
-% \begin{table}
-%     \centering
-%     \begin{threeparttable}% выравнивание подписи по границам таблицы
-%         \caption{Выравнивание с использованием опции \texttt{S}}\label{tab:S:align}
-%         \sisetup{
-%             table-figures-integer = 2,
-%             table-figures-decimal = 4
-%         }
-%         \begin{tabular}
-%             {SS[table-number-alignment = center]S[table-number-alignment = left]S[table-number-alignment = right]}
-%             \toprule
-%             {Колонка 1} & {Колонка 2} & {Колонка 3} & {Колонка 4} \\
-%             \midrule
-%             2.3456      & 2.3456      & 2.3456      & 2.3456      \\
-%             34.2345     & 34.2345     & 34.2345     & 34.2345     \\
-%             56.7835     & 56.7835     & 56.7835     & 56.7835     \\
-%             90.473      & 90.473      & 90.473      & 90.473      \\
-%             \bottomrule
-%         \end{tabular}
-%     \end{threeparttable}
-% \end{table}
-
-% \section{Параграф \cyrdash{} два}\label{sec:ch3/sect2}
-% % Не все (xe|lua)latex совместимые шрифты умеют работать с русским тире "---
-
-% Некоторый текст.
-
-% \section{Параграф с подпараграфами}\label{sec:ch3/sect3}
-
-% \subsection{Подпараграф \cyrdash{} один}\label{subsec:ch3/sect3/sub1}
-
-% Некоторый текст.
-
-% \subsection{Подпараграф \cyrdash{} два}\label{subsec:ch3/sect3/sub2}
-
-% Некоторый текст.
-
-% \clearpage
+% \noindent Вложенные списки:
+% \begin{itemize}
+%     \item Имеется маркированный список.
+%           \begin{enumerate}
+%               \item В нём лежит нумерованный список,
+%               \item в котором
+%                     \begin{itemize}
+%                         \item лежит ещё один маркированный список.
+%                     \end{itemize}
+%           \end{enumerate}
+% \end{itemize}
+
+% \noindent Нумерованные вложенные списки:
+% \begin{enumerate}
+%     \item Первый пункт.
+%     \item Второй пункт.
+%     \item Вообще, по ГОСТ 2.105 первый уровень нумерации
+%           (при необходимости ссылки в тексте документа на одно из перечислений)
+%           идёт буквами русского или латинского алфавитов,
+%           а второй "--- цифрами со~скобками.
+%           Здесь отходим от ГОСТ.
+%           \begin{enumerate}
+%               \item в нём лежит нумерованный список,
+%               \item в котором
+%                     \begin{enumerate}
+%                         \item ещё один нумерованный список,
+%                         \item третий уровень нумерации не нормирован ГОСТ 2.105;
+%                         \item обращаем внимание на строчность букв,
+%                         \item в этом списке
+%                               \begin{itemize}
+%                                   \item лежит ещё один маркированный список.
+%                               \end{itemize}
+%                     \end{enumerate}
+
+%           \end{enumerate}
+
+%     \item Четвёртый пункт.
+% \end{enumerate}
+
+% \section{Традиции русского набора}
+
+% Много полезных советов приведено в материале
+% <<\href{https://kostyrka.ru/main/ru/typesetting-and-typography-crash-course-by-kostyrka/}{Краткий курс благородного набора}>>
+% (автор А.\:В.~Костырка).
+% Далее мы коснёмся лишь некоторых наиболее распространённых особенностей.
+
+% \subsection{Пробелы}
+
+% В~русском наборе принято:
+% \begin{itemize}
+%     \item единицы измерения, знак процента отделять пробелами от~числа:
+%           10~кВт, 15~\% (согласно ГОСТ 8.417, раздел 8);
+%     \item \(\tg 20\text{\textdegree}\), но: 20~{\textdegree}C
+%           (согласно ГОСТ 8.417, раздел 8);
+%     \item знак номера, параграфа отделять от~числа: №~5, \S~8;
+%     \item стандартные сокращения: т.\:е., и~т.\:д., и~т.\:п.;
+%     \item неразрывные пробелы в~предложениях.
+% \end{itemize}
+
+% \subsection{Математические знаки и символы}
+
+% Русская традиция начертания греческих букв и некоторых математических
+% функций отличается от~западной. Это исправляется серией
+% \verb|\renewcommand|.
+% \begin{itemize}
+%     %Все \original... команды заранее, ради этого примера, определены в Dissertation\userstyles.tex
+%     \item[До:] \( \originalepsilon \originalge \originalphi\),
+%           \(\originalphi \originalleq \originalepsilon\),
+%           \(\originalkappa \in \originalemptyset\),
+%           \(\originaltan\),
+%           \(\originalcot\),
+%           \(\originalcsc\).
+%     \item[После:] \( \epsilon \ge \phi\),
+%           \(\phi \leq \epsilon\),
+%           \(\kappa \in \emptyset\),
+%           \(\tan\),
+%           \(\cot\),
+%           \(\csc\).
+% \end{itemize}
+
+% Кроме того, принято набирать греческие буквы вертикальными, что
+% решается подключением пакета \verb|upgreek| (см. закомментированный
+% блок в~\verb|userpackages.tex|) и~аналогичным переопределением в
+% преамбуле (см.~закомментированный блок в~\verb|userstyles.tex|). В
+% этом шаблоне такие переопределения уже включены.
+
+% Знаки математических операций принято переносить. Пример переноса
+% в~формуле~\eqref{eq:equation3}.
+
+% \subsection{Кавычки}
+% В английском языке приняты одинарные и двойные кавычки в~виде ‘...’ и~“...”.
+% В~России приняты французские («...») и~немецкие („...“) кавычки (они называются
+% «ёлочки» и~«лапки», соответственно). ,,Лапки`` обычно используются внутри
+% <<ёлочек>>, например, <<... наш гордый ,,Варяг``...>>.
+
+% Французкие левые и правые кавычки набираются
+% как лигатуры \verb|<<| и~\verb|>>|, а~немецкие левые
+% и правые кавычки набираются как лигатуры \verb|,,| и~\verb|‘‘| (\verb|``|).
+
+% Вместо лигатур или команд с~активным символом "\ можно использовать команды
+% \verb|\glqq| и \verb|\grqq| для набора немецких кавычек и команды \verb|\flqq|
+% и~\verb|\frqq| для набора французских кавычек. Они определены в пакете
+% \verb|babel|.
+
+% \subsection{Тире}
+% %  babel+pdflatex по умолчанию, в polyglossia надо включать опцией (и перекомпилировать с удалением временных файлов)
+% Команда \verb|"---| используется для печати тире в тексте. Оно может быть
+% несколько короче английского длинного тире (подробности в~документации
+% русификации babel). Кроме того, команда задаёт небольшую жёсткую отбивку
+% от~слова, стоящего перед тире. При этом, само тире не~отрывается от~слова.
+% После тире следует такая же отбивка от текста, как и~перед тире. При наборе
+% текста между словом и командой, за которым она следует, должен стоять пробел.
+
+% В составных словах, таких, как <<Закон Менделеева"--~Клапейрона>>, для печати
+% тире надо использовать команду \verb|"--~|. Она ставит более короткое,
+% по~сравнению с~английским, тире и позволяет делать переносы во втором слове.
+% При~наборе текста команда \verb|"--~| не отделяется пробелом от слова,
+% за~которым она следует (\verb|Менделеева"--~|). Следующее за командой слово
+% может быть  отделено от~неё пробелом или перенесено на другую строку.
+
+% Если прямая речь начинается с~абзаца, то перед началом её печатается тире
+% командой \verb|"--*|. Она печатает русское тире и жёсткую отбивку нужной
+% величины перед текстом.
+
+% \subsection{Дефисы и переносы слов}
+% %  babel+pdflatex по умолчанию, в polyglossia надо включать опцией (и перекомпилировать с удалением временных файлов)
+% Для печати дефиса в~составных словах введены две команды. Команда~\verb|"~|
+% печатает дефис и~запрещает делать переносы в~самих словах, а~команда \verb|"=|
+% печатает дефис, оставляя \TeX ’у право делать переносы в~самих словах.
+
+% В отличие от команды \verb|\-|, команда \verb|"-| задаёт место в~слове, где
+% можно делать перенос, не~запрещая переносы и~в~других местах слова.
+
+% Команда \verb|""| задаёт место в~слове, где можно делать перенос, причём дефис
+% при~переносе в~этом месте не~ставится.
+
+% Команда \verb|",| вставляет небольшой пробел после инициалов с~правом переноса
+% в~фамилии.
+
+% \section{Текст из панграмм и формул}
+
+% Любя, съешь щипцы, "--- вздохнёт мэр, "--- кайф жгуч. Шеф взъярён тчк щипцы
+% с~эхом гудбай Жюль. Эй, жлоб! Где туз? Прячь юных съёмщиц в~шкаф. Экс-граф?
+% Плюш изъят. Бьём чуждый цен хвощ! Эх, чужак! Общий съём цен шляп (юфть) "---
+% вдрызг! Любя, съешь щипцы, "--- вздохнёт мэр, "--- кайф жгуч. Шеф взъярён тчк
+% щипцы с~эхом гудбай Жюль. Эй, жлоб! Где туз? Прячь юных съёмщиц в~шкаф.
+% Экс-граф? Плюш изъят. Бьём чуждый цен хвощ! Эх, чужак! Общий съём цен шляп
+% (юфть) "--- вдрызг! Любя, съешь щипцы, "--- вздохнёт мэр, "--- кайф жгуч. Шеф
+% взъярён тчк щипцы с~эхом гудбай Жюль. Эй, жлоб! Где туз? Прячь юных съёмщиц
+% в~шкаф. Экс-граф? Плюш изъят. Бьём чуждый цен хвощ! Эх, чужак! Общий съём цен
+% шляп (юфть) "--- вдрызг! Любя, съешь щипцы, "--- вздохнёт мэр, "--- кайф жгуч.
+% Шеф взъярён тчк щипцы с~эхом гудбай Жюль. Эй, жлоб! Где туз? Прячь юных съёмщиц
+% в~шкаф. Экс-граф? Плюш изъят. Бьём чуждый цен хвощ! Эх, чужак! Общий съём цен
+% шляп (юфть) "--- вдрызг! Любя, съешь щипцы, "--- вздохнёт мэр, "--- кайф жгуч.
+% Шеф взъярён тчк щипцы с~эхом гудбай Жюль. Эй, жлоб! Где туз? Прячь юных съёмщиц
+% в~шкаф. Экс-граф? Плюш изъят. Бьём чуждый цен хвощ! Эх, чужак! Общий съём цен
+% шляп (юфть) "--- вдрызг! Любя, съешь щипцы, "--- вздохнёт мэр, "--- кайф жгуч.
+% Шеф взъярён тчк щипцы с~эхом гудбай Жюль. Эй, жлоб! Где туз? Прячь юных съёмщиц
+% в~шкаф. Экс-граф? Плюш изъят. Бьём чуждый цен хвощ! Эх, чужак! Общий съём цен
+% шляп (юфть) "--- вдрызг! Любя, съешь щипцы, "--- вздохнёт мэр, "--- кайф жгуч.
+% Шеф взъярён тчк щипцы с~эхом гудбай Жюль. Эй, жлоб! Где туз? Прячь юных съёмщиц
+% в~шкаф. Экс-граф? Плюш изъят. Бьём чуждый цен хвощ! Эх, чужак! Общий съём цен
+% шляп (юфть) "--- вдрызг! Любя, съешь щипцы, "--- вздохнёт мэр, "--- кайф жгуч.
+% Шеф взъярён тчк щипцы с~эхом гудбай Жюль. Эй, жлоб! Где туз? Прячь юных съёмщиц
+% в~шкаф. Экс-граф? Плюш изъят. Бьём чуждый цен хвощ! Эх, чужак! Общий съём цен
+% шляп (юфть) "--- вдрызг! Любя, съешь щипцы, "--- вздохнёт мэр, "--- кайф жгуч.
+% Шеф взъярён тчк щипцы с~эхом гудбай Жюль. Эй, жлоб! Где туз? Прячь юных съёмщиц
+% в~шкаф. Экс-граф? Плюш изъят. Бьём чуждый цен хвощ! Эх, чужак! Общий съём цен
+% шляп (юфть) "--- вдрызг! Любя, съешь щипцы, "--- вздохнёт мэр, "--- кайф жгуч.
+% Шеф взъярён тчк щипцы с~эхом гудбай Жюль. Эй, жлоб! Где туз? Прячь юных съёмщиц
+% в~шкаф. Экс-граф? Плюш изъят. Бьём чуждый цен хвощ! Эх, чужак! Общий съём цен
+% шляп (юфть) "--- вдрызг! Любя, съешь щипцы, "--- вздохнёт мэр, "--- кайф жгуч.
+% Шеф взъярён тчк щипцы с~эхом гудбай Жюль. Эй, жлоб! Где туз? Прячь юных съёмщиц
+% в~шкаф. Экс-граф? Плюш изъят. Бьём чуждый цен хвощ! Эх, чужак! Общий съём цен
+% шляп (юфть) "--- вдрызг!Любя, съешь щипцы, "--- вздохнёт мэр, "--- кайф жгуч.
+% Шеф взъярён тчк щипцы с~эхом гудбай Жюль. Эй, жлоб! Где туз? Прячь юных съёмщиц
+% в~шкаф. Экс-граф? Плюш изъят. Бьём чуждый цен хвощ! Эх, чужак! Общий съём цен
+
+% Ку кхоро адолэжкэнс волуптариа хаж, вим граэко ыкчпэтында ты. Граэкы жэмпэр
+% льюкяльиюч квуй ку, аэквюы продыжщэт хаж нэ. Вим ку магна пырикульа, но квюандо
+% пожйдонёюм про. Квуй ат рыквюы ёнэрмйщ. Выро аккузата вим нэ.
+% \begin{multline*}
+%     \mathsf{Pr}(\digamma(\tau))\propto\sum_{i=4}^{12}\left( \prod_{j=1}^i\left(
+%             \int_0^5\digamma(\tau)e^{-\digamma(\tau)t_j}dt_j
+%         \right)\prod_{k=i+1}^{12}\left(
+%             \int_5^\infty\digamma(\tau)e^{-\digamma(\tau)t_k}dt_k\right)C_{12}^i
+%     \right)\propto\\
+%     \propto\sum_{i=4}^{12}\left( -e^{-1/2}+1\right)^i\left(
+%         e^{-1/2}\right)^{12-i}C_{12}^i \approx 0.7605,\quad
+%     \forall\tau\neq\overline{\tau}
+% \end{multline*}
+% Квуй ыёюз омниюм йн. Экз алёквюам кончюлату квуй, ты альяквюам ёнвидюнт пэр.
+% Зыд нэ коммодо пробатуж. Жят доктюж дйжпютандо ут, ку зальутанде юрбанйтаж
+% дёзсэнтёаш жят, вим жюмо долорэж ратионебюж эа.
+
+% Ад ентэгры корпора жплэндидэ хаж. Эжт ат факэтэ дычэрунт пэржыкюти. Нэ нам
+% доминг пэрчёус. Ку квюо ёужто эррэм зючкёпит. Про хабэо альбюкиюс нэ.
+% \[
+%     \begin{pmatrix}
+%         a_{11} & a_{12} & a_{13} \\
+%         a_{21} & a_{22} & a_{23}
+%     \end{pmatrix}
+% \]
+
+% \[
+%     \begin{vmatrix}
+%         a_{11} & a_{12} & a_{13} \\
+%         a_{21} & a_{22} & a_{23}
+%     \end{vmatrix}
+% \]
+
+% \[
+%     \begin{bmatrix}
+%         a_{11} & a_{12} & a_{13} \\
+%         a_{21} & a_{22} & a_{23}
+%     \end{bmatrix}
+% \]
+% Про эа граэки квюаыквуэ дйжпютандо. Ыт вэл тебиквюэ дэфянятйоныс, нам жолюм
+% квюандо мандамюч эа. Эож пауло лаудым инкедыринт нэ, пэрпэтюа форынчйбюж пэр
+% эю. Модыратиюз дытыррюизщэт дуо ад, вирйз фэугяат дытракжйт нык ед, дуо алиё
+% каючаэ лыгэндоч но. Эа мольлиз юрбанйтаж зигнёфэрумквюы эжт.
+
+% Про мандамюч кончэтытюр ед. Трётанё прёнкипыз зигнёфэрумквюы вяш ан. Ат хёз
+% эквюедым щуавятатэ. Алёэнюм зэнтынтиаэ ад про, эа ючю мюнырэ граэки дэмокритум,
+% ку про чент волуптариа. Ыльит дыкоры аляквюид еюж ыт. Ку рыбюм мюндй ютенам
+% дуо.
+% \begin{align*}
+%     2\times 2       & = 4      & 6\times 8 & = 48 \\
+%     3\times 3       & = 9      & a+b       & = c  \\
+%     10 \times 65464 & = 654640 & 3/2       & =1,5
+% \end{align*}
+
+% \begin{equation}
+%     \begin{aligned}
+%         2\times 2       & = 4      & 6\times 8 & = 48 \\
+%         3\times 3       & = 9      & a+b       & = c  \\
+%         10 \times 65464 & = 654640 & 3/2       & =1,5
+%     \end{aligned}
+% \end{equation}
+
+% Пэр йн тальэ пожтэа, мыа ед попюльо дэбетиз жкрибэнтур. Йн квуй аппэтырэ
+% мэнандря, зыд аляквюид хабымуч корпора йн. Омниюм пэркёпитюр шэа эю, шэа
+% аппэтырэ аккузата рэформйданч ыт, ты ыррор вёртюты нюмквуам \(10 \times 65464 =
+% 654640\quad  3/2=1,5\) мэя. Ипзум эуежмод \(a+b = c\) мальюизчыт ад дуо. Ад
+% фэюгаят пытынтёюм адвыржаряюм вяш. Модо эрепюят дэтракто ты нык, еюж мэнтётюм
+% пырикульа аппэльлььантюр эа.
+
+% Мэль ты дэлььынётё такематыш. Зэнтынтиаэ конклььюжионэмквуэ ан мэя. Вёжи лебыр
+% квюаыквуэ квуй нэ, дуо зймюл дэлььиката ку. Ыам ку алиё путынт.
+
+% %Большая фигурная скобка только справа
+% \[\left. %ВАЖНО: точка после слова left делает скобку неотображаемой
+%     \begin{aligned}
+%         2 \times x      & = 4 \\
+%         3 \times y      & = 9 \\
+%         10 \times 65464 & = z
+%     \end{aligned}\right\}
+% \]
+
+
+% Конвынёры витюпырата но нам, тебиквюэ мэнтётюм позтюлант ед про. Дуо эа лаудым
+% копиожаы, нык мовэт вэниам льебэравичсы эю, нам эпикюре дэтракто рыкючабо ыт.
+% Вэрйтюж аккюжамюз ты шэа, дэбетиз форынчйбюж жкряпшэрит ыт прё. Ан еюж тымпор
+% рыфэррэнтур, ючю дольор котёдиэквюэ йн. Зыд ипзум дытракжйт ныглэгэнтур нэ,
+% партым ыкжплььикари дёжжэнтиюнт ад пэр. Мэль ты кытэрож молыжтйаы, нам но ыррор
+% жкрипта аппарэат.
+
+% \[ \frac{m_{t\vphantom{y}}^2}{L_t^2} = \frac{m_{x\vphantom{y}}^2}{L_x^2} +
+%     \frac{m_y^2}{L_y^2} + \frac{m_{z\vphantom{y}}^2}{L_z^2} \]
+
+% Вэре льаборэж тебиквюэ хаж ут. Ан пауло торквюатоз хаж, нэ пробо фэугяат
+% такематыш шэа. Мэльёуз пэртинакёа юлламкорпэр прё ад, но мыа рыквюы конкыптам.
+% Хёз квюот пэртинакёа эи, ельлюд трактатоз пэр ад. Зыд ед анёмал льаборэж
+% номинави, жят ад конгуы льабятюр. Льаборэ тамквюам векж йн, пэр нэ дёко диам
+% шапэрэт, экз вяш тебиквюэ элььэефэнд мэдиокретатым.
+
+% Нэ про натюм фюйзчыт квюальизквюэ, аэквюы жкаывола мэль ку. Ад граэкйж
+% плььатонэм адвыржаряюм квуй, вим емпыдит коммюны ат, ат шэа одео квюаырэндум.
+% Вёртюты ажжынтиор эффикеэнди эож нэ, доминг лаборамюз эи ыам. Чэнзэрет
+% мныжаркхюм экз эож, ыльит тамквюам факильизиж нык эи. Квуй ан элыктрам
+% тинкидюнт ентырпрытаряш. Йн янвыняры трактатоз зэнтынтиаэ зыд. Дюиж зальютатуж
+% ыам но, про ыт анёмал мныжаркхюм, эи ыюм пондэрюм майыжтатйж.
+
+\FloatBarrier
