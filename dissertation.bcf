@@ -3405,7 +3405,8 @@
     <bcf:datasource type="file" datatype="bibtex">biblio/registered.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1">VishnevskyBook</bcf:citekey>
+    <bcf:citekey order="1">Gosele1999161</bcf:citekey>
+    <bcf:citekey order="1">Lermontov</bcf:citekey>
   </bcf:section>
   <!-- SECTION 1 -->
   <bcf:bibdata section="1">
@@ -3425,8 +3426,10 @@
   </bcf:bibdata>
   <bcf:section number="2">
     <bcf:citekey order="1" nocite="1">vakbib2</bcf:citekey>
-    <bcf:citekey order="2" nocite="1">bib1</bcf:citekey>
-    <bcf:citekey order="3" nocite="1">confbib1</bcf:citekey>
+    <bcf:citekey order="2" nocite="1">patbib1</bcf:citekey>
+    <bcf:citekey order="3" nocite="1">progbib1</bcf:citekey>
+    <bcf:citekey order="4" nocite="1">bib1</bcf:citekey>
+    <bcf:citekey order="5" nocite="1">confbib1</bcf:citekey>
   </bcf:section>
   <!-- SECTION 0 (cont.) -->
   <bcf:section number="0">
