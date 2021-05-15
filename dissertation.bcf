@@ -3432,10 +3432,10 @@
   <bcf:section number="0">
     <bcf:citekey order="2">Burke1956</bcf:citekey>
     <bcf:citekey order="3">Little1961</bcf:citekey>
-    <bcf:citekey order="4">VishnevskyBook</bcf:citekey>
+    <bcf:citekey order="4">Gari</bcf:citekey>
     <bcf:citekey order="5">Gari</bcf:citekey>
-    <bcf:citekey order="6">Gari</bcf:citekey>
-    <bcf:citekey order="7">Emelichev</bcf:citekey>
+    <bcf:citekey order="6">Emelichev</bcf:citekey>
+    <bcf:citekey order="7">VishnevskyBook</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
