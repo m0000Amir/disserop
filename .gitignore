@@ -42,4 +42,16 @@ presentation.bcf
 presentation.pdf
 presentation.run.xml
 presentation.synctex.gz
+presentation.aux
+presentation.bbl
+presentation.blg
+presentation.fdb_latexmk
+presentation.fls
+presentation.log
+presentation.nav
+presentation.out
+presentation.snm
+presentation.toc
+presentation_booklet.aux
+presentation_booklet.log
 .DS_Store
