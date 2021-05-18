@@ -3,7 +3,8 @@
     {Актуальность темы}
     
     В настоящее время тенденция бурного развития информационных технологий во всех сферах деятельности человека оказывает весомое влияние на нефтегазовый сектор страны. енные компании, представляющие собой сложные многоуровневые производственные системы, для своего устойчивого развития требуют постоянного развития информационных технологий.  
-    
+    \bigskip
+
     Сегодня наблюдается  бурное развитие процесса «цифровизации» нефтегазовой отрасли. Одним из путей развития данного процесса является внедрение беспроводных технологий.
     
     
@@ -94,9 +95,9 @@
 
 \end{frame}
 
-\begin{frame}
-    Важно обеспечить связь любой станции со шлюзами на концах участка через систему размещенных станций. Задано множество станций
-\end{frame}
+% \begin{frame}
+%     Важно обеспечить связь любой станции со шлюзами на концах участка через систему размещенных станций. Задано множество станций
+% \end{frame}
 
 \begin{frame}
     {задача ЦЛП}
@@ -127,6 +128,33 @@
 
 \end{frame}
 
+\begin{frame}
+    {задача ЦЛП}
+    \begin{minipage}[t]{1\linewidth}
+        \fontsize{8pt}{7.2}\selectfont
+        Уравнение энергетического потенциала канала связи:
+        $$
+        P_{tr} - L_{tr} + G_{tr} - L_{fs} + G_{recv} - L_{recv} = SOM + P_{recv},
+        $$
+        где: $P_{tr}$ -- мощность передатчика, дБм; $L_{tr}$ -- потери сигнала на антенном кабеле и разъемах передающего тракта, дБ; $G_{tr}$ -- усиление антенны передатчика, дБ; $L_{fs}$ -- потери в свободном пространстве, дБ; $G_{recv}$ -- усиление антенны приемника, дБ; $L_{recv}$ -- потери сигнала на антенном кабеле и разъемах приемного тракта, дБ; $SOM$ -- запас на замирание сигнала, дБ; $P_{recv}$ -- чувствительность приемника, дБм.
+
+        \bigskip
+        Формула Фрииса, выраженная в децибеллах:
+        $$
+        \label{eq:part3_L_fs}
+        L_{fs} = 20 \lg{F} + 20\lg{R} + K,
+        $$
+        где $F$ -- центральная частота, на котором работает канал связи, $R$ -- рассточние между приемной и передающей антенной и $K$ -- константа, зависящая от размерностей частоты и расстояния:
+        
+        \bigskip
+        Радиус связи $R_{jq}$  и радиус покрытия $r_j$ рассчитывается как
+
+        $$
+        R_{jq} / r_j = 10^{\left(\frac{L_{fs} - 20\lg{F} - K}{20}\right)}.
+        $$
+    \end{minipage}
+
+\end{frame}
 
 
 \begin{frame}
@@ -184,7 +212,6 @@
     % \fontsize{8pt}{7.2}\selectfont
     % где $y_i^+$ и $y_i^-$ , $i= \overline{0,n+1}$ определяют охват покрытия (справа и слева, соответственно) станций.
 
-
 \end{frame}
 
 \begin{frame}
@@ -204,47 +231,13 @@
     \bigskip
     Суммарное покрытие между двумя станциями не больше расстояния между ними.
           
-        %   Каждая станция должна быть размещена только в одной точке. \cref{eq:part3_xij}:
-          
-        %   \begin{equation}
-        %     \label{eq:part3_xij}
-        %     \sum\limits_{j=1}^n x_{ij} \leq 1, \quad j = \overline{1,m}. 
-        %   \end{equation}
-          
-        %   Значения покрытий не превышают радиус покрытия станции, размещенной в точке $ a_i $, и равны 0, если в точке $a_i$  нет станции \cref{eq:part3_yi_1, eq:part3_yi_2}:
-          
-          
-        %   \begin{equation}
-        %     \label{eq:part3_yi_1}
-        %     y_i^+ \leq \sum\limits_{j=1}^m x_{ij} \cdot r_j, \quad i = \overline{1,n};
-        %   \end{equation}
-          
-        %   \begin{equation}
-        %     \label{eq:part3_yi_2}
-        %     y_i^- \leq \sum\limits_{j=1}^m x_{ij} \cdot r_j, \quad i = \overline{1,n}. 
-        %   \end{equation}
-          
-        %   Общая область покрытия между любыми двумя точками $ a_i $ и $ a_k $, где расположены станции, не может превышать расстояние между этими точками \cref{eq:part3_yi_3, eq:part3_yi_4}.
-          
-        %   \begin{equation}
-        %     \label{eq:part3_yi_3}
-        %     y_i^+ + y_k^- \leq \frac{l_k - l_i}{2} \cdot (e_i + e_k ) + (2 - e_i - e_k ) \cdot L, \quad i = \overline{1,n},  \quad k = \overline{i+1,n+1};
-        %   \end{equation}
-          
-        %   \begin{equation}
-        %     \label{eq:part3_yi_4}
-        %     y_i^- + y_k^+  \leq \frac{l_i-l_k}{2} \cdot (e_i + e_k) + (2 - e_i - e_k) \cdot L, \quad i = \overline{1,n}, \quad k = \overline{i-1,0},
-        %   \end{equation}
-        %   где $ l_k $ и $ l_i $ - координаты точек $ a_i $ и $ a_k $, соответственно. Это условие исключает влияние пересечений покрытий станций при вычислении общего значения покрытия между станциями (Рис. \cref{fig:part3_total_coverage_between_points}).
-          
-    
 
     \end{minipage}
     \hfill
     \begin{minipage}[t]{0.47\linewidth}
         
         \center{\includegraphics[scale=0.15]{total_coverage_between_points.pdf}}
-        \center{\textbf{Покрытие между станцями}}
+        \center{\textbf{Покрытие между станциями}}
     \end{minipage}
 
     \bigskip
@@ -259,6 +252,159 @@
         y_i^- + y_k^+  \leq \frac{l_i-l_k}{2} \cdot (e_i + e_k) + (2 - e_i - e_k) \cdot L, \quad i = \overline{1,n}, \quad k = \overline{i-1,0},
       \end{equation}
 
+\end{frame}
+
+\begin{frame}
+    \frametitle{задача ЦЛП}
+    \begin{minipage}[t]{1\linewidth}
+        \fontsize{9pt}{7.2}\selectfont
+        Введем переменные $z_{ijkq}, i = \overline{1,n}; j= \overline{1,m}; k=\overline{1,n},  k \neq i; q= \overline{1,m}, q \neq j$.
+    \bigskip
+    $$
+    z_ {ijkq} = 
+     \begin{cases}
+       1& \text{, если в точке $ a_i $ размещена станция $ s_j $} \\
+        & \text{и данная станция связана со станцией} \\
+        & \text{$ s_q $, размещенная в точке $ a_k $;} \\
+       0 & \text{, в противном случае.}
+     \end{cases}
+    $$
+    \bigskip
+    \end{minipage}
+    
+    \begin{minipage}[b]{0.5\linewidth}
+        Важно обеспечить связь любой станции со шлюзами на концах участка через систему размещенных станций. 
+
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.47\linewidth}
+        
+        \center{\includegraphics[scale=0.15]{station_link.pdf}}
+        \center{\textbf{Связь между станциями}}
+    \end{minipage}
+
+\end{frame}
+
+
+\begin{frame}[plain, noframenumbering]
+    \frametitle{задача ЦЛП}
+    
+    \begin{minipage}[t]{0.99\linewidth}
+        \fontsize{8 pt}{7.2}\selectfont
+        \begin{equation}
+            \label{eq:part3_z_ijkq_1}
+            z_{ijkq} \leq e_i , \quad i = \overline{1, n}; \quad j = \overline{1, m}; \quad k = \overline{1,n}, k \neq i; \quad q = \overline{1,m}, q \neq j;
+        \end{equation}
+        
+        
+        \begin{equation}
+            \label{eq:part3_z_ijkq_2}
+            z_{ijkq} \leq e_k , \quad k = \overline{1, n}; \quad j = \overline{1, m}; \quad i = \overline{1,n}, i \neq k; \quad q = \overline{1,m}, q \neq j.
+        \end{equation}
+        
+        
+        \begin{equation}
+            \label{eq:part3_z_ijkq_3_1}
+            \sum\limits_{k=i+1}^{n} \sum\limits_{\substack{q = 1\\ q \neq j}}^m z_{ijkq} + z_{ij(n+1)(m+1)} = x_{ij} ,  \quad i = \overline{1, n}, \quad j = \overline{1, m}.
+        \end{equation}
+
+        
+        \begin{equation}
+            \label{eq:part3_z_ijkq_3_2}
+            z_{nj(n+1)(m+1)} = x_{nj} \quad j = \overline{1, m}.
+        \end{equation}
+
+        
+        \begin{equation}
+            \label{eq:part3_z_ijkq_4_1}
+            z_{1j0(m+1)}= x_{ij}, \quad j = \overline{1, m};
+        \end{equation}
+
+        
+        \begin{equation}
+            \label{eq:part3_z_ijkq_4_2}
+            z_{ij0(m+1)} + \sum\limits_{k=1}^{i-1} \sum\limits_{\substack{q = 1\\ q \neq j}} z_{ijkq}= x_{ij}, \quad i = \overline{2, n}, \quad j = \overline{1, m}.
+        \end{equation}
+
+        
+        \begin{equation}
+            \label{eq:part3_z_ijkq_5}
+            \sum\limits_{i=k+1}^{n} \sum\limits_{\substack{j=1 \\ j \neq q}}^m z_{ijkq} = x_{kq} , \quad k = \overline{1, n-1}, \quad q = \overline{1, m};
+        \end{equation}
+
+        
+        \begin{equation}
+            \label{eq:part3_z_ijkq_6}
+            \sum\limits_{i=1}^{k} \sum\limits_{\substack{j=1 \\ j \neq q}}^m z_{ijkq} = x_{kq} , \quad k = \overline{2, n}, \quad q = \overline{1, m};
+        \end{equation}
+    \end{minipage}
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{задача ЦЛП}
+    \begin{minipage}[t]{1\linewidth}
+        \fontsize{6pt}{7.2}\selectfont
+        $\forall i= \overline{1,n}$:
+        \begin{equation}
+          \label{eq:part3_z_ijkq_7}
+          z_{ijkq}(R_{jq}-(a_i-a_k ))\geq 0, \quad k=\overline{0,i-1}; \quad j=\overline{1,m}; \quad q= \overline{1,m}, q \neq j; 
+        \end{equation}
+        
+        \begin{equation}
+          \label{eq:part3_z_ijkq_8}
+          z_{ijkq} (R_{jq}-(a_k-a_i )) \geq 0, \quad k=\overline{i+1,n+1}; \quad j=\overline{1,m}; \quad q= \overline{1,m}, q \neq j.
+        \end{equation}
+    \bigskip
+    \end{minipage}
+    
+    \begin{minipage}[и]{0.5\linewidth}
+        \fontsize{8pt}{7.2}\selectfont
+        Радиусы связи размещенных станций должнs быть не меньше расстояния между ними
+        \bigskip
+        \bigskip
+        \bigskip
+
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.47\linewidth}
+        
+        \center{\includegraphics[scale=0.1]{station_link_between_points.pdf}}
+        \center{\textbf{Обеспечение связи с соседней станцией}}
+    \end{minipage}
+    % \hfill
+    \begin{minipage}[b]{0.99\linewidth}
+        \fontsize{8pt}{7.2}\selectfont
+        И бюджетное ограничение:
+
+        \begin{equation}
+        \label{eq:part3_cost}
+        \sum\limits_{i=1}^n \sum\limits_{j=1}^m x_{ij} \cdot c_j \leq C.
+        \end{equation}
+    \end{minipage}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{задача ЦЛП}
+    
+    
+    Работа$^1$ содержит доказательство NP-полноты для частного случая задачи ЦЛП, когда вдоль линейной территории размещают множество однотипных станций с одинаковыми параметрами. 
+    \bigskip
+    
+    Представленная модель (1) - (18) рассматривает общий случай размещения множество станций с различными техническими параметрами. Следовательно, данная задача является также NP-полной.
+    \bigskip
+    
+    Математическая модель (1) - (18) рассчитывалась алгоритмом Лэнд и Дойг (1960).
+    \bigskip
+
+    \bigskip
+    \bigskip
+    \begin{minipage}[b]{0.99\linewidth}
+        \fontsize{5pt}{7.2}\selectfont
+    1. On a problem of base stations optimal placement in wirelessnetworks with linear topology. — [текст]. / — R. Ivanov [и др.] //Communications in Computer and Information Science. — 2018. —т. 919. — с. 505—513.
+    \end{minipage}
 
 \end{frame}
 
