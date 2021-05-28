@@ -3632,14 +3632,22 @@
     <bcf:citekey order="2">Krasnov2016</bcf:citekey>
     <bcf:citekey order="3">Burke1956</bcf:citekey>
     <bcf:citekey order="4">Little1961</bcf:citekey>
-    <bcf:citekey order="5">Krzyszton2021</bcf:citekey>
-    <bcf:citekey order="6">Ivanov2018</bcf:citekey>
-    <bcf:citekey order="7">Gari</bcf:citekey>
-    <bcf:citekey order="8">Gari</bcf:citekey>
-    <bcf:citekey order="9">Emelichev</bcf:citekey>
-    <bcf:citekey order="10">VishnevskyBook</bcf:citekey>
-    <bcf:citekey order="11">Mehmood2016</bcf:citekey>
-    <bcf:citekey order="12">Eremenko2013</bcf:citekey>
+    <bcf:citekey order="5">Aalsalem2018</bcf:citekey>
+    <bcf:citekey order="6">Krzyszton2021</bcf:citekey>
+    <bcf:citekey order="7">Lin2019</bcf:citekey>
+    <bcf:citekey order="8">Lee2020</bcf:citekey>
+    <bcf:citekey order="9">Abbas2018</bcf:citekey>
+    <bcf:citekey order="10">Anupama2014</bcf:citekey>
+    <bcf:citekey order="10">Jawhar2007</bcf:citekey>
+    <bcf:citekey order="11">Ivanov2018</bcf:citekey>
+    <bcf:citekey order="12">Gari</bcf:citekey>
+    <bcf:citekey order="13">Gari</bcf:citekey>
+    <bcf:citekey order="14">Emelichev</bcf:citekey>
+    <bcf:citekey order="15">VishnevskyBook</bcf:citekey>
+    <bcf:citekey order="16">Mehmood2016</bcf:citekey>
+    <bcf:citekey order="17">Abbas2021</bcf:citekey>
+    <bcf:citekey order="18">Bukhari2021</bcf:citekey>
+    <bcf:citekey order="19">Eremenko2013</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
