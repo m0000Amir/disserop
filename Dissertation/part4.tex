@@ -1,4 +1,16 @@
 \chapter{Оценка характеристик производительности сети с помощью имитационного моделирования}\label{prediction_model}
+
+Проектирования БШД в связи с высокой сложностью и вычислительными трудностями требует поэтапного подхода учета всего комплекса критериев качества и ограничений для проектируемой беспроводной сети.
+
+После решения задачи синтеза топологии, для полученного размещения решаются задачи оцненки качества. Такими задачами являются расчет надежности всех элементов сети, оценка характеристик качества канала, вероятности потери пакетов, пропускной способности, времени доставки сообщений в сети. Данный комплексный подход позволяет дать
+Одной из важных задач на стадии проектировании является оценка производительности широкополонсой беспроводной сети.
+
+======
+
+\cite{Tcharo2018}
+
+++++++
+
 Здесь будет имитационная модель сети массового обслуживания и методы машинного обучения.
 
 
@@ -8,15 +20,15 @@
 \section{Имитационная модель с зависимым обслуживанием}
 \begin{figure}[h!]
   \centering
-   \includegraphics[width=0.8\textwidth]{sim20_model.png}
-\caption{Задержки для случаев с независимой и зависимой функции распределения времени обслуживания}
-\label{fig:sim20_model}
+  \includegraphics[width=0.8\textwidth]{sim20_model.png}
+  \caption{Задержки для случаев с независимой и зависимой функции распределения времени обслуживания}
+  \label{fig:sim20_model}
 \end{figure}
 
 \section{Модели прогноза времени межконцевой задеркжи с помощью методов машинного обучения}
 \begin{figure}[h!]
-    \centering
-     \includegraphics[width=0.8\textwidth]{17predict_model.png}
+  \centering
+  \includegraphics[width=0.8\textwidth]{17predict_model.png}
   \caption{Оценки времени межконцевых задержек для тандема размером 17}
   \label{fig:17predict_model}
 \end{figure}
@@ -349,9 +361,9 @@
 % % In this case we review only sets $G_\nu$, which consist of a single placement $P$, and $f(P)$ is obtained as the sum of non-coverages $\Delta(k,d,p,t)$ between known places where  stations are placed.
 
 % %  If for the given placement the inequality $f(P) < f(\widehat{P})$ takes place, then the placement $P$ becomes a new current best value $\widehat{P}$ and backward step is applied.
- 
+
 % % The branch and bound algorithm will stop when all the vertexes of the searching tree will be closed.
- 
+
 % % The solution is
 % % \begin{displaymath}
 % % P^{*} = \widehat{P},  \widehat{f}(P^*) = f(\widehat{P}).
@@ -373,7 +385,7 @@
 % % \end{displaymath}
 
 % % The process of solving the problem is presented in the form of a binary search tree (see Fig.~\ref{fig2}).
- 
+
 % % The initial value of $f(\widehat{P})=L=50$, $G_0=G$.
 
 % % The vertices of the tree indicated by $\emptyset$  correspond to the sets $G_\nu$ for which there are no feasible placements.
@@ -444,7 +456,7 @@
 % % \end{displaymath}
 
 % % 	This condition excludes the effect from intersections of station coverages when calculating the total coverage value for the entire segment $\alpha$.
-	
+
 % % 	According to the conditions of the problem, the station located at $a_i$ must be connected with at least one station on the left and one station on the right, including stations  at the end points $a_0$ and $a_{n+1}$.
 
 % % 	We will introduce variables $z_{ijk}, i=1,2,\ldots,n$; $j=1,2,\ldots,m$; $k=1,2,\ldots,n$; $k\neq i$ to formulate this requirement where:
@@ -453,7 +465,7 @@
 % % 	\item $z_{ijk}=1$ if a station $s_j$ is located at point $a_i$ and connected with a station which is located at point  $a_k$;
 % % 	\item $z_{ijk}=0$ otherwise.
 % % \end{itemize}	
-	
+
 % % 	We will also introduce variables $z_{ij0}$ and $z_{ijn+1}$ where $z_{ij0}=1$ if a station $s_j$ is located at point $a_i$ and connected with a station $s_0$ which is located at point  $a_0$  and $z_{ij0} = 0$ otherwise; $z_{ijn+1}=1$ if a station $s_j$ is located at point $a_i$ and connected with a station $s_{n+1}$ which is located at point $a_{n+1}$  and $z_{ijn+1} = 0$ otherwise.
 
 % % Stations must be at both points so that they can be connected: 
