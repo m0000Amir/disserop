@@ -3406,29 +3406,7 @@
   </bcf:bibdata>
   <bcf:section number="0">
     <bcf:citekey order="1">Tcharo2018</bcf:citekey>
-    <bcf:citekey order="2">Krasnov2016</bcf:citekey>
-    <bcf:citekey order="3">Burke1956</bcf:citekey>
-    <bcf:citekey order="4">Little1961</bcf:citekey>
-    <bcf:citekey order="5">Aalsalem2018</bcf:citekey>
-    <bcf:citekey order="6">Krzyszton2021</bcf:citekey>
-    <bcf:citekey order="7">Lin2019</bcf:citekey>
-    <bcf:citekey order="8">Lee2020</bcf:citekey>
-    <bcf:citekey order="9">Abbas2018</bcf:citekey>
-    <bcf:citekey order="10">Anupama2014</bcf:citekey>
-    <bcf:citekey order="10">Jawhar2007</bcf:citekey>
-    <bcf:citekey order="11">Aljuaid2020</bcf:citekey>
-    <bcf:citekey order="12">Fedorova2020</bcf:citekey>
-    <bcf:citekey order="13">Fataliyev2018</bcf:citekey>
-    <bcf:citekey order="14">Krasnov2016</bcf:citekey>
-    <bcf:citekey order="15">Ivanov2018</bcf:citekey>
-    <bcf:citekey order="16">Gari</bcf:citekey>
-    <bcf:citekey order="17">Gari</bcf:citekey>
-    <bcf:citekey order="18">Emelichev</bcf:citekey>
-    <bcf:citekey order="19">VishnevskyBook</bcf:citekey>
-    <bcf:citekey order="20">Mehmood2016</bcf:citekey>
-    <bcf:citekey order="21">Abbas2021</bcf:citekey>
-    <bcf:citekey order="22">Bukhari2021</bcf:citekey>
-    <bcf:citekey order="23">Eremenko2013</bcf:citekey>
+    <bcf:citekey order="2">Eremenko2013</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
@@ -3437,13 +3415,4 @@
     </bcf:sort>
   </bcf:sortingtemplate>
   <!-- DATALISTS -->
-  <bcf:datalist section="0"
-                name="none/global//global/global"
-                type="entry"
-                sortingtemplatename="none"
-                sortingnamekeytemplatename="global"
-                labelprefix=""
-                uniquenametemplatename="global"
-                labelalphanametemplatename="global">
-  </bcf:datalist>
 </bcf:controlfile>
