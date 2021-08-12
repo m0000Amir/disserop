@@ -3405,45 +3405,29 @@
     <bcf:datasource type="file" datatype="bibtex">biblio/registered.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1">Tcharo2018</bcf:citekey>
-    <bcf:citekey order="2">Krasnov2016</bcf:citekey>
-    <bcf:citekey order="3">Burke1956</bcf:citekey>
-    <bcf:citekey order="4">Little1961</bcf:citekey>
-    <bcf:citekey order="5">Aalsalem2018</bcf:citekey>
-    <bcf:citekey order="6">Krzyszton2021</bcf:citekey>
-    <bcf:citekey order="7">Lin2019</bcf:citekey>
-    <bcf:citekey order="8">Lee2020</bcf:citekey>
-    <bcf:citekey order="9">Abbas2018</bcf:citekey>
-    <bcf:citekey order="10">Anupama2014</bcf:citekey>
-    <bcf:citekey order="10">Jawhar2007</bcf:citekey>
-    <bcf:citekey order="11">Aljuaid2020</bcf:citekey>
-    <bcf:citekey order="12">Fedorova2020</bcf:citekey>
-    <bcf:citekey order="13">Fataliyev2018</bcf:citekey>
-    <bcf:citekey order="14">Krasnov2016</bcf:citekey>
-    <bcf:citekey order="15">Ivanov2018</bcf:citekey>
-    <bcf:citekey order="16">Gari</bcf:citekey>
-    <bcf:citekey order="17">Gari</bcf:citekey>
-    <bcf:citekey order="18">Emelichev</bcf:citekey>
-    <bcf:citekey order="19">VishnevskyBook</bcf:citekey>
-    <bcf:citekey order="20">Mehmood2016</bcf:citekey>
-    <bcf:citekey order="21">Abbas2021</bcf:citekey>
-    <bcf:citekey order="22">Bukhari2021</bcf:citekey>
-    <bcf:citekey order="23">Vasiliev2015</bcf:citekey>
-    <bcf:citekey order="24">Wankpo2020</bcf:citekey>
-    <bcf:citekey order="24">Krishnamoorthy2021</bcf:citekey>
-    <bcf:citekey order="24">Kozyrev2019</bcf:citekey>
-    <bcf:citekey order="25">Gorbunova2020</bcf:citekey>
-    <bcf:citekey order="25">Larionov2019</bcf:citekey>
-    <bcf:citekey order="25">Vishnevsky2016_Methods_of_performance</bcf:citekey>
-    <bcf:citekey order="25">Vishnevsky2016_Review_of_methodology</bcf:citekey>
-    <bcf:citekey order="25">Wang2017</bcf:citekey>
-    <bcf:citekey order="25">Sandmann2012</bcf:citekey>
-    <bcf:citekey order="25">Baumann2017</bcf:citekey>
-    <bcf:citekey order="26">Wang2017</bcf:citekey>
-    <bcf:citekey order="26">Sandmann2012</bcf:citekey>
-    <bcf:citekey order="27">Lovas2021</bcf:citekey>
-    <bcf:citekey order="27">SatyaHermanto201</bcf:citekey>
-    <bcf:citekey order="28">Eremenko2013</bcf:citekey>
+    <bcf:citekey order="1">Gost62657</bcf:citekey>
+    <bcf:citekey order="2">Proletarsky</bcf:citekey>
+    <bcf:citekey order="3">Dunaitsev2017</bcf:citekey>
+    <bcf:citekey order="4">Proletarsky</bcf:citekey>
+    <bcf:citekey order="5">Vasiliev2015</bcf:citekey>
+    <bcf:citekey order="6">Wankpo2020</bcf:citekey>
+    <bcf:citekey order="6">Krishnamoorthy2021</bcf:citekey>
+    <bcf:citekey order="6">Kozyrev2019</bcf:citekey>
+    <bcf:citekey order="7">Gorbunova2020</bcf:citekey>
+    <bcf:citekey order="7">Larionov2019</bcf:citekey>
+    <bcf:citekey order="7">Vishnevsky2016_Methods_of_performance</bcf:citekey>
+    <bcf:citekey order="7">Vishnevsky2016_Review_of_methodology</bcf:citekey>
+    <bcf:citekey order="7">Wang2017</bcf:citekey>
+    <bcf:citekey order="7">Sandmann2012</bcf:citekey>
+    <bcf:citekey order="7">Baumann2017</bcf:citekey>
+    <bcf:citekey order="8">Wang2017</bcf:citekey>
+    <bcf:citekey order="8">Sandmann2012</bcf:citekey>
+    <bcf:citekey order="9">Lovas2021</bcf:citekey>
+    <bcf:citekey order="9">SatyaHermanto2018</bcf:citekey>
+    <bcf:citekey order="10">Gost62657</bcf:citekey>
+    <bcf:citekey order="11">Proletarsky</bcf:citekey>
+    <bcf:citekey order="12">Burke1956</bcf:citekey>
+    <bcf:citekey order="13">Little1961</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
@@ -3452,13 +3436,4 @@
     </bcf:sort>
   </bcf:sortingtemplate>
   <!-- DATALISTS -->
-  <bcf:datalist section="0"
-                name="none/global//global/global"
-                type="entry"
-                sortingtemplatename="none"
-                sortingnamekeytemplatename="global"
-                labelprefix=""
-                uniquenametemplatename="global"
-                labelalphanametemplatename="global">
-  </bcf:datalist>
 </bcf:controlfile>
