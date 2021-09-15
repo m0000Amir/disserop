@@ -1,10 +1,7 @@
-<<<<<<< HEAD
-\nomenclatureentry{aБШС@[{БШС}]\begingroup беспроводная широкополосная сеть\nomeqref {1.6}|nompageref}{13}
-\nomenclatureentry{aБС@[{БС}]\begingroup базовая станция\nomeqref {1.6}|nompageref}{13}
-\nomenclatureentry{aСеМО@[{СеМО}]\begingroup Сеть массового обслуживания\nomeqref {1.6}|nompageref}{13}
-=======
 \nomenclatureentry{aБПЛА@[{БПЛА}]\begingroup беспилотный летательный аппарат\nomeqref {1.6}|nompageref}{21}
 \nomenclatureentry{aБШС@[{БШС}]\begingroup беспроводная широкополосная сеть\nomeqref {1.6}|nompageref}{21}
+\nomenclatureentry{aМВиГ@[{МВиГ}]\begingroup метод ветвей и границ\nomeqref {1.6}|nompageref}{21}
+\nomenclatureentry{aЦЛП@[{ЦЛП}]\begingroup целлочисленное линейное программирование\nomeqref {1.6}|nompageref}{21}
 \nomenclatureentry{aБС@[{БС}]\begingroup базовая станция\nomeqref {1.6}|nompageref}{21}
 \nomenclatureentry{aАСУ ТП@[{АСУ ТП}]\begingroup автоматизация систем управления технологических процессов\nomeqref {1.6}|nompageref}{21}
 \nomenclatureentry{aТМО@[{ТМО}]\begingroup теория массового обслуживания\nomeqref {1.6}|nompageref}{21}
@@ -16,4 +13,3 @@
 \nomenclatureentry{aRSU@[{RSU}]\begingroup Roadside Unit, придорожные стационарные объекты телекоммуникационной связи\nomeqref {1.6}|nompageref}{21}
 \nomenclatureentry{aСеМО@[{СеМО}]\begingroup Сеть массового обслуживания\nomeqref {1.6}|nompageref}{21}
 \nomenclatureentry{aWSN@[{WSN}]\begingroup Wireless Sensor Netwrork, беспроводная сенсорная сеть\nomeqref {1.6}|nompageref}{21}
->>>>>>> 21b7565eb7d5d5b9439b7cf0b59abce5964249cd
