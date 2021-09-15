@@ -10,8 +10,10 @@ author_list = []
 pages = []
 all_auth = []
 cites = []
+print(os.path.dirname(__file__))
+a = os.path.dirname(__file__) +'/' + bibfile
 print("Searching for duped bib records...")
-with open(bibfile, 'r', encoding="utf8") as biblio:
+with open(a, 'r', encoding="utf8") as biblio:
     for bib_line in biblio:
         if "@" in bib_line and "@comment" not in bib_line.lower():
             if "@" in bib_line.split("{", 1)[0]:
