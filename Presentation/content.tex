@@ -54,12 +54,16 @@
     
     \bigskip
 
-    \begin{itemize}
-        \item обследование местности;
-        \item выбор типов технических средств и протоколов;
-        \item \textbf{выбор топологической структуры сети;}
-        \item анализ и оценка производительности сети с помощью математического маделирования.
-    \end{itemize}
+        
+        \center{\includegraphics[scale=0.3]{design_stages.png}}
+
+
+    % \begin{itemize}
+    %     \item обследование местности;
+    %     \item выбор типов технических средств и протоколов;
+    %     \item \textbf{выбор топологической структуры сети;}
+    %     \item анализ и оценка производительности сети с помощью математического маделирования.
+    % \end{itemize}
 
     \bigskip
     
@@ -75,8 +79,8 @@
     \bigskip
 
     \begin{itemize}
-        \item БШС для контроля линейных траекторий;
-        \item БШС с ячеистой топологией (mesh) для контроля объектов, рассредоточенных на некоторой территории.
+        \item БШС для контроля линейных объектов;
+        \item БШС с ячеистой топологией (MESH) для контроля объектов, рассредоточенных на некоторой территории.
     \end{itemize}
 
     \bigskip
@@ -422,9 +426,9 @@
     Представленная в данном исследовании модель (1) - (18) рассматривает общий случай размещения, когда вдоль линейного участка размещают множество различных станций с разными техническими параметрами. Следовательно, данная задача является также NP-трудной.
     \bigskip
 
-    Представленная математическая модель рассчитывалась в пакете 
+    % Представленная математическая модель рассчитывалась в пакете 
     
-    Optimization Toolbox MATLAB.
+    % Optimization Toolbox MATLAB.
     % Представленная математическая модель рассчитывалась алгоритмом Лэнд и Дойг (1960).
     \bigskip
 
@@ -432,7 +436,7 @@
     \bigskip
     \begin{minipage}[b]{0.99\linewidth}
         \fontsize{6pt}{7.2}\selectfont
-    1. On a problem of base stations optimal placement in wirelessnetworks with linear topology. — [текст]. / — R. Ivanov [и др.] //Communications in Computer and Information Science. — 2018. —т. 919. — с. 505—513.
+    \textit{ On a problem of base stations optimal placement in wirelessnetworks with linear topology. — [текст]. / — R. Ivanov [и др.] //Communications in Computer and Information Science. — 2018. —т. 919. — с. 505—513.}
     \end{minipage}
 
 \end{frame}
@@ -449,6 +453,16 @@
 
     \bigskip
     Разработан специальный алгоритм размещения базовых станций \textbf{метода ветвей и границ (МВиГ)} для комбинаторной модели в экстремальной форме.
+
+    \bigskip
+
+    Задано множество станций $S = \{s_j\}$, $s_j = \{r_j, \{R_{jq}\}, c_j, \mu_j \}$, $j = \overline{1,m}; q = \overline{1,m}; q \neq j$. 
+    \begin{itemize}
+        \item $r_j$ -- радиус покрытия станции,
+        \item $R_{jq}$ -- радиус связи между станцями $s_j$ и $s_q$,
+        \item $c_j$ -- стоимость;
+        \item \textbf{$\mu_j$ -- пропускная способность}.
+    \end{itemize} 
 
     \bigskip
     \textit{Допустимой расстановкой станций} назовем такой возрастающий по величине координат $l_i$  набор пар $P = \{a_i, s_j\},a_i \in A,i \neq 0,i \neq n+1;s_j \in S$.
@@ -477,6 +491,75 @@
     % где $S_\sigma$ – множество размещенных станций, $\overline{T_j}$ -- среднее время задержки на станции.
         \item суммарная стоимость размещенных станций меньше заданного бюджетного ограничения  $C$.
     \end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+    \justifying
+    \frametitle{Оценка межконцевой задержки}
+    \fontsize{8pt}{7.2}\selectfont
+
+    Одним из ограничений для алгоритма МВиГ является межконцевая задержка сети $T$.
+    \bigskip
+
+    Для оценки данной характеристики используют стохастические модели сетей массового обслуживания.
+    \center{\includegraphics[scale=0.2]{tandem_queue.png}}
+    \center{\textbf{Многофазная сеть массового обслуживания}}
+
+    \bigskip
+
+    {Рассмотрим сеть как модель многафазной сети массового обслуживания  с узлами $M/M/1$ c линейной топологией и $N$ последовательно соединенными узлами. 
+
+    \bigskip
+    % В такой системе  интервалы между поступлениями пакетов задается случайной величиной $A \sim Exp(\lambda)$ и время обслуживания с помощью случайной величины $S \sim Exp(\mu)$.
+
+    В такой системе $M$ -- интервалы между поступлениями пакетов задается экспоненциальным распределением; $M$ --  время обслуживания задается экспоненциальным распределением; 1 -- в каждом узле одно обслуживающее устройство.}
+
+   
+\end{frame}
+
+\begin{frame}
+    \justifying
+    \frametitle{Оценка межконцевой задержки}
+    \fontsize{8pt}{7.2}\selectfont
+
+    На каждый узел входящие потоки поступают с интесивностью $\lambda$. 
+
+    По теореме Бурке на выходе узла $M/M/1$, а значит на входе каждой последующей фазы тоже пуассоновский поток с интенсивностью $\lambda$.
+    
+    \bigskip
+
+    По формуле Литтла можно рассчитать время задержки на фазе. 
+
+    \begin{displaymath}
+        \mu_j = p_j / w,
+    \end{displaymath}
+    где $p_j$ - пропускная спобоcтность $j$-ой станции, Мбит/с; $w$ - средний размер пакета, Мбит.
+
+    Для каждой станции коэффициент загрузки равен:
+
+
+    \begin{displaymath}
+    \rho_j= \frac{\sum{\lambda}}{\mu_j} = \frac{q \cdot \lambda}{\mu_j} <1,
+    \end{displaymath}
+    где $q$ -- число входящих потоков. Условие $\rho_j<1$ является необходимым и достаточным условием существования стационарного режима функционирования СеМО.
+    
+    \bigskip
+    
+    Тогда среднее время задержки по времени на каждой станции:
+
+    \begin{displaymath}
+        \overline{T_j} = \frac{\rho_j}{1 - \rho_j} \cdot \frac{1}{q \cdot \lambda}.
+    \end{displaymath}
+
+    \bigskip
+
+    Межконцевая задержки в сети равна
+
+    \begin{equation}
+        \label{eq:end_to_end_delay}
+        T^{e2e}= \sum{\overline{T_j}}.
+    \end{equation}
 
 \end{frame}
 
@@ -585,11 +668,11 @@
 
     \underline{\textit{\textbf{Задача 2.}}}
     \begin{displaymath}\label{present:task2}
-        z = |\beta| - \sum\limits_{x_j \in S_\beta} r_j x_j \rightarrow min.
+        z = |\beta| - \sum\limits_{x_j \in S_\beta} 2 \cdot r_j x_j \rightarrow min.
     \end{displaymath}
 
     \begin{displaymath}\label{eq:part4_task2_cost}
-        \sum\limits_{x_j \in S_\beta} c_j x_j \leqslant C,
+        \sum\limits_{x_j \in S_\beta} c_j x_j \leqslant C',
     \end{displaymath}
 
     \begin{displaymath}\label{eq:part4_task2_m}
@@ -599,7 +682,7 @@
     \begin{displaymath}
         x_j \in \{0, 1\},
     \end{displaymath}
-    где $|\beta|$ -- длина отрезка отрезка  $\beta$, $m$ -- число свободных мест для размещения станций на отрезке $\beta$.
+    где $|\beta|$ -- длина отрезка отрезка  $\beta$, $m$ -- число свободных мест для размещения станций на отрезке $\beta$, $c_j$ -- стоимость не размещенных станций, $C'$ -- бюджет с учетом уже размещенных станций.
 
     \bigskip
     Эффективность использования оценки в методе ветвей и границ определяется точностью оценки и временем ее вычисления. \underline{\textit{\textbf{Задача 2}}} -- это задача ЦЛП, являющаяся труднорешаемой. 
@@ -698,6 +781,67 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{Задача с линейной топологией}
+    \fontsize{8pt}{7.2}\selectfont
+    % \justifying
+    \begin{itemize}
+        \item Математическая модель задачи ЦЛП (1) - (18) написана и решена в Matlab Optimization Toolbox.
+    \end{itemize}
+
+    \begin{minipage}[c]{0.4\linewidth}
+        \fontsize{8pt}{7.2}\selectfont
+        \bigskip
+        \includegraphics[scale=0.09]{matlab.png}
+
+    \end{minipage}
+    \textit{https://github.com/m0000Amir/ILP}
+    \bigskip
+    \bigskip
+    
+    \begin{itemize}
+        \item Математическая модель комбинаторной задачи и алгоритм МВиГ написаны на языке Python. Задача ЦЛП оценки недопокрытия справа решалась в Gurobi Optimization.
+    \end{itemize}
+
+    % \begin{minipage}[c]{0.45\linewidth}
+    %     \fontsize{8pt}{7.2}\selectfont
+    %     \bigskip
+    %     \includegraphics[scale=0.1]{python.png}
+
+    % \end{minipage}
+
+    % \begin{minipage}[c]{0.45\linewidth}
+    %     \fontsize{8pt}{7.2}\selectfont
+    %     \bigskip
+    %     \includegraphics[scale=0.26]{gurobi.png}
+
+    % \end{minipage}
+
+    \begin{minipage}[c]{0.45\linewidth}
+        \fontsize{8pt}{7.2}\selectfont
+        \bigskip
+        \includegraphics[scale=0.1]{python.png}
+        
+    \end{minipage}
+    % \hfill
+    % \vrule{}
+    % \hfill  
+    \begin{minipage}[c]{0.45\linewidth}
+        \includegraphics[scale=0.26]{gurobi.png}
+
+    \end{minipage}
+
+    \bigskip
+    \textit{https://github.com/m0000Amir/BST\_BS\_types\_set}
+
+
+    % \begin{minipage}[c]{0.47\linewidth}
+    %     \center{\includegraphics[scale=0.2]{gurobi.png}}
+    %     \center{\textbf{Вершины $A$.}}
+    % \end{minipage}
+    
+\end{frame}
+
+\begin{frame}
     \frametitle{Выводы по Положениям 1, 2 и 3}
     \fontsize{8pt}{7.2}\selectfont
 
@@ -748,11 +892,11 @@
     
     \begin{minipage}[c]{0.47\linewidth}
         \fontsize{8pt}{7.2}\selectfont
-        \bigskip
+        % \bigskip
 
         Множество $A$ состоит из двух подмножеств: 
         \begin{itemize}
-        \item $A_1$ -- множество вершин, с которых необходимо собирать информацию. Каждой вершине $a_i$ приписана   величина $v_i$ -- максимальный объем информации, снимаемой с объекта, расположенного на этой вершине;
+        \item $A_1$ -- множество вершин, с которых необходимо собирать информацию. Каждой вершине $a_i$ приписана   величина $v_i$ -- максимальный объем информации, снимаемой с объекта;
         \item $A_2$ -- множество возможных мест размещения базовых станций. 
         \end{itemize}
 
@@ -776,14 +920,20 @@
         \center{\textbf{Вершины $A$.}}
     \end{minipage}
     
-    \bigskip
-    \bigskip
+    % \bigskip
+    % \bigskip
 
     $
     A_1 = \left\{a_i \right\}, i= \overline{1,n_1};
     $ и $
     A_2 = \left\{ a_i  \right\}, i= \overline{n_1+1,n}.
     $
+
+    \textbf{Предложены}:
+    \begin{itemize}
+        \item \textbf{задача нахождения допустимого решения при заданных местах размещения станций;}
+        \item \textbf{задача минимизации стоиомсти размещения станций.}
+    \end{itemize}
     
 \end{frame}
 
@@ -842,19 +992,7 @@
 
 \end{frame}
 
-\begin{frame}
-    \frametitle{Постановка задачи}
-    \justifying
-    Задано множество типов базовых станций $S = s_j$, $j=\overline{1,m}$. Каждой станции приписаны параметры $s_j = \left\{r_j, R_{ij}, \vartheta_j, c_j \right\}$, где:
-    $r_j$ -- максимальный радиус покрытия; $R_{ij}$ -- максимальный радиус связи между $i$-ой и $j$-ой станциями; $\vartheta_j$ -- максимальный получаемый объем информации в единицу временич; $c_j$ -- стоимость станции.
-    
-    \bigskip
-    Требуется разместить станции таким образом, чтобы вся информация с объектов ($A_1$) могла быть собрана и передана системой станций до шлюза.
 
-    \bigskip
-    Задано условие, что информация c вершин множества $A_1$ может передаваться непосредственно только на вершины множества $A_2$, а со шлюзом и между собой могут быть связаны только вершины множества $A_2$.
-
-\end{frame}
 
 \begin{frame}
     \frametitle{Задача при заданных местах размещения станций}
@@ -914,12 +1052,28 @@
 
 \end{frame}
 
+\begin{frame}
+    \frametitle{Оптимальное размещение БС на плоскости}
+    \justifying
+    Задано множество \textbf{типов базовых станций} $S = s_j$, $j=\overline{1,m}$. Каждой станции приписаны параметры $s_j = \left\{r_j, R_{ij}, \vartheta_j, c_j \right\}$, где:
+    $r_j$ -- максимальный радиус покрытия; $R_{ij}$ -- максимальный радиус связи между $i$-ой и $j$-ой станциями; $\vartheta_j$ -- максимальный получаемый объем информации в единицу временич; $c_j$ -- стоимость станции.
+    
+    \bigskip
+    % Требуется разместить станции таким образом, чтобы вся информация с объектов ($A_1$) могла быть собрана и передана системой станций до шлюза.
+
+    % \bigskip
+    % Задано условие, что информация c вершин множества $A_1$ может передаваться непосредственно только на вершины множества $A_2$, а со шлюзом и между собой могут быть связаны только вершины множества $A_2$.
+
+    Вместо каждой вершины множества $A_2$ введем $m$ вершин с координатами вершины $a_i$, и различными параметрами станций (множества $D_i$). Полученное множество по всем вершинам назовем $A_2D$.
+    \bigskip
+
+\end{frame}
 
 \begin{frame}
     \frametitle{Оптимальное размещение БС на плоскости}
     \fontsize{8pt}{7.2}\selectfont
-    Вместо каждой вершины множества $A_2$ введем $m$ вершин с координатами вершины $a_i$, и различными параметрами станций (множества $D_i$). Полученное множество по всем вершинам назовем $A_2D$.
-    \bigskip
+    % Вместо каждой вершины множества $A_2$ введем $m$ вершин с координатами вершины $a_i$, и различными параметрами станций (множества $D_i$). Полученное множество по всем вершинам назовем $A_2D$.
+    % \bigskip
 
     % Составим граф $H=\left\{AD,E\right\}$, передачи потока информации между вершинами расширенного множествa $AD=A_1 \cup A_2D$ и шлюзом.
     % \bigskip
@@ -943,20 +1097,22 @@
 
     Введем булевы переменные $y_j \in \{0,1\}$, если станция стоит на месте $a_j$, $a_j \in A_2D$.
 
-Целевая функция задачи минимазации суммарной стоимости:
-\begin{equation}\label{eq:part2_1.10}
-    \sum_{a_j \in A_2D} c_j \cdot y_j \to min.
-\end{equation}
+    \bigskip
 
-Введем бинарную переменную $z_{ij} \in \{0, 1\}$, и целочисленную переменную $x_{ij} \geqslant 0$. 
+    Целевая функция задачи минимазации суммарной стоимости:
+    \begin{equation}\label{eq:part2_1.10}
+        \sum_{a_j \in A_2D} c_j \cdot y_j \to min.
+    \end{equation}
 
-Каждый объект обслуживается только одной станцией
+    Введем бинарную переменную $z_{ij} \in \{0, 1\}$, и целочисленную переменную $x_{ij} \geqslant 0$. 
 
-\begin{equation}\label{eq:part2_1.5}
-    \sum_{a_j \in \Gamma_2^+(a_i)} z_{ij} = 1, \forall a_i, i=\overline{1, n_1},
-\end{equation}
-    
-\end{frame}
+    Каждый объект обслуживается только одной станцией
+
+    \begin{equation}\label{eq:part2_1.5}
+        \sum_{a_j \in \Gamma_2^+(a_i)} z_{ij} = 1, \forall a_i, i=\overline{1, n_1},
+    \end{equation}
+        
+    \end{frame}
 
 \begin{frame}
     \frametitle{Оптимальное размещение БС на плоскости}
@@ -990,12 +1146,55 @@
 
 \end{frame}
 
+\begin{frame}
+    \frametitle{Оптимальное размещение БС на плоскости}
+    \fontsize{10pt}{7.2}\selectfont
+    % \justifying
+    \begin{itemize}
+        \item Математическая модель (24) - (29) написана на языке Python.
+    \end{itemize}
+
+
+    \begin{minipage}[c]{0.45\linewidth}
+        \fontsize{8pt}{7.2}\selectfont
+        \bigskip
+        \includegraphics[scale=0.1]{python.png}
+
+    \end{minipage}
+
+    \begin{itemize}
+        \item Решалась задача в продукте Gurobi Optimization.
+    \end{itemize}
+
+    \bigskip
+
+    \begin{minipage}[c]{0.45\linewidth}
+        \fontsize{8pt}{7.2}\selectfont
+        \bigskip
+        \includegraphics[scale=0.26]{gurobi.png}
+
+    \end{minipage}
+
+    \bigskip
+    \bigskip
+    \bigskip
+
+
+    \textit{https://github.com/m0000Amir/BSP-on-plane}
+
+    % \begin{minipage}[c]{0.47\linewidth}
+    %     \center{\includegraphics[scale=0.2]{gurobi.png}}
+    %     \center{\textbf{Вершины $A$.}}
+    % \end{minipage}
+    
+    
+\end{frame}
 
 \begin{frame}
     \frametitle{Оптимальное размещение БС на плоскости}
     \fontsize{8pt}{7.2}\selectfont
     \justifying
-    Задача ЦЛП (24) - (29) решалась в пакете Gurobi Optimizer.
+    Пример решения оптимизационной задачи
 
     \begin{minipage}[c]{0.45\linewidth}
         \fontsize{8pt}{7.2}\selectfont
@@ -1238,8 +1437,8 @@
         проектирования БШС с линейной топологией;
         \item разработаны математические модели для задач проектирования БШС с ячеистой
         топологией;
-        \item предложены модели прогнозирования оценок характеристик производительности сети с
-        помощью методов машинного обучения для многофазной сети массового обслуживания.
+        % \item предложены модели прогнозирования оценок характеристик производительности сети с
+        % помощью методов машинного обучения для многофазной сети массового обслуживания.
     \end{enumerate}
 \end{frame}
 
@@ -1267,8 +1466,6 @@
     \end{enumerate}
 
     \bigskip
-
-    Исследования по диссертации, выполнялись в рамках проекта лаборатории по гранту Российского фонда фундаментальных исследований \textnumero{19-07-00919}.
 \end{frame}
 
 \begin{frame}
