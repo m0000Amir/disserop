@@ -1,0 +1,18 @@
+\nomenclatureentry{aБПЛА@[{БПЛА}]\begingroup беспилотный летательный аппарат\nomeqref {3.10}|nompageref}{63}
+\nomenclatureentry{aБШС@[{БШС}]\begingroup беспроводная широкополосная сеть\nomeqref {3.10}|nompageref}{63}
+\nomenclatureentry{aМВиГ@[{МВиГ}]\begingroup метод ветвей и границ\nomeqref {3.10}|nompageref}{63}
+\nomenclatureentry{aМПП@[{МПП}]\begingroup метод полного перебора\nomeqref {3.10}|nompageref}{63}
+\nomenclatureentry{aЦЛП@[{ЦЛП}]\begingroup целочисленное линейное программирование\nomeqref {3.10}|nompageref}{63}
+\nomenclatureentry{aБС@[{БС}]\begingroup базовая станция\nomeqref {3.10}|nompageref}{63}
+\nomenclatureentry{aАСУ ТП@[{АСУ ТП}]\begingroup автоматизация систем управления технологических процессов\nomeqref {3.10}|nompageref}{63}
+\nomenclatureentry{aТМО@[{ТМО}]\begingroup теория массового обслуживания\nomeqref {3.10}|nompageref}{63}
+\nomenclatureentry{aМО@[{МО}]\begingroup машинное обучение\nomeqref {3.10}|nompageref}{63}
+\nomenclatureentry{aEIRP@[{EIRP}]\begingroup Equivalent Isotropically Radiated Power, эффективная изотропно-излучаемая мощность передатчика\nomeqref {3.10}|nompageref}{63}
+\nomenclatureentry{aSOM@[{SOM}]\begingroup System Operating Margin, запас на замирание сигнала\nomeqref {3.10}|nompageref}{63}
+\nomenclatureentry{aFSPL@[{FSPL}]\begingroup Free Space Path Loss, уравнение потерь в свободном пространстве\nomeqref {3.10}|nompageref}{63}
+\nomenclatureentry{aQoS@[{QoS}]\begingroup Quality Of Service, качество обслуживания\nomeqref {3.10}|nompageref}{63}
+\nomenclatureentry{aRSU@[{RSU}]\begingroup Roadside Unit, придорожные стационарные объекты телекоммуникационной связи\nomeqref {3.10}|nompageref}{63}
+\nomenclatureentry{aСеМО@[{СеМО}]\begingroup Сеть массового обслуживания\nomeqref {3.10}|nompageref}{63}
+\nomenclatureentry{aWSN@[{WSN}]\begingroup Wireless Sensor Netwrork, беспроводная сенсорная сеть\nomeqref {3.10}|nompageref}{63}
+\nomenclatureentry{aLIFO@[{LIFO}]\begingroup Last Input, First Out, последним пришёл — первым ушёл\nomeqref {3.10}|nompageref}{63}
+\nomenclatureentry{aЧЦЛП@[{ЧЦЛП}]\begingroup Частично целочисленное линейное программмирование\nomeqref {3.10}|nompageref}{63}
