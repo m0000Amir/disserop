@@ -27,7 +27,7 @@
 }{
     \input{biblio/biblatex}     % Реализация пакетом biblatex через движок biber
 }
-
+% a
 % Вывести информацию о выбранных опциях в лог сборки
 \typeout{Selected options:}
 \typeout{Draft mode: \arabic{draft}}
@@ -44,14 +44,17 @@
 % Затем, для вывода отдельных частей можно воспользоваться командой \includeonly
 % Ниже примеры использования команды:
 %
-% \includeonly{Dissertation/part1}
+% \includeonly{Dissertation/introduction}
+% \includeonly{Dissertation/contents, Dissertation/part1}
+% \includeonly{Dissertation/part2}
 % \includeonly{Dissertation/part3}
-\includeonly{Dissertation/part4}
+% \includeonly{Dissertation/part4}
 % \includeonly{Dissertation/appendix}
-%\includeonly{Dissertation/contents,Dissertation/appendix,Dissertation/conclusion}
+% \includeonly{Dissertation/contents,Dissertation/appendix,Dissertation/conclusion}
+% \includeonly{Dissertation/title,Dissertation/contents,Dissertation/part1,   Dissertation/part2, Dissertation/part3, Dissertation/acronyms, Dissertation/dictionary, Dissertation/references, Dissertation/lists}
 %
 % Если все команды закомментированы, то документ будет выведен в PDF файл полностью
-
+    
 \begin{document}
 %%% Переопределение именований типовых разделов
 % https://tex.stackexchange.com/a/156050
@@ -71,7 +74,7 @@
 \include{Dissertation/part1}           % Глава 1
 \include{Dissertation/part2}           % Глава 2
 \include{Dissertation/part3}
-\include{Dissertation/part4}
+% \include{Dissertation/part4}
 % \include{Dissertation/part5}             % Глава 3
 \include{Dissertation/conclusion}      % Заключение
 \include{Dissertation/acronyms}        % Список сокращений и условных обозначений

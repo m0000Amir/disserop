@@ -1,37 +1,47 @@
-\chapter{Оценка характеристик производительности сети с помощью имитационного моделирования}\label{prediction_model}
+% \chapter{Оценка характеристик производительности сети с помощью имитационного моделирования}\label{prediction_model}
 
-Проектирования БШД в связи с высокой сложностью и вычислительными трудностями требует поэтапного подхода учета всего комплекса критериев качества и ограничений для проектируемой беспроводной сети.
+% Проектирования БШД в связи с высокой сложностью и вычислительными трудностями требует поэтапного подхода учета всего комплекса критериев качества и ограничений для проектируемой беспроводной сети \cite{Vasiliev2015}.
 
-После решения задачи синтеза топологии, для полученного размещения решаются задачи оцненки качества. Такими задачами являются расчет надежности всех элементов сети, оценка характеристик качества канала, вероятности потери пакетов, пропускной способности, времени доставки сообщений в сети. Данный комплексный подход позволяет дать  
-Одной из важных задач на стадии проектировании является оценка производительности широкополонсой беспроводной сети. 
-
-======
-
-\cite{Tcharo2018} 
-
-Здесь будет имитационная модель сети массового обслуживания и методы машинного обучения.
+% После решения задачи синтеза топологии, для полученного размещения решаются задачи оценки характеристик производительности БШС. Для расчета оценок широко применяется аппарат теории массового осблуживания (ТМО). Примерами таких задач являются расчет надежности всех элементов сети \cite{Wankpo2020, Krishnamoorthy2021, Kozyrev2019}, оценка характеристик качества канала, вероятности потери пакетов, пропускной способности, времени доставки сообщений в сети \cite{Gorbunova2020, Larionov2019, Vishnevsky2016_Methods_of_performance, Vishnevsky2016_Review_of_methodology, Wang2017, Sandmann2012, Baumann2017}, оценка межкоцневой задержки сети \cite{Wang2017, Sandmann2012}. В работе \cite{Eremenko2013} рассматривают стохастическую модель марковской цепи для оценки качества предоставления информационных услуг передачи данных АСУ ТП в условиях помех и прерываний. Одним из современных направленией в оценки качества БШС является использование ТМО в совокупности с методами машинного обучения (МО)\cite{Lovas2021, SatyaHermanto2018}.
 
 
-В работе \cite{Eremenko2013} рассматривают стохастическую модель марковской цепи для оценки качества предоставления информационных услуг передачи данных АСУ ТП в условиях помех и прерываний.
+% \section{Методика расчета характеристик с помощью методов машинного обучения}
 
-\section{Аппроксимация функций распределений случайных величин}
-\section{Имитационная модель с зависимым обслуживанием}
-\begin{figure}[h!]
-  \centering
-   \includegraphics[width=0.8\textwidth]{sim20_model.png}
-\caption{Задержки для случаев с независимой и зависимой функции распределения времени обслуживания}
-\label{fig:sim20_model}
-\end{figure}
+% % Как уже упоминалось выше имитационное моделирование позволяет получить характеристики производительности сети для случаев, не имеющих аналитических решений. К сожалению такой подход имеет один большой недостаток -- время расчета.
 
-\section{Модели прогноза времени межконцевой задеркжи с помощью методов машинного обучения}
-\begin{figure}[h!]
-    \centering
-     \includegraphics[width=0.8\textwidth]{17predict_model.png}
-  \caption{Оценки времени межконцевых задержек для тандема размером 17}
-  \label{fig:17predict_model}
-\end{figure}
+% При расчете многофазных сетей массового обслуживания, мы часто прибегаем к методу имитационного моделирования из-за отсутствия аналитических методов расчета. В нашей работе мы использовали модель с фазовыми типами распреления случайных величин для интервалов поступления и времени обслуживания. Как уже упоминалось выше расчет характеристик производительности сети с помощью имитационного моделирования имеет один существенный минус - это большие затраты по времени. Этот минус оказывает ощутимое влияние в итеративных задач. Например, при проектировании беспроводной сети связи на стадии выбора топологии будущей сети, когда на каждом новом шаге итерации необходимо производить оценку характеристик.
 
-\section{Выводы по главе \cref{prediction_model}}
+% Решением этой проблемы является использование моделей МО для аппроксимации данных имтационного моделирования с целью оценки необходимых характеристик производительности беспроводной сети связи. Входныe \hl{$X$} и рассчитанные выходные данные \hl{$Y$} (see Fig.~ \ref{fig:sm_ml}) будут необходимы для обучения и тестирования прогнозных моделей \hl{$f(X)$}.
+  
+% \begin{figure}[h]\centering
+%     \includegraphics[width=0.8\textwidth]{images/ML(rus).pdf}
+%     \caption{Использование данных имитационного моделирования для методов машинного обучения}.\label{fig:sm_ml}
+% \end{figure}
+
+% % **Цель:** по полученным данным построить **прогнозные модели** для времени межконцевой задержки и вероятности доставки пакетов.
+
+% \hl{Show figure with reference actions flow}
+
+% \hl{Describe each step (building data, learning, testing, application)}
+
+% \section{Аппроксимация функций распределений случайных величин}
+% \section{Имитационная модель с зависимым обслуживанием}
+% \begin{figure}[h!]
+%   \centering
+%   \includegraphics[width=0.8\textwidth]{sim20_model.png}
+%   \caption{Задержки для случаев с независимой и зависимой функции распределения времени обслуживания}
+%   \label{fig:sim20_model}
+% \end{figure}
+
+% \section{Модели прогноза времени межконцевой задеркжи с помощью методов машинного обучения}
+% \begin{figure}[h!]
+%   \centering
+%   \includegraphics[width=0.8\textwidth]{17predict_model.png}
+%   \caption{Оценки времени межконцевых задержек для тандема размером 17}
+%   \label{fig:17predict_model}
+% \end{figure}
+
+% \section{Выводы по главе \cref{prediction_model}}
 
 
 % \chapter{Математические модели синтеза топологии сети для охвата линейного участка в виде экстремальной задачи в комбинаторной форме}\label{chapter_combinatorial_model}
@@ -359,9 +369,9 @@
 % % In this case we review only sets $G_\nu$, which consist of a single placement $P$, and $f(P)$ is obtained as the sum of non-coverages $\Delta(k,d,p,t)$ between known places where  stations are placed.
 
 % %  If for the given placement the inequality $f(P) < f(\widehat{P})$ takes place, then the placement $P$ becomes a new current best value $\widehat{P}$ and backward step is applied.
- 
+
 % % The branch and bound algorithm will stop when all the vertexes of the searching tree will be closed.
- 
+
 % % The solution is
 % % \begin{displaymath}
 % % P^{*} = \widehat{P},  \widehat{f}(P^*) = f(\widehat{P}).
@@ -383,7 +393,7 @@
 % % \end{displaymath}
 
 % % The process of solving the problem is presented in the form of a binary search tree (see Fig.~\ref{fig2}).
- 
+
 % % The initial value of $f(\widehat{P})=L=50$, $G_0=G$.
 
 % % The vertices of the tree indicated by $\emptyset$  correspond to the sets $G_\nu$ for which there are no feasible placements.
@@ -454,7 +464,7 @@
 % % \end{displaymath}
 
 % % 	This condition excludes the effect from intersections of station coverages when calculating the total coverage value for the entire segment $\alpha$.
-	
+
 % % 	According to the conditions of the problem, the station located at $a_i$ must be connected with at least one station on the left and one station on the right, including stations  at the end points $a_0$ and $a_{n+1}$.
 
 % % 	We will introduce variables $z_{ijk}, i=1,2,\ldots,n$; $j=1,2,\ldots,m$; $k=1,2,\ldots,n$; $k\neq i$ to formulate this requirement where:
@@ -463,7 +473,7 @@
 % % 	\item $z_{ijk}=1$ if a station $s_j$ is located at point $a_i$ and connected with a station which is located at point  $a_k$;
 % % 	\item $z_{ijk}=0$ otherwise.
 % % \end{itemize}	
-	
+
 % % 	We will also introduce variables $z_{ij0}$ and $z_{ijn+1}$ where $z_{ij0}=1$ if a station $s_j$ is located at point $a_i$ and connected with a station $s_0$ which is located at point  $a_0$  and $z_{ij0} = 0$ otherwise; $z_{ijn+1}=1$ if a station $s_j$ is located at point $a_i$ and connected with a station $s_{n+1}$ which is located at point $a_{n+1}$  and $z_{ijn+1} = 0$ otherwise.
 
 % % Stations must be at both points so that they can be connected: 
