@@ -2156,15 +2156,18 @@
     <bcf:citekey order="31">Abbas2018</bcf:citekey>
     <bcf:citekey order="31">Wang2011</bcf:citekey>
     <bcf:citekey order="31">Jawhar2013</bcf:citekey>
-    <bcf:citekey order="32">Ivanov2018</bcf:citekey>
+    <bcf:citekey order="32">Dantzig1963</bcf:citekey>
     <bcf:citekey order="33">Pershin2013</bcf:citekey>
-    <bcf:citekey order="34">SigalBook</bcf:citekey>
-    <bcf:citekey order="35">Gari</bcf:citekey>
-    <bcf:citekey order="36">Gari</bcf:citekey>
-    <bcf:citekey order="37">Emelichev</bcf:citekey>
-    <bcf:citekey order="38">Pershin1999</bcf:citekey>
-    <bcf:citekey order="38">Pershin2002</bcf:citekey>
-    <bcf:citekey order="39">Land1960</bcf:citekey>
+    <bcf:citekey order="34">Pershin2013</bcf:citekey>
+    <bcf:citekey order="35">Ivanov2018</bcf:citekey>
+    <bcf:citekey order="36">Pershin2013</bcf:citekey>
+    <bcf:citekey order="37">SigalBook</bcf:citekey>
+    <bcf:citekey order="38">Gari</bcf:citekey>
+    <bcf:citekey order="39">Gari</bcf:citekey>
+    <bcf:citekey order="40">Emelichev</bcf:citekey>
+    <bcf:citekey order="41">Pershin1999</bcf:citekey>
+    <bcf:citekey order="41">Pershin2002</bcf:citekey>
+    <bcf:citekey order="42">Land1960</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
