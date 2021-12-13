@@ -2158,16 +2158,21 @@
     <bcf:citekey order="31">Jawhar2013</bcf:citekey>
     <bcf:citekey order="32">Dantzig1963</bcf:citekey>
     <bcf:citekey order="33">Pershin2013</bcf:citekey>
-    <bcf:citekey order="34">Pershin2013</bcf:citekey>
-    <bcf:citekey order="35">Ivanov2018</bcf:citekey>
-    <bcf:citekey order="36">Pershin2013</bcf:citekey>
-    <bcf:citekey order="37">SigalBook</bcf:citekey>
-    <bcf:citekey order="38">Gari</bcf:citekey>
-    <bcf:citekey order="39">Gari</bcf:citekey>
-    <bcf:citekey order="40">Emelichev</bcf:citekey>
-    <bcf:citekey order="41">Pershin1999</bcf:citekey>
-    <bcf:citekey order="41">Pershin2002</bcf:citekey>
-    <bcf:citekey order="42">Land1960</bcf:citekey>
+    <bcf:citekey order="34">Alekseev1987</bcf:citekey>
+    <bcf:citekey order="34">Sukharev1986</bcf:citekey>
+    <bcf:citekey order="35">Land1960</bcf:citekey>
+    <bcf:citekey order="36">Meindl2012</bcf:citekey>
+    <bcf:citekey order="36">Ku2016</bcf:citekey>
+    <bcf:citekey order="36">Anand2017</bcf:citekey>
+    <bcf:citekey order="37">Ivanov2018</bcf:citekey>
+    <bcf:citekey order="38">Pershin2013</bcf:citekey>
+    <bcf:citekey order="39">SigalBook</bcf:citekey>
+    <bcf:citekey order="40">Gari</bcf:citekey>
+    <bcf:citekey order="41">Gari</bcf:citekey>
+    <bcf:citekey order="42">Emelichev</bcf:citekey>
+    <bcf:citekey order="43">Pershin1999</bcf:citekey>
+    <bcf:citekey order="43">Pershin2002</bcf:citekey>
+    <bcf:citekey order="44">Land1960</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
