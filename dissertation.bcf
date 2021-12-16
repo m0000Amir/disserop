@@ -2107,8 +2107,9 @@
     <bcf:citekey order="6">Kovacs2015</bcf:citekey>
     <bcf:citekey order="7">Dantzig1963</bcf:citekey>
     <bcf:citekey order="8">Dantzig1963</bcf:citekey>
-    <bcf:citekey order="9">Orlin1997</bcf:citekey>
-    <bcf:citekey order="10">Tarjan1997</bcf:citekey>
+    <bcf:citekey order="9">Kovacs2015</bcf:citekey>
+    <bcf:citekey order="10">Orlin1997</bcf:citekey>
+    <bcf:citekey order="11">Tarjan1997</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
