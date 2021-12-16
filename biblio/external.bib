@@ -1874,7 +1874,6 @@ year = {2015}
 }
 
 @article{Orlin1997,
-abstract = {Developing a polynomial time primal network simplex algorithm for the minimum cost flow problem has been a long standing open problem. In this paper, we develop one such algorithm that runs in O(min(n2m log nC,n2m2 log n)) time, where n is the number of nodes in the network, m is the number of arcs, and C denotes the maximum absolute arc costs if arc costs are integer and ∞ otherwise. We first introduce a pseudopolynomial variant of the network simplex algorithm called the "premultiplier algorithm". We then develop a cost-scaling version of the premultiplier algorithm that solves the minimum cost flow problem in O(min(nm log nC, nm2 log n)) pivots. With certain simple data structures, the average time per pivot can be shown to be O(n). We also show that the diameter of the network polytope is O(nm log n). {\textcopyright} 1997 The Mathematical Programming Society, Inc. Published by Elsevier Science B.V.},
 author = {Orlin, James B.},
 doi = {10.1007/BF02614365},
 issn = {00255610},
@@ -1902,3 +1901,49 @@ volume = {78},
 year = {1997}
 }
 
+@article{Kiraly2012,
+abstract = {This paper presents efficient implementations of several algorithms for solving the minimum-cost network flow problem. Various practical heuristics and other important implementation aspects are also discussed. A novel result of this work is the application of Goldberg's recent partial augment-relabel method in the cost-scaling algorithm. The presented implementations are available as part of the LEMON open source C++ optimization library. The performance of these codes is compared to well-known and efficient minimum-cost flow solvers, namely CS2, RelaxIV, MCF, and the corresponding method of the LEDA library. According to thorough experimental analysis, the presented cost-scaling and network simplex implementations turned out to be more efficient than LEDA and MCF. Furthermore, the cost-scaling implementation is competitive with CS2. The RelaxIV algorithm is often much slower than the other codes, although it is quite efficient on particular problem instances.},
+archivePrefix = {arXiv},
+arxivId = {1207.6381},
+author = {Kir{\'{a}}ly, Z. and Kov{\'{a}}cs, P.},
+eprint = {1207.6381},
+mendeley-groups = {Диссертация/part3},
+title = {{Efficient implementations of minimum-cost flow algorithms}},
+url = {http://arxiv.org/abs/1207.6381},
+year = {2012}
+}
+
+
+@article{Jiang2020,
+abstract = {Minimum-cost flow problems widely exist in graph theory, computer science, information science, and transportation science. The network simplex algorithm is a fast and frequently used method for solving minimum-cost flow problems. However, the conventional sequential algorithms cannot satisfy the requirement of high-computational efficiency for large-scale networks. Parallel computing has resulted in numerous significant advances in science and technology over the past decades and is potential to develop an effective means to solve the computational bottleneck problem of large-scale networks. This paper first analyzes the parallelizability of network simplex algorithm and then presents a multi-granularity parallel network simplex algorithm (MPNSA) with fine- and coarse-granularity parallel strategies, which are suitable for shared- and distributed-memory parallel applications, respectively. MPNSA is achieved by message-passing interface, open multiprocessing, and compute unified device architecture, so that it can be compatible with different high-performance computing platforms. Experimental results demonstrated that MPNSA has very great accelerating effects and the maximum speedup reaches 18.7.},
+author = {Jiang, Jincheng and Chen, Jinsong and Wang, Chisheng},
+doi = {10.1007/s11227-020-03227-9},
+issn = {15730484},
+journal = {Journal of Supercomputing},
+keywords = {High-performance computing platform,Hybrid parallel mode,Minimum-cost flow problem,Multi-granularity,Network simplex algorithm},
+mendeley-groups = {Диссертация/part3},
+number = {12},
+pages = {9800--9826},
+title = {{Multi-granularity hybrid parallel network simplex algorithm for minimum-cost flow problems}},
+volume = {76},
+year = {2020}
+}
+
+
+@article{Holzhauser2017,
+abstract = {We present a specialized network simplex algorithm for the budget-constrained minimum cost flow problem, which is an extension of the traditional minimum cost flow problem by a second kind of costs associated with each edge, whose total value in a feasible flow is constrained by a given budget B. We present a fully combinatorial description of the algorithm that is based on a novel incorporation of two kinds of integral node potentials and three kinds of reduced costs. We prove optimality criteria and combine two methods that are commonly used to avoid cycling in traditional network simplex algorithms into new techniques that are applicable to our problem. With these techniques and our definition of the reduced costs, we are able to prove a pseudo-polynomial running time of the overall procedure, which can be further improved by incorporating Dantzig's pivoting rule. Moreover, we present computational results that compare our procedure with Gurobi (2016).},
+archivePrefix = {arXiv},
+arxivId = {1607.02284},
+author = {Holzhauser, Michael and Krumke, Sven O. and Thielen, Clemens},
+doi = {10.1016/j.ejor.2016.11.024},
+eprint = {1607.02284},
+issn = {03772217},
+journal = {European Journal of Operational Research},
+keywords = {Algorithms,Combinatorial optimization,Minimum cost flow,Network flow,Network simplex},
+mendeley-groups = {Диссертация/part3},
+number = {3},
+pages = {864--872},
+title = {{A network simplex method for the budget-constrained minimum cost flow problem}},
+volume = {259},
+year = {2017}
+}
