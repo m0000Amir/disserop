@@ -118,7 +118,7 @@ $$
 \end{equation}
 
 
-Потока объема информации в каналах ограничен сверху. В случае каналов передачи от объектов на вершинах $A_1$ до станций на вершинах $A_2$ поток ограничен объемом сгенерированного трафика на объекте $\vartheta_i$:
+Поток объема информации в каналах ограничен сверху. В случае каналов передачи от объектов на вершинах $A_1$ до станций на вершинах $A_2$ поток ограничен объемом сгенерированного трафика на объекте $\vartheta_i$:
 
 % \begin{equation}\label{eq:part2_1.4_1}
 %     \sum_{a_j \in \Gamma_2^+(a_i)} x_{ij} \leqslant \vartheta_i, \forall a_i \in A_1.
@@ -128,10 +128,17 @@ $$
     x_{ij} \leqslant \vartheta_i, \forall a_i \in A_1, a_j \in A_2.
 \end{equation}
 
-Объем информации выходящий из станции на вершине $a_j, a_j \in A_2$ ограничен пропускной способностью $\vartheta_j$ станции : 
+\fixme{Объем информации выходящий из станции на вершине $a_j, a_j \in A_2$ ограничен пропускной способностью $\vartheta_j$ станции : }
+
+% \begin{equation}\label{eq:part2_1.4_2}
+%     \sum_{a_i \in \Gamma_2^+(a_j)} x_{ji} \leqslant \vartheta_j, \forall a_j \in A_2.
+% \end{equation}
+
+Объем информации входящий на станцию на вершине $a_j, a_j \in A_2$ ограничен пропускной способностью $\vartheta_j$ станции : 
+
 
 \begin{equation}\label{eq:part2_1.4_2}
-    \sum_{a_i \in \Gamma_2^+(a_j)} x_{ji} \leqslant \vartheta_j, \forall a_j \in A_2.
+    \sum_{a_i \in \Gamma^-(a_j)} x_{ij} \leqslant \vartheta_j, \forall a_j \in A_2.
 \end{equation}
 
 
