@@ -2297,19 +2297,18 @@
     <bcf:citekey order="106">Kiraly2012</bcf:citekey>
     <bcf:citekey order="106">Jiang2020</bcf:citekey>
     <bcf:citekey order="107">Dantzig1963</bcf:citekey>
-    <bcf:citekey order="108">Dantzig1963</bcf:citekey>
-    <bcf:citekey order="109">Kovacs2015</bcf:citekey>
-    <bcf:citekey order="110">Orlin1997</bcf:citekey>
-    <bcf:citekey order="111">Tarjan1997</bcf:citekey>
-    <bcf:citekey order="112">Kiraly2012</bcf:citekey>
-    <bcf:citekey order="112">Kovacs2015</bcf:citekey>
-    <bcf:citekey order="112">Holzhauser2017</bcf:citekey>
-    <bcf:citekey order="112">Jiang2020</bcf:citekey>
-    <bcf:citekey order="113">MukhtarovPershinGUBKIN2018_RSCI</bcf:citekey>
-    <bcf:citekey order="113">MukhtarovPershinVSPU2019_RSCI</bcf:citekey>
-    <bcf:citekey order="113">MukhtarovPershinMLSD2019works_RSCI</bcf:citekey>
-    <bcf:citekey order="113">MukhtarovPershinMLSD2019materials_RSCI</bcf:citekey>
-    <bcf:citekey order="113">MukhtarovPershinGUBKIN2019_RSCI</bcf:citekey>
+    <bcf:citekey order="108">Kovacs2015</bcf:citekey>
+    <bcf:citekey order="109">Orlin1997</bcf:citekey>
+    <bcf:citekey order="110">Tarjan1997</bcf:citekey>
+    <bcf:citekey order="111">Kiraly2012</bcf:citekey>
+    <bcf:citekey order="111">Kovacs2015</bcf:citekey>
+    <bcf:citekey order="111">Holzhauser2017</bcf:citekey>
+    <bcf:citekey order="111">Jiang2020</bcf:citekey>
+    <bcf:citekey order="112">MukhtarovPershinGUBKIN2018_RSCI</bcf:citekey>
+    <bcf:citekey order="112">MukhtarovPershinVSPU2019_RSCI</bcf:citekey>
+    <bcf:citekey order="112">MukhtarovPershinMLSD2019works_RSCI</bcf:citekey>
+    <bcf:citekey order="112">MukhtarovPershinMLSD2019materials_RSCI</bcf:citekey>
+    <bcf:citekey order="112">MukhtarovPershinGUBKIN2019_RSCI</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
