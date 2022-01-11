@@ -7,7 +7,51 @@
 
 
 
-\fontsize{8pt}{8pt}\selectfont
+% \fontsize{8pt}{8pt}\selectfont
+\begin{longtable}[c]{| c | c | c | c | c | c | c | c |c | c |}
+    \caption{Сравнения оценок «недопокрытия» для задачи ЦЛП и ЛП}\label{tab:app_estimate_comparison}\\
+
+    \hline
+    \multirow{2}{*}{\thead{Количество \\
+        точек \\
+        размещения, \\ $m$}}
+    & \multirow{2}{*}{\thead{Количество \\
+        свободных \\
+        станций, \\ $|S_\beta|$}}
+
+    & \multicolumn{2}{|c|}{ЦЛП} 
+    & \multicolumn{3}{|c|}{\thead{Задача \\
+    о ранце}} 
+    & \multicolumn{3}{|c|}{ЛП} \\\cline{3-10}
+ 
+    &&\rotatebox{270}{Время расчета, сек } 
+    &\rotatebox{270}{Недопокрытие, $z$}
+    &\rotatebox{270}{Время расчета, сек} 
+    &\rotatebox{270}{Недопокрытие, $z$}
+    &\rotatebox{270}{Точность, \%}
+    &\rotatebox{270}{Время расчета, сек} 
+    &\rotatebox{270}{Недопокрытие, $z$}
+    &\rotatebox{270}{Точность, \%}\\
+
+    \hline
+    5&	6&	0,3250&	436,00&	0,3214&	426,00&	97,71&	0,0047&	436,00&	100,00 \\
+    5&	8&	0,3218&	431,00&	0,3582&	398,00&	92,34&	0,0045&	431,00&	100,00 \\
+    8&	10&	0,3765&	395,00&	0,3621&	375,00&	94,94&	0,0094&	395,00&	100,00 \\
+    8&	12&	0,3746&	390,00&	0,2977&	347,00&	88,97&	0,0094&	390,00&	100,00 \\
+    12&	15&	0,3363&	339,00&	0,2960&	309,00&	91,15&	0,0114&	339,00&	100,00 \\
+    12&	17&	0,4072&	336,00&	0,3456&	283,00&	84,23&	0,0136&	336,00&	100,00 \\
+    18&	20&	0,3558&	265,00&	0,3407&	265,00&	100,00&	0,0121&	265,00&	100,00 \\
+    18&	25&	0,3794&	260,00&	0,3096&	259,00&	99,62&  0,0169&	257,60&	99,08 \\
+    25&	30&	0,3177&	246,00&	0,3576&	246,00&	100,00&	0,0222&	244,33&	99,32 \\
+    25&	45&	0,3539&	229,00&	0,3556&	229,00&	100,00&	0,0494&	226,40&	98,86 \\
+    30&	50&	0,2994&	225,00&	0.3146&	225,00&	100,00&	0,0570&	224,13&	99,61 \\
+    30&	100& 0,5179& 223,00& 0,5177& 223,00& 100,00& 0,1513& 218,75& 98,09 \\
+    \hline
+\end{longtable}
+\normalsize
+
+
+% \fontsize{8pt}{8pt}\selectfont
 \begin{longtable}[c]{| c | c | c | c | c | c | c | c |c | c |}
     \caption{Сравнения оценок «недопокрытия» для задачи ЦЛП и ЛП}\label{tab:app_estimate_comparison}\\
 
@@ -629,89 +673,64 @@ $$
 \end{longtable}
 \normalsize
 
-\chapter{Численный пример оптимального размещения базовых станций для обслуживания заданного множества рассредоточенных объектов}\label{app:milp_place_solution}
-Рассмотрим пример для оптимизационной задачи выбора набора размещаемых станций и определения мест их размещения.
-Задано множество рассредоточенных объектов $A_1$, $|A_1| = 4$ и шлюз (таблица \cref{tab:part2_placement_coordinates}).
-
-\begin{table}
-    \centering
-    \captionsetup{justification=centering} % выравнивание подписи по-центру
-    \caption{Координаты размещения}\label{tab:part2_placement_coordinates}
-    \begin{tabular}{|l|c|c|}
-        \toprule
-        0   & (7,4) & \textbf{Координаты шлюза} \\
-        \midrule
-        1   & (1, 5)& \textbf{Координаты объектов}  \\
-        2   & (4.5, 4) & \\
-        3   & (6, 3) & \\
-        4   & (3.5, 5) & \\
-        \midrule
-        5   & (2, 4) & \textbf{Координаты размещения станций}  \\
-        6   & (5, 5) & \\
-        7   & (2, 6) & \\
-        8   & (6, 5.5) & \\
-        \bottomrule
-    \end{tabular}
-\end{table}
-
-Задано множество $A_2$ возможных мест расположения станций, $|A_2| = 4$. Все вершины представлены на Рисунке \ref{fig:part2_coordinates}.
- 
-\begin{figure}[ht]
-    \centerfloat{
-        \includegraphics[scale=0.75]{part2_coordinates.png}
-    }
-    \caption{Координаты размещения}\label{fig:part2_coordinates}
-\end{figure}
-
-Задано ограничение по мощности для кадого объекта (таблица \ref{tab:part2_object_capacity}).
-
-\begin{table}
-    \centering
-    \captionsetup{justification=centering} % выравнивание подписи по-центру
-    \caption{Координаты размещения}\label{tab:part2_object_capacity}
-    \begin{tabular}{|c|cccc|}
-        \toprule
-        Объекты   & 1 & 2 & 3 & 4 \\
-        \midrule
-        Мощность  & 10 & 15 & 17 & 18 \\
-        \bottomrule
-    \end{tabular}
-\end{table}
-
-Задано множество типов станций (таблица \ref{tab:part2_station_types_1}).
-
-\begin{table}
-    \centering
-    \captionsetup{justification=centering} % выравнивание подписи по-центру
-    \caption{Множество типов станций}\label{tab:part2_station_types_1}
-    \begin{tabular}{|c|c|c|c|c|}
-        \toprule
-        Тип & Мощность, $\vartheta_j$ & Радиус покрытия, $r_j$  & Радиус связи, $R_j$ & Стоимость, $c_j$ \\
-        \toprule
-        1   & 80 & 1 & 6 & 70 \\
-        2  & 100 & 2 & 5 & 75 \\
-        3  & 100 & 2 & 5 & 75 \\
-        \bottomrule
-    \end{tabular}
-\end{table}
-
-Необходимо разместить станции таким образом, чтобы минимизировать их  суммарную общую стоимость.
-Построим граф сети $H$ для данного набора типов станции. Матрица смежности представлена на рисунке \cref{fig:part2_adjacency_matrix}
- 
-\begin{figure}[ht]
-    \centerfloat{
-        \includegraphics[scale=0.5]{part2_adjacency_matrix.pdf}
-    }
-    \caption{Координаты размещения}\label{fig:part2_adjacency_matrix}
-\end{figure}
+% \chapter{Численный пример оптимального размещения базовых станций для обслуживания заданного множества рассредоточенных объектов}\label{app:milp_place_solution}
+% Рассмотрим пример для оптимизационной задачи выбора набора размещаемых станций и определения мест их размещения.
+% Задано множество рассредоточенных объектов $A_1$, $|A_1| = 4$ и шлюз (таблица \cref{tab:part2_placement_coordinates}).
 
 % \begin{table}
 %     \centering
 %     \captionsetup{justification=centering} % выравнивание подписи по-центру
-%     \caption{Матрица смежности графа $H$}\label{tab:part2_adjacency_matrix}
-%     \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+%     \caption{Координаты размещения}\label{tab:part2_placement_coordinates}
+%     \begin{tabular}{|l|c|c|}
 %         \toprule
-%         a_0 & a_1 & a_2 & a_3 & a_4 & a_5s_1 & a_6s_1 & a_7s_1 & a_8s_1 & a_5s_2 a_6s_2 & a_7s_2 & a_8s_2 & a_5s_3 & a_6s_3 & a_7s_3 & a_8s_3 \\
+%         0   & (7,4) & \textbf{Координаты шлюза} \\
+%         \midrule
+%         1   & (1, 5)& \textbf{Координаты объектов}  \\
+%         2   & (4.5, 4) & \\
+%         3   & (6, 3) & \\
+%         4   & (3.5, 5) & \\
+%         \midrule
+%         5   & (2, 4) & \textbf{Координаты размещения станций}  \\
+%         6   & (5, 5) & \\
+%         7   & (2, 6) & \\
+%         8   & (6, 5.5) & \\
+%         \bottomrule
+%     \end{tabular}
+% \end{table}
+
+% Задано множество $A_2$ возможных мест расположения станций, $|A_2| = 4$. Все вершины представлены на Рисунке \ref{fig:part2_coordinates}.
+ 
+% \begin{figure}[ht]
+%     \centerfloat{
+%         \includegraphics[scale=0.75]{part2_coordinates.png}
+%     }
+%     \caption{Координаты размещения}\label{fig:part2_coordinates}
+% \end{figure}
+
+% Задано ограничение по мощности для кадого объекта (таблица \ref{tab:part2_object_capacity}).
+
+% \begin{table}
+%     \centering
+%     \captionsetup{justification=centering} % выравнивание подписи по-центру
+%     \caption{Координаты размещения}\label{tab:part2_object_capacity}
+%     \begin{tabular}{|c|cccc|}
+%         \toprule
+%         Объекты   & 1 & 2 & 3 & 4 \\
+%         \midrule
+%         Мощность  & 10 & 15 & 17 & 18 \\
+%         \bottomrule
+%     \end{tabular}
+% \end{table}
+
+% Задано множество типов станций (таблица \ref{tab:part2_station_types_1}).
+
+% \begin{table}
+%     \centering
+%     \captionsetup{justification=centering} % выравнивание подписи по-центру
+%     \caption{Множество типов станций}\label{tab:part2_station_types_1}
+%     \begin{tabular}{|c|c|c|c|c|}
+%         \toprule
+%         Тип & Мощность, $\vartheta_j$ & Радиус покрытия, $r_j$  & Радиус связи, $R_j$ & Стоимость, $c_j$ \\
 %         \toprule
 %         1   & 80 & 1 & 6 & 70 \\
 %         2  & 100 & 2 & 5 & 75 \\
@@ -720,51 +739,76 @@ $$
 %     \end{tabular}
 % \end{table}
 
+% Необходимо разместить станции таким образом, чтобы минимизировать их  суммарную общую стоимость.
+% Построим граф сети $H$ для данного набора типов станции. Матрица смежности представлена на рисунке \cref{fig:part2_adjacency_matrix}
+ 
+% \begin{figure}[ht]
+%     \centerfloat{
+%         \includegraphics[scale=0.5]{part2_adjacency_matrix.pdf}
+%     }
+%     \caption{Координаты размещения}\label{fig:part2_adjacency_matrix}
+% \end{figure}
 
-На основе матрицы смежности полученного графа запишем систему равенств и неравенств\cref{eq:part2_1.5, eq:part2_1.6, eq:part2_1.7, eq:part2_1.8, eq:part2_1.9, eq:part2_1.10} и решим задачу частично целочисленного ЛП.
-В ходе решения мы получили следующее размещение станции (Рисунок \cref{fig:part2_solution})
-
-\begin{figure}[ht]
-    \centerfloat{
-        \includegraphics[scale=0.75]{part2_solution.png}
-    }
-    \caption{Координаты размещения}\label{fig:part2_solution}
-\end{figure}
-
-Из графика видно, что были размещены на точках 7 и 8 две станции типа 2 и 3, соответственно.
-Решением задачи является суммарная стоимость равная:
-$f=160$.
-
-
-
+% % \begin{table}
+% %     \centering
+% %     \captionsetup{justification=centering} % выравнивание подписи по-центру
+% %     \caption{Матрица смежности графа $H$}\label{tab:part2_adjacency_matrix}
+% %     \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+% %         \toprule
+% %         a_0 & a_1 & a_2 & a_3 & a_4 & a_5s_1 & a_6s_1 & a_7s_1 & a_8s_1 & a_5s_2 a_6s_2 & a_7s_2 & a_8s_2 & a_5s_3 & a_6s_3 & a_7s_3 & a_8s_3 \\
+% %         \toprule
+% %         1   & 80 & 1 & 6 & 70 \\
+% %         2  & 100 & 2 & 5 & 75 \\
+% %         3  & 100 & 2 & 5 & 75 \\
+% %         \bottomrule
+% %     \end{tabular}
+% % \end{table}
 
 
-% \section{Результаты численного эксперимента}
+% На основе матрицы смежности полученного графа запишем систему равенств и неравенств\cref{eq:part2_1.5, eq:part2_1.6, eq:part2_1.7, eq:part2_1.8, eq:part2_1.9, eq:part2_1.10} и решим задачу частично целочисленного ЛП.
+% В ходе решения мы получили следующее размещение станции (Рисунок \cref{fig:part2_solution})
 
-Алгоритмы построения графов $H$ были запрограммированы на языке Python. Задачи, сформулированные на основании графов $H$ в виде соответствующих задач математического программирования, были решены пакетом Optimization Toolbox MATLAB.
-В таблице 4 представлены результаты времени счета задач частично целочисленного ЛП для различных случаев числа мест размещения станций и числа объектов. Для каждого случая было проведено по 10 примеров.
+% \begin{figure}[ht]
+%     \centerfloat{
+%         \includegraphics[scale=0.75]{part2_solution.png}
+%     }
+%     \caption{Координаты размещения}\label{fig:part2_solution}
+% \end{figure}
 
-\begin{table}
-    \centering
-    \captionsetup{justification=centering} % выравнивание подписи по-центру
-    \caption{Множество типов станций}\label{tab:part2_station_types}
-    \begin{tabular}{|c|c|c|}
-        \toprule
-        Количество & Количество мест  & Среднее время 
-        \tabularnewline объектов, $n_1$ & размещения станций, $n-n_1$ &  счета, сек.  \\
-        \toprule
-        4   & 3 & 12,34 \\
-        4   & 4 & 12,42 \\
-        4   & 5 & 12,31 \\
-        6   & 6 & 11,20 \\
-        8   & 7 & 11,27 \\
-        10  & 7 & 12,32 \\
-        12  & 10 & 12,51 \\
-        14  & 7 & 12,42 \\
-        17  & 8 & 12,18 \\
-        21  & 8 & 12,53 \\
-        25  & 8 & 14,22 \\
-        \bottomrule
-    \end{tabular}
-\end{table}
+% Из графика видно, что были размещены на точках 7 и 8 две станции типа 2 и 3, соответственно.
+% Решением задачи является суммарная стоимость равная:
+% $f=160$.
+
+
+
+
+
+% % \section{Результаты численного эксперимента}
+
+% Алгоритмы построения графов $H$ были запрограммированы на языке Python. Задачи, сформулированные на основании графов $H$ в виде соответствующих задач математического программирования, были решены пакетом Optimization Toolbox MATLAB.
+% В таблице 4 представлены результаты времени счета задач частично целочисленного ЛП для различных случаев числа мест размещения станций и числа объектов. Для каждого случая было проведено по 10 примеров.
+
+% \begin{table}
+%     \centering
+%     \captionsetup{justification=centering} % выравнивание подписи по-центру
+%     \caption{Множество типов станций}\label{tab:part2_station_types}
+%     \begin{tabular}{|c|c|c|}
+%         \toprule
+%         Количество & Количество мест  & Среднее время 
+%         \tabularnewline объектов, $n_1$ & размещения станций, $n-n_1$ &  счета, сек.  \\
+%         \toprule
+%         4   & 3 & 12,34 \\
+%         4   & 4 & 12,42 \\
+%         4   & 5 & 12,31 \\
+%         6   & 6 & 11,20 \\
+%         8   & 7 & 11,27 \\
+%         10  & 7 & 12,32 \\
+%         12  & 10 & 12,51 \\
+%         14  & 7 & 12,42 \\
+%         17  & 8 & 12,18 \\
+%         21  & 8 & 12,53 \\
+%         25  & 8 & 14,22 \\
+%         \bottomrule
+%     \end{tabular}
+% \end{table}
 
