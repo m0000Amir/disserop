@@ -1,0 +1,25 @@
+\nomenclatureentry{aБПЛА@[{БПЛА}]\begingroup беспилотный летательный аппарат\nomeqref {3.12}|nompageref}{100}
+\nomenclatureentry{aБШС@[{БШС}]\begingroup беспроводная широкополосная сеть\nomeqref {3.12}|nompageref}{100}
+\nomenclatureentry{aМВиГ@[{МВиГ}]\begingroup метод ветвей и границ\nomeqref {3.12}|nompageref}{100}
+\nomenclatureentry{aМПП@[{МПП}]\begingroup метод полного перебора\nomeqref {3.12}|nompageref}{100}
+\nomenclatureentry{aЦЛП@[{ЦЛП}]\begingroup целочисленное линейное программирование\nomeqref {3.12}|nompageref}{100}
+\nomenclatureentry{aБС@[{БС}]\begingroup базовая станция\nomeqref {3.12}|nompageref}{100}
+\nomenclatureentry{aАСУ ТП@[{АСУ ТП}]\begingroup автоматизация систем управления технологических процессов\nomeqref {3.12}|nompageref}{100}
+\nomenclatureentry{aURLLC@[{URLLC}]\begingroup Ultra-Reliable and Low Latency Communications, cверхнадежная передача данных с малой задержкой\nomeqref {3.12}|nompageref}{100}
+\nomenclatureentry{aURLLC@[{URLLC}]\begingroup Ultra-Reliable and Low Latency Communications, cверхнадежная передача данных с малой задержкой\nomeqref {3.12}|nompageref}{100}
+\nomenclatureentry{aUL@[{UL}]\begingroup Up Link, восходящая линия связи\nomeqref {3.12}|nompageref}{100}
+\nomenclatureentry{aDL@[{DL}]\begingroup Down Link, нисходящая линия связи\nomeqref {3.12}|nompageref}{100}
+\nomenclatureentry{aТМО@[{ТМО}]\begingroup теория массового обслуживания\nomeqref {3.12}|nompageref}{100}
+\nomenclatureentry{aEIRP@[{EIRP}]\begingroup Equivalent Isotropically Radiated Power, эффективная изотропно-излучаемая мощность передатчика\nomeqref {3.12}|nompageref}{100}
+\nomenclatureentry{aSOM@[{SOM}]\begingroup System Operating Margin, запас на замирание сигнала\nomeqref {3.12}|nompageref}{100}
+\nomenclatureentry{aFSPL@[{FSPL}]\begingroup Free Space Path Loss, уравнение потерь в свободном пространстве\nomeqref {3.12}|nompageref}{100}
+\nomenclatureentry{aQoS@[{QoS}]\begingroup Quality Of Service, качество обслуживания\nomeqref {3.12}|nompageref}{100}
+\nomenclatureentry{aСеМО@[{СеМО}]\begingroup сеть массового обслуживания\nomeqref {3.12}|nompageref}{100}
+\nomenclatureentry{aИТС@[{ИТС}]\begingroup Интеллектуальная транспортная система\nomeqref {3.12}|nompageref}{100}
+\nomenclatureentry{aVANET@[{VANET}]\begingroup Vehicular Ad Hoc network, автомобильная самоорганизующаяся сеть\nomeqref {3.12}|nompageref}{100}
+\nomenclatureentry{aRSU@[{RSU}]\begingroup Roadside Unit, придорожные стационарные объекты телекоммуникационной связи\nomeqref {3.12}|nompageref}{100}
+\nomenclatureentry{aV2V@[{V2V}]\begingroup Vehicle-To-Vehicle, беспроводная связь для обмена данными между движущимися транспортными средствами\nomeqref {3.12}|nompageref}{100}
+\nomenclatureentry{aV2X@[{V2X}]\begingroup Vehicle-To-Infrastructure, беспроводная связь для обмена данными между транспортным средством и инфраструктурой\nomeqref {3.12}|nompageref}{100}
+\nomenclatureentry{aLIFO@[{LIFO}]\begingroup Last Input, First Out, последним пришёл — первым ушёл\nomeqref {3.12}|nompageref}{100}
+\nomenclatureentry{aЛП@[{ЛП}]\begingroup линейное программирование\nomeqref {3.12}|nompageref}{100}
+\nomenclatureentry{aЧЦЛП@[{ЧЦЛП}]\begingroup частично целочисленное линейное программирование\nomeqref {3.12}|nompageref}{100}
