@@ -2099,6 +2099,8 @@
     <bcf:datasource type="file" datatype="bibtex">biblio/registered.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
+    <bcf:citekey order="1">gurobi</bcf:citekey>
+    <bcf:citekey order="2">scipy</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
