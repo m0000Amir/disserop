@@ -106,6 +106,14 @@ FUNCTION {init.state.consts}
   #7 'after.semicolumn :=
 }
 
+FUNCTION {bold.if.imauthor}
+    { duplicate$ purify$ 
+    "I. M. Author"
+    purify$ = { 
+    "\textbf{"
+    swap$ * "}" * } 'skip$ if$
+}
+
 STRINGS { s t }
 
 STRINGS { curlanguage }
