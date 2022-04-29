@@ -1,25 +1,25 @@
-\nomenclatureentry{aБПЛА@[{БПЛА}]\begingroup беспилотный летательный аппарат\nomeqref {4.12}|nompageref}{121}
-\nomenclatureentry{aБШС@[{БШС}]\begingroup беспроводная широкополосная сеть\nomeqref {4.12}|nompageref}{121}
-\nomenclatureentry{aМВиГ@[{МВиГ}]\begingroup метод ветвей и границ\nomeqref {4.12}|nompageref}{121}
-\nomenclatureentry{aМПП@[{МПП}]\begingroup метод полного перебора\nomeqref {4.12}|nompageref}{121}
-\nomenclatureentry{aЦЛП@[{ЦЛП}]\begingroup целочисленное линейное программирование\nomeqref {4.12}|nompageref}{121}
-\nomenclatureentry{aБС@[{БС}]\begingroup базовая станция\nomeqref {4.12}|nompageref}{121}
-\nomenclatureentry{aURLLC@[{URLLC}]\begingroup Ultra-Reliable and Low Latency Communications, cверхнадежная передача данных с малой задержкой\nomeqref {4.12}|nompageref}{121}
-\nomenclatureentry{aURLLC@[{URLLC}]\begingroup Ultra-Reliable and Low Latency Communications, cверхнадежная передача данных с малой задержкой\nomeqref {4.12}|nompageref}{121}
-\nomenclatureentry{aUL@[{UL}]\begingroup Up Link, восходящая линия связи\nomeqref {4.12}|nompageref}{121}
-\nomenclatureentry{aDL@[{DL}]\begingroup Down Link, нисходящая линия связи\nomeqref {4.12}|nompageref}{121}
-\nomenclatureentry{aТМО@[{ТМО}]\begingroup теория массового обслуживания\nomeqref {4.12}|nompageref}{121}
-\nomenclatureentry{aМО@[{МО}]\begingroup машинное обучение\nomeqref {4.12}|nompageref}{121}
-\nomenclatureentry{aEIRP@[{EIRP}]\begingroup Equivalent Isotropically Radiated Power, эффективная изотропно-излучаемая мощность передатчика\nomeqref {4.12}|nompageref}{121}
-\nomenclatureentry{aSOM@[{SOM}]\begingroup System Operating Margin, запас на замирание сигнала\nomeqref {4.12}|nompageref}{121}
-\nomenclatureentry{aFSPL@[{FSPL}]\begingroup Free Space Path Loss, уравнение потерь в свободном пространстве\nomeqref {4.12}|nompageref}{121}
-\nomenclatureentry{aQoS@[{QoS}]\begingroup Quality Of Service, качество обслуживания\nomeqref {4.12}|nompageref}{121}
-\nomenclatureentry{aСеМО@[{СеМО}]\begingroup сеть массового обслуживания\nomeqref {4.12}|nompageref}{121}
-\nomenclatureentry{aИТС@[{ИТС}]\begingroup интеллектуальная транспортная система\nomeqref {4.12}|nompageref}{121}
-\nomenclatureentry{aVANET@[{VANET}]\begingroup Vehicular Ad Hoc network, автомобильная самоорганизующаяся сеть\nomeqref {4.12}|nompageref}{121}
-\nomenclatureentry{aRSU@[{RSU}]\begingroup Roadside Unit, придорожные стационарные объекты телекоммуникационной связи\nomeqref {4.12}|nompageref}{121}
-\nomenclatureentry{aV2V@[{V2V}]\begingroup Vehicle-To-Vehicle, беспроводная связь для обмена данными между движущимися транспортными средствами\nomeqref {4.12}|nompageref}{121}
-\nomenclatureentry{aV2X@[{V2X}]\begingroup Vehicle-To-Infrastructure, беспроводная связь для обмена данными между транспортным средством и инфраструктурой\nomeqref {4.12}|nompageref}{121}
-\nomenclatureentry{aLIFO@[{LIFO}]\begingroup Last Input, First Out, последним пришёл — первым ушёл\nomeqref {4.12}|nompageref}{121}
-\nomenclatureentry{aЛП@[{ЛП}]\begingroup линейное программирование\nomeqref {4.12}|nompageref}{121}
-\nomenclatureentry{aЧЦЛП@[{ЧЦЛП}]\begingroup частично целочисленное линейное программирование\nomeqref {4.12}|nompageref}{121}
+\nomenclatureentry{aБПЛА@[{БПЛА}]\begingroup беспилотный летательный аппарат\nomeqref {4.12}|nompageref}{120}
+\nomenclatureentry{aБШС@[{БШС}]\begingroup беспроводная широкополосная сеть\nomeqref {4.12}|nompageref}{120}
+\nomenclatureentry{aМВиГ@[{МВиГ}]\begingroup метод ветвей и границ\nomeqref {4.12}|nompageref}{120}
+\nomenclatureentry{aМПП@[{МПП}]\begingroup метод полного перебора\nomeqref {4.12}|nompageref}{120}
+\nomenclatureentry{aЦЛП@[{ЦЛП}]\begingroup целочисленное линейное программирование\nomeqref {4.12}|nompageref}{120}
+\nomenclatureentry{aБС@[{БС}]\begingroup базовая станция\nomeqref {4.12}|nompageref}{120}
+\nomenclatureentry{aURLLC@[{URLLC}]\begingroup Ultra-Reliable and Low Latency Communications, cверхнадежная передача данных с малой задержкой\nomeqref {4.12}|nompageref}{120}
+\nomenclatureentry{aURLLC@[{URLLC}]\begingroup Ultra-Reliable and Low Latency Communications, cверхнадежная передача данных с малой задержкой\nomeqref {4.12}|nompageref}{120}
+\nomenclatureentry{aUL@[{UL}]\begingroup Up Link, восходящая линия связи\nomeqref {4.12}|nompageref}{120}
+\nomenclatureentry{aDL@[{DL}]\begingroup Down Link, нисходящая линия связи\nomeqref {4.12}|nompageref}{120}
+\nomenclatureentry{aТМО@[{ТМО}]\begingroup теория массового обслуживания\nomeqref {4.12}|nompageref}{120}
+\nomenclatureentry{aМО@[{МО}]\begingroup машинное обучение\nomeqref {4.12}|nompageref}{120}
+\nomenclatureentry{aEIRP@[{EIRP}]\begingroup Equivalent Isotropically Radiated Power, эффективная изотропно-излучаемая мощность передатчика\nomeqref {4.12}|nompageref}{120}
+\nomenclatureentry{aSOM@[{SOM}]\begingroup System Operating Margin, запас на замирание сигнала\nomeqref {4.12}|nompageref}{120}
+\nomenclatureentry{aFSPL@[{FSPL}]\begingroup Free Space Path Loss, уравнение потерь в свободном пространстве\nomeqref {4.12}|nompageref}{120}
+\nomenclatureentry{aQoS@[{QoS}]\begingroup Quality Of Service, качество обслуживания\nomeqref {4.12}|nompageref}{120}
+\nomenclatureentry{aСеМО@[{СеМО}]\begingroup сеть массового обслуживания\nomeqref {4.12}|nompageref}{120}
+\nomenclatureentry{aИТС@[{ИТС}]\begingroup интеллектуальная транспортная система\nomeqref {4.12}|nompageref}{120}
+\nomenclatureentry{aVANET@[{VANET}]\begingroup Vehicular Ad Hoc network, автомобильная самоорганизующаяся сеть\nomeqref {4.12}|nompageref}{120}
+\nomenclatureentry{aRSU@[{RSU}]\begingroup Roadside Unit, придорожные стационарные объекты телекоммуникационной связи\nomeqref {4.12}|nompageref}{120}
+\nomenclatureentry{aV2V@[{V2V}]\begingroup Vehicle-To-Vehicle, беспроводная связь для обмена данными между движущимися транспортными средствами\nomeqref {4.12}|nompageref}{120}
+\nomenclatureentry{aV2X@[{V2X}]\begingroup Vehicle-To-Infrastructure, беспроводная связь для обмена данными между транспортным средством и инфраструктурой\nomeqref {4.12}|nompageref}{120}
+\nomenclatureentry{aLIFO@[{LIFO}]\begingroup Last Input, First Out, последним пришёл — первым ушёл\nomeqref {4.12}|nompageref}{120}
+\nomenclatureentry{aЛП@[{ЛП}]\begingroup линейное программирование\nomeqref {4.12}|nompageref}{120}
+\nomenclatureentry{aЧЦЛП@[{ЧЦЛП}]\begingroup частично целочисленное линейное программирование\nomeqref {4.12}|nompageref}{120}
