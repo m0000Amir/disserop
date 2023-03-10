@@ -23,4 +23,4 @@
  О выдаче диплома кандидата технических наук
 
 
-[Объявление о защите на сайте ВАК:](https://vak.minobrnauki.gov.ru/advert_independent/92000100002 "ВАК")
+[Объявление о защите на сайте ВАК](https://vak.minobrnauki.gov.ru/advert_independent/92000100002 "ВАК")
